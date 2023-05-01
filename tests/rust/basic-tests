@@ -1,0 +1,47 @@
+‖ input ‖ output ‖ output with auto-space ‖
+‖ ‖_❚‖_❚‖
+‖  ‖__❚‖__❚‖
+‖,‖#❚‖#❚‖
+‖,,‖#!❚‖#!❚‖
+
+‖env'‖Env❚‖Env❚‖
+‖Env'‖ENV❚‖ENV❚‖
+‖ENV'‖env❚‖env❚‖
+
+‖i ‖i_❚‖i_❚‖
+‖i  ‖i::❚‖i::❚‖
+‖i   ‖i__❚‖i__❚‖
+‖i    ‖i_::❚‖i_::❚‖
+‖i    ‖i_::❚‖i_::❚‖
+‖i:: ‖i__❚‖i__❚‖
+‖i::*‖i::*❚‖i::*❚‖
+‖super  ‖super::❚‖super::❚‖
+‖i:‖i:❚‖i: ❚‖
+‖i❪:❫=‖i:❚=‖i: ❚ =‖
+‖i,‖i,❚‖i, ❚‖
+‖i,,‖i=❚‖i = ❚‖
+‖i,,,‖i==❚‖i == ❚‖
+
+‖i=‖i=❚‖i = ❚‖
+‖i-‖i-❚‖i - ❚‖
+‖i->‖i->❚‖i -> ❚‖
+‖i=>‖i=>❚‖i => ❚‖
+‖i<‖i<❚‖i<❚‖
+‖i<=‖i<=❚‖i <= ❚‖
+
+‖f (.❪ ❫)‖f (_❚)‖f (_❚)‖
+‖f (&.❪ ❫)‖f (&_❚)‖f (&_❚)‖
+‖f (&❪ ❫)‖f (*❚)‖f (*❚)‖
+‖f (*❪ ❫)‖f (&❚)‖f (&❚)‖
+‖f (*.❪ ❫)‖f (*_❚)‖f (*_❚)‖
+‖f (arg, .❪ ❫)‖f (arg, _❚)‖f (arg, _❚)‖
+‖f (arg,.❪ ❫)‖f (arg,_❚)‖f (arg,_❚)‖
+‖f (arg, ❪&❫)‖f (arg, &❚)‖f (arg, &❚)‖
+‖f (arg, ❪*❫)‖f (arg, *❚)‖f (arg, *❚)‖
+‖f (❪;❫) + g ()‖f ()❚ + g ()‖f ()❚ + g ()‖
+
+‖"Hello World❪,❫"‖"Hello World,❚"‖"Hello World, ❚"‖
+‖"Hello World, ❪ ❫"‖"Hello World",❚‖"Hello World", ❚‖
+‖"Hello, ❪ ❫World"‖"Hello,  ❚World"‖"Hello,  ❚World"‖
+
+‖n items‖n_items❚‖n_items❚‖

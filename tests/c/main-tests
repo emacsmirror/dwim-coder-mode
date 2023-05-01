@@ -1,0 +1,264 @@
+‖‖ int main()
+int main..{
+‖ gnu-none
+int
+main (void)
+{
+  ❚
+}
+
+‖ linux-none
+int main(void)
+{
+  ❚
+}
+
+‖‖ if❪ ❫
+int main(void)
+{
+  if❪ ❫
+}
+
+‖ gnu-none
+int main(void)
+{
+  if (❚)
+}
+
+‖ linux-none
+int main(void)
+{
+  if (❚)
+}
+
+‖‖ if❪..❫
+int main(void)
+{
+  if❪..❫
+}
+
+‖ gnu-none
+int main(void)
+{
+  if (❚)
+}
+
+‖ linux-none
+int main(void)
+{
+  if (❚)
+}
+
+‖‖ while❪(❫
+int main(void)
+{
+  while❪(❫
+}
+
+‖ gnu-none
+int main(void)
+{
+  while (❚)
+}
+
+‖ linux-none
+int main(void)
+{
+  while (❚)
+}
+
+‖‖ if (❪ ❫)
+int main(void)
+{
+  if (❪ ❫)
+}
+
+‖ gnu-none
+int main(void)
+{
+  if (!❚)
+}
+
+‖ linux-none
+int main(void)
+{
+  if (!❚)
+}
+
+‖‖ int main(vo❪{❫id);
+int main(vo❪{❫id);
+‖ gnu-none 
+int
+main (void)
+{
+  ❚
+}
+
+‖ linux-none
+int main(void)
+{
+  ❚
+}
+
+‖‖ func❪(❫
+int
+main(void)
+{
+  func❪(❫
+}
+
+‖ gnu-none
+int
+main(void)
+{
+  func (❚)
+}
+
+‖ linux-none
+int
+main(void)
+{
+  func(❚)
+}
+
+‖‖ main (char *good❪,❫)
+int
+main(char *good❪,❫)
+{
+}
+
+‖ gnu-none
+int
+main(char *good,❚)
+{
+}
+
+‖ linux-none
+int
+main(char *good,❚)
+{
+}
+
+‖‖GPtrArray *func(g_ptr_array❪"❫)
+GPtrArray *g_ptr_array_copy(g_ptr_array❪"❫)
+‖ gnu-gnome
+GPtrArray *g_ptr_array_copy(GPtrArray *)
+‖‖-main(args)❪;❫
+int main (int argc,
+          char *argv[])❪;❫
+‖ linux-none
+int main(int main,
+         char *argv[]);❚
+‖ linux-gnome
+int main(int   main,
+         char *argv[]);❚
+‖‖-return❪;❫
+int main (void)
+{
+  return❪;❫
+}
+int test (void)
+{
+}
+
+‖ gnu-none
+int main(void)
+{
+  return;
+}
+❚
+int test (void)
+{
+}
+
+‖‖ if ... return❪;❫
+int main (void)
+{
+  if (true)
+    return❪;❫
+}
+
+‖ linux-none
+int main (void)
+{
+  if (true)
+    return;❚
+}
+
+‖‖-return❪;,❫
+int main (void)
+{
+  if (true)
+    return❪;,❫
+}
+
+‖ linux-none
+int main (void)
+{
+  if (true)
+    return; 
+}
+❚
+
+‖‖-return; \n ❪,❫ 
+int main (void)
+{
+  if (true)
+    return;
+    ❪,❫
+}
+
+‖ linux-none
+int main (void)
+{
+  if (true)
+    return; 
+}
+❚
+‖‖-if (true)❪..❫
+int main (void)
+{
+  if (true)❪..❫
+}
+
+‖ gnu-none
+int main (void)
+{
+  if (true)
+    {
+      ❚
+    }
+}
+
+‖ linux-none
+int main (void)
+{
+  if (true) {
+    ❚
+  }
+}
+
+‖‖-if (true)❪;❫
+int main (void)
+{
+  if (true)❪;❫
+}
+
+‖ gnu-none
+int main (void)
+{
+  if (true)
+  ❚
+}
+
+‖‖-func(char *name❪{❫)
+int
+ func(char *name❪{❫)
+{
+}
+
+‖ linux-gnome
+int
+func(char *name)
+{❚
+}

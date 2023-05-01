@@ -1,0 +1,42 @@
+crazy-mode is a Rube Goldberg machine mode for GNU Emacs.  crazy-mode helps you
+code/go crazy.  Currently good support for C, Python and Rust programming are included.
+
+crazy-mode requires ~electric-pair-mode~ to work.  Since crazy-mode is based on treesitter,
+crazy-mode requires GNU Emacs 29+ to work.
+
+Source Repository: [[https://gitlab.com/sadiq/crazy-mode][GitLab]], [[https://sr.ht/~sadiq/crazy-mode/][SourceHut]]
+
+Issues and Feature Requests: [[https://gitlab.com/sadiq/crazy-mode/-/issues][GitLab]]
+
+Homepage: [[https://www.sadiqpk.org/projects/crazy-mode.html][https://www.sadiqpk.org/projects/crazy-mode.html]]
+
+* Introduction
+  crazy-mode hacks around the characters you type to do various stuff often
+  reducing the effort to accomplish something.
+
+  Say for example, in c-ts-mode, pressing space bar often inserts '_' or sometimes
+  real spaces depending on the context. It also inserts '-' when inside #include
+  header names.
+
+* But why?
+  Why not? This is GNU Emacs, anything is possible ;).
+
+  I have been using this for more than a decade in my personal config, and I decided
+  to create a mode doing the same.
+
+  And it's great to have something cool to show off about your editor, right?
+
+* Installation
+
+** Installing from git
+   #+begin_src sh
+   emacs --batch --eval='(package-vc-install "https://gitlab.com/sadiq/crazy-mode")'
+   #+end_src
+
+** Configuration
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package crazy-mode
+      :hook ((c-ts-mode python-ts-mode rust-ts-mode) . crazy-mode))
+
+  #+END_SRC

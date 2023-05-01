@@ -1,0 +1,127 @@
+‖ input ‖ output ‖ output with auto-space ‖
+‖ ‖_❚‖_❚‖
+‖. ‖_❚‖_❚‖
+‖  ‖__❚‖__❚‖
+‖,‖#❚‖#❚‖
+
+‖i ‖i_❚‖i_❚‖
+‖i,‖i,❚‖i, ❚‖
+‖i,,‖i=❚‖i = ❚‖
+‖i,,,‖i==❚‖i == ❚‖
+‖i,,,,‖i==,❚‖i ==, ❚‖
+
+‖env'‖ENV❚‖ENV❚‖
+‖true'‖TRUE❚‖TRUE❚‖
+‖TRUE'‖True❚‖True❚‖
+‖false'‖FALSE❚‖FALSE❚‖
+‖FALSE'‖False❚‖False❚‖
+‖null'‖NULL❚‖NULL❚‖
+‖NULL'‖Null❚‖Null❚‖
+‖return'‖RETURN❚‖RETURN❚‖
+
+‖i+‖i+❚‖i + ❚‖
+‖i-‖i-❚‖i - ❚‖
+‖i*‖i*❚‖i * ❚‖
+‖i/‖i/❚‖i / ❚‖
+‖i%‖i%❚‖i % ❚‖
+
+‖i<‖i<❚‖i < ❚‖
+‖i>‖i>❚‖i > ❚‖
+‖i!‖i!❚‖i !❚‖
+‖!i‖!i❚‖!i❚‖
+
+‖i+,‖i+=❚‖i += ❚‖
+‖i-,‖i-=❚‖i -= ❚‖
+‖i*,‖i*=❚‖i *= ❚‖
+‖i/,‖i/=❚‖i /= ❚‖
+‖i%,‖i%=❚‖i %= ❚‖
+
+‖i<,‖i<=❚‖i <= ❚‖
+‖i>,‖i>=❚‖i >= ❚‖
+‖i!,‖i!=❚‖i != ❚‖
+
+‖i+=‖i+=❚‖i += ❚‖
+‖i-=‖i-=❚‖i -= ❚‖
+‖i*=‖i*=❚‖i *= ❚‖
+‖i/=‖i/=❚‖i /= ❚‖
+‖i%=‖i%=❚‖i %= ❚‖
+
+‖i=+‖i=+❚‖i = +❚‖
+‖i=-‖i=-❚‖i = -❚‖
+‖i=++‖i=++❚‖i = ++❚‖
+‖i=--‖i=--❚‖i = --❚‖
+
+‖i<=‖i<=❚‖i <= ❚‖
+‖i>=‖i>=❚‖i >= ❚‖
+‖i!=‖i!=❚‖i != ❚‖
+
+‖i++‖i++❚‖i++❚‖
+‖i--‖i--❚‖i--❚‖
+‖++i‖++i❚‖++i❚‖
+‖--i‖--i❚‖--i❚‖
+
+‖i=‖i=❚‖i = ❚‖
+‖i==‖i==❚‖i == ❚‖
+
+‖n items‖n_items❚‖n_items❚‖
+‖type t var‖type_t var❚‖type_t var❚‖
+goto some label‖goto some_label❚‖goto some_label❚‖
+
+‖,include,‖#include <❚>‖#include <❚>‖
+‖,include,,‖#include "❚"‖#include "❚"‖
+‖,include,,,‖#include <❚>‖#include <❚>‖
+‖#include <conf❪;❫ig.h>‖#include <config.h>❚‖#include <config.h>❚‖
+‖#include "conf❪;❫ig.h"‖#include "config.h"❚‖#include "config.h"❚‖
+‖#include <conf❪,❫ig.h>‖#include "conf❚ig.h"‖#include "conf❚ig.h"‖
+‖#include "conf❪,❫ig.h"‖#include <conf❚ig.h>‖#include <conf❚ig.h>‖
+
+‖char a[,‖char a[],❚‖char a[], ❚‖
+‖a[,‖a[],❚‖a[], ❚‖
+‖char c = ❪'❫‖char c = '❚'‖char c = '❚'‖
+‖char c=';;‖char c=';'❚‖char c = ';'❚‖
+‖char c=',,‖char c=',',❚‖char c = ',', ❚‖
+
+‖int ‖int ❚‖int ❚‖
+‖int❪"❫‖int *❚‖int *❚‖
+‖guint❪"❫‖guint *❚‖guint *❚‖
+‖guint,‖guint,❚‖guint, ❚‖
+‖int main(const guint❪"❫)‖int main(const guint *❚)‖int main(const guint *❚)‖
+‖int main(const guint❪"❫)‖int main(const guint *❚)‖int main(const guint *❚)‖
+‖int main(const guint❪"❫)‖int main(const guint *❚)‖int main(const guint *❚)‖
+
+‖(&‖(&❚)‖(&❚)‖
+‖f (.❪ ❫)‖f (_❚)‖f (_❚)‖
+‖f (❪ ❫)‖f (&❚)‖f (&❚)‖
+‖f (&.❪ ❫)‖f (&_❚)‖f (&_❚)‖
+‖f (&❪ ❫)‖f (*❚)‖f (*❚)‖
+‖f (*❪ ❫)‖f (&❚)‖f (&❚)‖
+‖f (*.❪ ❫)‖f (*_❚)‖f (*_❚)‖
+‖f (arg, .❪ ❫)‖f (arg, _❚)‖f (arg, _❚)‖
+‖f (arg,.❪ ❫)‖f (arg,_❚)‖f (arg,_❚)‖
+‖f (arg, ❪&❫)‖f (arg, &❚)‖f (arg, &❚)‖
+‖f (arg, ❪*❫)‖f (arg, *❚)‖f (arg, *❚)‖
+‖f (❪;❫) + g ()‖f ()❚ + g ()‖f ()❚ + g ()‖
+
+‖"Hello World❪,❫"‖"Hello World,❚"‖"Hello World, ❚"‖
+‖"Hello World, ❪ ❫"‖"Hello World",❚‖"Hello World", ❚‖
+‖"Hello, ❪ ❫World"‖"Hello,  ❚World"‖"Hello,  ❚World"‖
+
+‖g_uri_flags'_none'‖G_URI_FLAGS_NONE❚‖G_URI_FLAGS_NONE❚‖
+‖g uri flags'' uri flags‖GUriFlags uri_flags❚‖GUriFlags uri_flags❚‖
+‖int     ❪ ❫ age‖int      ❚ age‖int      ❚ age‖
+‖int ❪ ❫age‖int _❚age‖int _❚age‖
+‖func(arg, ❪ ❫)‖func(arg),❚‖func(arg), ❚‖
+‖func(❪,❫)‖func(),❚‖func(), ❚‖
+‖char *s = "Hello world❪,❫"‖char *s = "Hello world,❚"‖char *s = "Hello world, ❚"‖
+‖char *s = "Hello world, ❪ ❫"‖char *s = "Hello world",❚‖char *s = "Hello world", ❚‖
+‖func(❪..❫)‖func((❚))‖func((❚))‖
+‖func(‖func (❚)‖func (❚)‖
+‖s = "He❪;❫llo"‖s = "Hello"❚‖s = "Hello"❚‖
+‖s = "Hello"❪;❫‖s = "Hello";❚‖s = "Hello";❚‖
+‖void main{f❪  ❫}‖void main{f->❚}‖void main{f->❚}‖
+‖void main{f❪   ❫}‖void main{f__❚}‖void main{f__❚}‖
+
+‖for(❪;❫)‖for(;❚)‖for(;❚)‖
+‖for(;❪;❫)‖for(;;❚)‖for(;;❚)‖
+‖for(;;❪;❫)‖for(;;)❚‖for(;;)❚‖
+‖for(❪;❫;)‖for(;❚;)‖for(;❚;)‖
