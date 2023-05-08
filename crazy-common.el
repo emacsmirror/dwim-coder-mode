@@ -49,6 +49,12 @@ Experimental, may be removed/disabled in the future"
   (max (1- (point)) (line-beginning-position)))
 
 (defun crazy-insert-interactive (char &optional skip-override)
+  "Interactively insert CHAR.
+
+This will simply use `call-interactively' with the given character CHAR,
+so that the default handlers when CHAR is inserted is run.
+If SKIP-OVERRIDE is t, the default handlers run by `crazy-mode'
+shall be ignored."
   (interactive)
   (setq crazy-skip skip-override
         last-command-event char
