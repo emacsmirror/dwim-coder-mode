@@ -23,7 +23,7 @@
 
 
 (defun crazy-default-be-sane ()
-  "Check if we should act sane at `point'"
+  "Check if we should act sane at `point'."
   (cond
    ;; comments
    ((nth 4 (syntax-ppss))
