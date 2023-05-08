@@ -92,8 +92,8 @@ This is a local minor mode."
             (define-key map (kbd "S-SPC") 'crazy-insert-space)
             map)
   (if crazy-mode
-      (advice-add 'self-insert-command :before-until 'crazy-pre-self-insert-function)
-    (advice-remove 'self-insert-command 'crazy-pre-self-insert-function)))
+      (advice-add #'self-insert-command :before-until 'crazy-pre-self-insert-function)
+    (advice-remove #'self-insert-command 'crazy-pre-self-insert-function)))
 
 (provide 'crazy-mode)
 ;;; crazy-mode.el ends here
