@@ -120,7 +120,7 @@ This is a simple wrapper around the built-in `split-string'."
   (crazy-s-join "-" (mapcar #'downcase (crazy-s-split-words s))))
 
 (defun crazy-s-get-style-case (s)
-  "Returns the style case of S as a string, or nil if S contains no alphabet.
+  "Return the style case of S as a string, or nil if S contain no alphabet.
 
 The value can be one of \"spaced\", \"snake\", \"upper-snake\", \"lisp\",
 \"upper-camel\" or \"lower-camel\" (in the order of precedence).
