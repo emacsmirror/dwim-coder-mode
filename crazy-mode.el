@@ -31,6 +31,7 @@
 (require 'crazy-rust)
 
 (defun crazy-insert-space ()
+  "Interactvely insert SPC."
   (interactive)
   (crazy-insert-interactive ?\s t))
 
