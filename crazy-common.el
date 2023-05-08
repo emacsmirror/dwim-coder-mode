@@ -59,7 +59,7 @@ shall be ignored."
   (setq crazy-skip skip-override
         last-command-event char
         this-command 'self-insert-command)
-  (call-interactively 'self-insert-command)
+  (call-interactively #'self-insert-command)
   (setq crazy-skip nil))
 
 (defun crazy-skip-or-insert (char &optional interactive skip-override)
@@ -77,7 +77,7 @@ shall be ignored."
 (defun crazy-s-join (separator strings)
   "Join all the strings in STRINGS with SEPARATOR in between."
   (declare (pure t) (side-effect-free t))
-  (mapconcat 'identity strings separator))
+  (mapconcat #'identity strings separator))
 
 (defun crazy-s-split (separator s &optional omit-nulls)
   "Split S into substrings bounded by matches for regexp SEPARATOR.
@@ -101,7 +101,7 @@ This is a simple wrapper around the built-in `split-string'."
 (defun crazy-s-snake-case (s)
   "Convert S to snake_case."
   (declare (side-effect-free t))
-  (crazy-s-join "_" (mapcar 'downcase (crazy-s-split-words s))))
+  (crazy-s-join "_" (mapcar #'downcase (crazy-s-split-words s))))
 
 (defun crazy-s-upper-snake-case (s)
   "Convert S to snake_case."
@@ -111,12 +111,12 @@ This is a simple wrapper around the built-in `split-string'."
 (defun crazy-s-upper-camel-case (s)
   "Convert S to UpperCamelCase."
   (declare (side-effect-free t))
-  (crazy-s-join "" (mapcar 'capitalize (crazy-s-split-words s))))
+  (crazy-s-join "" (mapcar #'capitalize (crazy-s-split-words s))))
 
 (defun crazy-s-dashed-words (s)
   "Convert S to dashed-words."
   (declare (side-effect-free t))
-  (crazy-s-join "-" (mapcar 'downcase (crazy-s-split-words s))))
+  (crazy-s-join "-" (mapcar #'downcase (crazy-s-split-words s))))
 
 (defun crazy-s-get-style-case (s)
   "Returns the style case of S as a string, or nil if S contains no alphabet.
