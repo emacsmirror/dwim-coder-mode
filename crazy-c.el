@@ -149,7 +149,7 @@
       (setq func-name-start (treesit-node-start node))
       (setq node (treesit-filter-child
                   node (lambda (n) (equal (treesit-node-type n) "parameter_list"))))
-      (when (not (null node))
+      (when node
         (setq node (car node))
         (setq func-arg-start (treesit-node-start node))
         (setq func-arg-end (treesit-node-end node))))
