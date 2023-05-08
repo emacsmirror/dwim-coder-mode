@@ -1,6 +1,7 @@
 ;;; crazy-common.el --- Crazy ways to code  -*- lexical-binding: t; -*-
 
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
+;; SPDX-License-Identifier: CC0-1.0
 ;; Last-Updated: 2022-12-18
 
 ;; This file is NOT part of GNU Emacs.

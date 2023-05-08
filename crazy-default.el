@@ -1,6 +1,7 @@
 ;;; crazy-default.el --- Crazy ways to code  -*- lexical-binding: t; -*-
 
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
+;; SPDX-License-Identifier: CC0-1.0
 ;; Created: 2022-12-22
 ;; Last-Updated: 2023-04-29
 

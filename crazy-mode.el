@@ -3,6 +3,7 @@
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 
 ;; Version: 0.0.1
+;; SPDX-License-Identifier: CC0-1.0
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 ;; URL: https://sadiqpk.org/projects/crazy-mode.html
 ;; Package-Requires: ((emacs "29"))
