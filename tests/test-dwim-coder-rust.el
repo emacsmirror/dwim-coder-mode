@@ -5,20 +5,20 @@
 
 (require 'buttercup)
 (require 'cl-lib)
-(require 'crazy-c)
-(require 'crazy-mode)
+(require 'dwim-coder-c)
+(require 'dwim-coder-mode)
 
-(defun crazy-test-rust-mode ()
+(defun dwim-coder-test-rust-mode ()
   (rust-ts-mode)
   (electric-pair-mode)
-  (setq crazy-auto-space nil)
-  (crazy-mode))
+  (setq dwim-coder-auto-space nil)
+  (dwim-coder-mode))
 
-(defun crazy-test-auto-space-rust-mode ()
+(defun dwim-coder-test-auto-space-rust-mode ()
   (rust-ts-mode)
   (electric-pair-mode)
-  (setq crazy-auto-space t)
-  (crazy-mode))
+  (setq dwim-coder-auto-space t)
+  (dwim-coder-mode))
 
 
 (defun test-files (mode-func mode directory file-name-regex)
@@ -47,7 +47,7 @@
           (unless (null current-point)
             (expect (nth 1 result) :to-equal current-point)))))))
 
-(describe "crazy-rust-all"
+(describe "dwim-coder-rust-all"
   (let* ((file (concat (file-name-directory load-file-name) "rust/basic-tests"))
          (content (get-file-contents file))
          (lines (split-string content "\n" t)))
@@ -60,5 +60,5 @@
               expected-with-space (nth 2 items))
         (if (not (string-match-p "^‖" line))
             (signal 'buttercup-pending "skipped")
-          (test-content in expected 'crazy-test-rust-mode "test.rs")
-          (test-content in expected-with-space 'crazy-test-auto-space-rust-mode "test.rs"))))))
+          (test-content in expected 'dwim-coder-test-rust-mode "test.rs")
+          (test-content in expected-with-space 'dwim-coder-test-auto-space-rust-mode "test.rs"))))))

@@ -5,31 +5,31 @@
 
 (require 'buttercup)
 (require 'cl-lib)
-(require 'crazy-c)
-(require 'crazy-mode)
+(require 'dwim-coder-c)
+(require 'dwim-coder-mode)
 
-(defun crazy-test-c-mode (style &optional sub-style auto-space)
+(defun dwim-coder-test-c-mode (style &optional sub-style auto-space)
   (c-ts-mode)
   (setq c-ts-mode-indent-style style)
   (electric-pair-mode)
-  (crazy-mode)
-  (setq crazy-c-sub-style sub-style)
-  (setq crazy-auto-space auto-space))
+  (dwim-coder-mode)
+  (setq dwim-coder-c-sub-style sub-style)
+  (setq dwim-coder-auto-space auto-space))
 
-(defun crazy-test-gnu-mode ()
-  (crazy-test-c-mode 'gnu))
+(defun dwim-coder-test-gnu-mode ()
+  (dwim-coder-test-c-mode 'gnu))
 
-(defun crazy-test-gnu-space-mode ()
-  (crazy-test-c-mode 'gnu nil t))
+(defun dwim-coder-test-gnu-space-mode ()
+  (dwim-coder-test-c-mode 'gnu nil t))
 
-(defun crazy-test-linux-mode ()
-  (crazy-test-c-mode 'linux))
+(defun dwim-coder-test-linux-mode ()
+  (dwim-coder-test-c-mode 'linux))
 
-(defun crazy-test-gnu-gnome-mode ()
-  (crazy-test-c-mode 'gnu 'gnome))
+(defun dwim-coder-test-gnu-gnome-mode ()
+  (dwim-coder-test-c-mode 'gnu 'gnome))
 
-(defun crazy-test-linux-gnome-mode ()
-  (crazy-test-c-mode 'linux 'gnome))
+(defun dwim-coder-test-linux-gnome-mode ()
+  (dwim-coder-test-c-mode 'linux 'gnome))
 
 
 (defun test-files (mode-func mode directory file-name-regex)
@@ -60,7 +60,7 @@
           )))
     ))
 
-(describe "crazy-c-basic"
+(describe "dwim-coder-c-basic"
   (let* ((file (concat (file-name-directory load-file-name) "c/basic-tests"))
          (content (get-file-contents file))
          (lines (split-string content "\n" t)))
@@ -73,11 +73,11 @@
               expected-with-space (nth 2 items))
         (if (not (string-match-p "^‖" line))
             (signal 'buttercup-pending "skipped")
-          (test-content in expected 'crazy-test-gnu-mode "test.c")
-          (test-content in expected-with-space 'crazy-test-gnu-space-mode "test.c")))
+          (test-content in expected 'dwim-coder-test-gnu-mode "test.c")
+          (test-content in expected-with-space 'dwim-coder-test-gnu-space-mode "test.c")))
       )))
 
-(describe "crazy-c-main"
+(describe "dwim-coder-c-main"
   (let* ((file (concat (file-name-directory load-file-name) "c/main-tests"))
          (content (get-file-contents file))
          (test-cases (split-string content "‖‖")))
@@ -94,13 +94,13 @@
              ((string-match-p "^-" item)
               (setq func nil))
              ((string-match-p " *gnu-none" item)
-              (setq func 'crazy-test-gnu-mode))
+              (setq func 'dwim-coder-test-gnu-mode))
              ((string-match-p " *linux-none" item)
-              (setq func 'crazy-test-linux-mode))
+              (setq func 'dwim-coder-test-linux-mode))
              ((string-match-p " *gnu-gnome" item)
-              (setq func 'crazy-test-gnu-gnome-mode))
+              (setq func 'dwim-coder-test-gnu-gnome-mode))
              ((string-match-p " *linux-gnome" item)
-              (setq func 'crazy-test-linux-gnome-mode))
+              (setq func 'dwim-coder-test-linux-gnome-mode))
              (t
               (error "Invalid test case")))
             (if (not (bound-and-true-p func))

@@ -1,22 +1,22 @@
-crazy-mode is a Rube Goldberg machine mode for GNU Emacs.  crazy-mode helps you
+dwim-coder-mode is a Rube Goldberg machine mode for GNU Emacs.  dwim-coder-mode helps you
 code/go crazy.  Currently good support for C, Python and Rust programming are included.
 
-crazy-mode requires ~electric-pair-mode~ to work.  Since crazy-mode is based on treesitter,
-crazy-mode requires GNU Emacs 29+ to work.
+dwim-coder-mode requires ~electric-pair-mode~ to work.  Since dwim-coder-mode is based on treesitter,
+dwim-coder-mode requires GNU Emacs 29+ to work.
 
-Source Repository: [[https://gitlab.com/sadiq/crazy-mode][GitLab]], [[https://sr.ht/~sadiq/crazy-mode/][SourceHut]]
+Source Repository: [[https://gitlab.com/sadiq/dwim-coder-mode][GitLab]], [[https://sr.ht/~sadiq/dwim-coder-mode/][SourceHut]]
 
-Issues and Feature Requests: [[https://gitlab.com/sadiq/crazy-mode/-/issues][GitLab]]
+Issues and Feature Requests: [[https://gitlab.com/sadiq/dwim-coder-mode/-/issues][GitLab]]
 
-Homepage: [[https://www.sadiqpk.org/projects/crazy-mode.html][https://www.sadiqpk.org/projects/crazy-mode.html]]
+Homepage: [[https://www.sadiqpk.org/projects/dwim-coder-mode.html][https://www.sadiqpk.org/projects/dwim-coder-mode.html]]
 
 * Introduction
-  crazy-mode hacks around the characters you type to do various stuff often
+  dwim-coder-mode hacks around the characters you type to do various stuff often
   reducing the effort to accomplish something.
 
   Say for example, in c-ts-mode, pressing space bar often inserts '_' or sometimes
   real spaces depending on the context. It also inserts '-' when inside #include
-  header names.
+  header names.  And S-SPC inserts real space too.
 
 * But why?
   Why not? This is GNU Emacs, anything is possible ;).
@@ -30,13 +30,13 @@ Homepage: [[https://www.sadiqpk.org/projects/crazy-mode.html][https://www.sadiqp
 
 ** Installing from git
    #+begin_src sh
-   emacs --batch --eval='(package-vc-install "https://gitlab.com/sadiq/crazy-mode")'
+   emacs --batch --eval='(package-vc-install "https://gitlab.com/sadiq/dwim-coder-mode")'
    #+end_src
 
 ** Configuration
 
   #+BEGIN_SRC emacs-lisp
-    (use-package crazy-mode
-      :hook ((c-ts-mode python-ts-mode rust-ts-mode) . crazy-mode))
+    (use-package dwim-coder-mode
+      :hook ((c-ts-mode python-ts-mode rust-ts-mode) . dwim-coder-mode))
 
   #+END_SRC

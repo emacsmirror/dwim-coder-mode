@@ -1,10 +1,10 @@
-(load "./crazy-common.el")
+(load "./dwim-coder-common.el")
 
 (require 'buttercup)
 (require 'cl-lib)
-(require 'crazy-common)
+(require 'dwim-coder-common)
 
-(describe "crazy-s-to-style"
+(describe "dwim-coder-s-to-style"
 
   (it "snake string"
     (let ((values
@@ -19,7 +19,7 @@
              ("hello_good world" . "hello_good_world")
              ("_hello world" . "_hello_world"))))
       (cl-loop for (key . value) in values
-               collect (expect (crazy-s-to-style key "snake") :to-equal value))))
+               collect (expect (dwim-coder-s-to-style key "snake") :to-equal value))))
 
   (it "camel string"
     (let ((values
@@ -30,7 +30,7 @@
              ("n m client" . "NMClient")
              ("g_d_bus proxy" . "GDBusProxy"))))
       (cl-loop for (key . value) in values
-               collect (expect (crazy-s-to-style key "upcamel") :to-equal value))))
+               collect (expect (dwim-coder-s-to-style key "upcamel") :to-equal value))))
 
   (it "cycle string"
     (let ((values
@@ -47,4 +47,4 @@
              ("HELLOWORLD" . "Helloworld")
              ("HELLO_WORLD" . "HelloWorld"))))
       (cl-loop for (key . value) in values
-               collect (expect (crazy-s-to-style key "cycle") :to-equal value)))))
+               collect (expect (dwim-coder-s-to-style key "cycle") :to-equal value)))))

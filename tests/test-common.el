@@ -27,12 +27,12 @@
         (setq str (match-string-no-properties 1 in))
         (setq in (replace-match "" t t in)))
       (if (null str)
-          (mapc 'crazy-insert-interactive in)
+          (mapc 'dwim-coder-insert-interactive in)
         (insert in)
         ;; Set mode again, so that file variables, if any, shall be parsed
         (funcall mode)
         (goto-char insert-point)
-        (mapc 'crazy-insert-interactive str))
+        (mapc 'dwim-coder-insert-interactive str))
       (list (buffer-substring-no-properties (point-min) (point-max)) (point)))))
 
 (defun test-content (in expected mode-func buffer-name)

@@ -1,13 +1,13 @@
-;;; crazy-mode.el --- Crazy ways to code  -*- lexical-binding: t; -*-
+;;; dwim-coder-mode.el --- DWIM keybindings for programming modes -*- lexical-binding: t; -*-
 
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 
 ;; Version: 0.0.1
 ;; SPDX-License-Identifier: CC0-1.0
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
-;; URL: https://sadiqpk.org/projects/crazy-mode.html
+;; URL: https://sadiqpk.org/projects/dwim-coder-mode.html
 ;; Package-Requires: ((emacs "29"))
-;; Last-Updated: 2023-04-29
+;; Last-Updated: 2023-06-02
 ;; Keywords: convenience, hacks
 
 ;; This file is NOT part of GNU Emacs.
@@ -23,60 +23,62 @@
 
 ;;; Commentary:
 ;; This minor modes adds various dwim keyboard shortcuts to your Emacs.
+;; Many keys like SPC, and punctuation keys are intercepted by this mode
+;; to provide alternate actions as you type.
 
 ;;; Code:
 
-(require 'crazy-default)
-(require 'crazy-c)
-(require 'crazy-python)
-(require 'crazy-rust)
+(require 'dwim-coder-default)
+(require 'dwim-coder-c)
+(require 'dwim-coder-python)
+(require 'dwim-coder-rust)
 
-(defun crazy-insert-space ()
+(defun dwim-coder-insert-space ()
   "Interactvely insert SPC."
   (interactive)
-  (crazy-insert-interactive ?\s t))
+  (dwim-coder-insert-interactive ?\s t))
 
-(cl-defun crazy-pre-self-insert-function (&rest args)
+(cl-defun dwim-coder-pre-self-insert-function (&rest args)
   (let ((val nil)
-        (last-was-camel crazy-last-was-camel))
+        (last-was-camel dwim-coder-last-was-camel))
 
     ;; Override only character inputs with no prefixes
     (unless (and (eq (car args) 1)
                  (eq (type-of (cdr args)) 'cons)
                  (eq (type-of (cadr args)) 'integer))
-      (setq crazy-last-was-camel nil)
-      (cl-return-from crazy-pre-self-insert-function nil))
+      (setq dwim-coder-last-was-camel nil)
+      (cl-return-from dwim-coder-pre-self-insert-function nil))
 
     (cond
-     (crazy-skip nil)
-     ((not crazy-mode) nil)
+     (dwim-coder-skip nil)
+     ((not dwim-coder-mode) nil)
      ((derived-mode-p 'c-ts-mode)
       (if (treesit-language-available-p 'c)
-          (setq val (crazy-c-override-self-insert (cadr args)))
+          (setq val (dwim-coder-c-override-self-insert (cadr args)))
         (error "`treesitter' not available for C")))
      ((derived-mode-p 'rust-ts-mode)
       (if (treesit-language-available-p 'rust)
-          (setq val (crazy-rust-override-self-insert (cadr args)))
+          (setq val (dwim-coder-rust-override-self-insert (cadr args)))
         (error "`treesitter' not available for Rust")))
      ((derived-mode-p 'python-ts-mode)
       (if (treesit-language-available-p 'python)
-          (setq val (crazy-python-override-self-insert (cadr args)))
+          (setq val (dwim-coder-python-override-self-insert (cadr args)))
         (error "`treesitter' not available for Python")))
      ((derived-mode-p 'prog-mode 'conf-mode 'text-mode)
-      (setq val (crazy-default-override-self-insert (cadr args)))))
+      (setq val (dwim-coder-default-override-self-insert (cadr args)))))
     ;; Reset only if the variable was set in some past call,
     ;; not on changes made in this call.
     (if last-was-camel
-        (setq crazy-last-was-camel nil))
+        (setq dwim-coder-last-was-camel nil))
     val))
 
 ;;;###autoload
-(define-minor-mode crazy-mode
-  "Toggle Crazy ways for coding (Crazy mode).
+(define-minor-mode dwim-coder-mode
+  "Toggle DWIM keybindings for C, Python, Rust and others.
 
-With a prefix argument ARG, enable crazy mode if ARG is positive, and
-disable it otherwise.  If called from Lisp, enable the mode if ARG is
-omitted or nil.
+With a prefix argument ARG, enable dwim-coder-mode if ARG is positive,
+and disable it otherwise.  If called from Lisp, enable the mode if ARG
+is omitted or nil.
 
 This mode shall allow you to code in crazy ways.  Currently ‘c-ts-mode’,
 `python-ts-mode' and `rust-ts-mode' are supported well.
@@ -88,13 +90,13 @@ drive you crazy, rather than helping you code crazy.
 This is a local minor mode."
   :global nil
   :lighter " !"
-  :group 'crazy
+  :group 'dwim-coder
   :keymap (let ((map (make-sparse-keymap)))
-            (define-key map (kbd "S-SPC") 'crazy-insert-space)
+            (define-key map (kbd "S-SPC") 'dwim-coder-insert-space)
             map)
-  (if crazy-mode
-      (advice-add #'self-insert-command :before-until 'crazy-pre-self-insert-function)
-    (advice-remove #'self-insert-command 'crazy-pre-self-insert-function)))
+  (if dwim-coder-mode
+      (advice-add #'self-insert-command :before-until 'dwim-coder-pre-self-insert-function)
+    (advice-remove #'self-insert-command 'dwim-coder-pre-self-insert-function)))
 
-(provide 'crazy-mode)
-;;; crazy-mode.el ends here
+(provide 'dwim-coder-mode)
+;;; dwim-coder-mode.el ends here

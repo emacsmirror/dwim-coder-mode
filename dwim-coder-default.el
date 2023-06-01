@@ -1,9 +1,9 @@
-;;; crazy-default.el --- Crazy ways to code  -*- lexical-binding: t; -*-
+;;; dwim-coder-default.el --- DWIM keybindings for programming modes -*- lexical-binding: t; -*-
 
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 ;; SPDX-License-Identifier: CC0-1.0
 ;; Created: 2022-12-22
-;; Last-Updated: 2023-04-29
+;; Last-Updated: 2023-06-02
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -17,12 +17,12 @@
 ;; <http://creativecommons.org/publicdomain/zero/1.0/>.
 
 ;;; Commentary:
-;; Generic dwim hacks implemeted for all major modes derived from prog-mode
+;; Generic dwim hacks implemented for all major modes derived from prog-mode
 
 ;;; Code:
 
 
-(defun crazy-default-be-sane ()
+(defun dwim-coder-default-be-sane ()
   "Check if we should act sane at `point'."
   (cond
    ;; comments
@@ -30,34 +30,34 @@
     t)
    (t nil)))
 
-(defun crazy-default-is-xml-p ()
+(defun dwim-coder-default-is-xml-p ()
   (or (derived-mode-p 'sgml-mode 'nxml-mode)
       (string-match-p "\.\\(ui$\\)\\|\\(xml$\\)" (or (buffer-file-name) ""))))
 
-(defun crazy-default-dwim-space ()
+(defun dwim-coder-default-dwim-space ()
   (cond
    ;; On ", )]}" move forward and insert comma
    ((and (looking-back ", " (line-beginning-position))
          (memq (following-char) '(?\) ?} ?\] )))
     (delete-char -2)
     (forward-char)
-    (crazy-insert-interactive ?,)
+    (dwim-coder-insert-interactive ?,)
     t)
    ;; If folled by a valid variable replace SPC with _ or -
    ((save-excursion
       (and (< (skip-syntax-backward "w_" (pos-bol)) 0)
            (not (looking-at-p "[0-9.]"))))
     (cond
-     (crazy-space-char
-      (insert-char crazy-space-char))
+     (dwim-coder-space-char
+      (insert-char dwim-coder-space-char))
      ((or (derived-mode-p 'css-mode 'lisp-data-mode)
-          (crazy-default-is-xml-p))
+          (dwim-coder-default-is-xml-p))
       (insert-char ?\-))
      (t
       (insert-char ?\_)))
     t)))
 
-(defun crazy-default-dwim-comma ()
+(defun dwim-coder-default-dwim-comma ()
   (cond
    ;; replace ,, with =
    ((looking-back ", ?" (line-beginning-position))
@@ -67,35 +67,35 @@
     (cond ((and (derived-mode-p 'sh-mode 'bash-ts-mode)
                 (eq (following-char) ?})) nil)
           ;; don't insert space before = in xml
-          ((crazy-default-is-xml-p)
+          ((dwim-coder-default-is-xml-p)
            (delete-char -1)
-           (crazy-insert-interactive ?=))
+           (dwim-coder-insert-interactive ?=))
           (t
            (delete-char -1)
-           (if crazy-auto-space
-               (crazy-skip-or-insert ?\s))
-           (crazy-insert-interactive ?=)
-           (if crazy-auto-space
-               (crazy-skip-or-insert ?\s))))
+           (if dwim-coder-auto-space
+               (dwim-coder-skip-or-insert ?\s))
+           (dwim-coder-insert-interactive ?=)
+           (if dwim-coder-auto-space
+               (dwim-coder-skip-or-insert ?\s))))
     t)
    ((looking-back "[=!+^&*%|<>/-] ?" (line-beginning-position))
     (if (eq (preceding-char) ?\s)
         (delete-char -1))
-    (crazy-insert-interactive ?=)
-    (if crazy-auto-space
-        (crazy-skip-or-insert ?\s))
+    (dwim-coder-insert-interactive ?=)
+    (if dwim-coder-auto-space
+        (dwim-coder-skip-or-insert ?\s))
     t)
    (t
-    (crazy-insert-interactive ?, t)
-    (if crazy-auto-space
-        (crazy-skip-or-insert ?\s))
+    (dwim-coder-insert-interactive ?, t)
+    (if dwim-coder-auto-space
+        (dwim-coder-skip-or-insert ?\s))
     t)))
 
-(defun crazy-default-dwim-dot ()
+(defun dwim-coder-default-dwim-dot ()
   (cond
    ((and (eq (preceding-char) ?<)
          (eq (following-char) ?>)
-         (crazy-default-is-xml-p))
+         (dwim-coder-default-is-xml-p))
     (delete-char -1)
     (delete-char 1)
     (insert "...")
@@ -104,22 +104,22 @@
    ((and (eq (preceding-char) ?.)
          (not (eq (char-before (1- (point))) ?.)))
     (delete-char -1)
-    (cond ((crazy-default-is-xml-p)
-           (crazy-insert-interactive ?<)
+    (cond ((dwim-coder-default-is-xml-p)
+           (dwim-coder-insert-interactive ?<)
            (unless (eq (following-char) ?>)
-             (crazy-insert-interactive ?>)
+             (dwim-coder-insert-interactive ?>)
              (backward-char)))
           ((derived-mode-p 'lisp-data-mode)
            (unless (or (bolp)
                        (memq (preceding-char) '(?\s ?\( ?\' ?\` ?\, ?\@)))
-             (if crazy-auto-space
-                 (crazy-skip-or-insert ?\s)))
-           (crazy-insert-interactive ?\())
+             (if dwim-coder-auto-space
+                 (dwim-coder-skip-or-insert ?\s)))
+           (dwim-coder-insert-interactive ?\())
           (t
-           (crazy-insert-interactive ?\()))
+           (dwim-coder-insert-interactive ?\()))
     t)))
 
-(defun crazy-default-dwim-semi-colon ()
+(defun dwim-coder-default-dwim-semi-colon ()
   (cond
    ;; Move forward if inside empty pairs
    ((and (not (bolp))
@@ -142,15 +142,15 @@
     (forward-sexp)
     t)))
 
-(defun crazy-default-override-self-insert (char)
+(defun dwim-coder-default-override-self-insert (char)
   (pcase char
-    ((guard (crazy-default-be-sane) nil))
-    (?\; (crazy-default-dwim-semi-colon))
+    ((guard (dwim-coder-default-be-sane) nil))
+    (?\; (dwim-coder-default-dwim-semi-colon))
     ;; skip in strings
     ((guard (nth 3 (syntax-ppss)) nil))
-    (?\s (crazy-default-dwim-space))
-    (?\, (crazy-default-dwim-comma))
-    (?. (crazy-default-dwim-dot))))
+    (?\s (dwim-coder-default-dwim-space))
+    (?\, (dwim-coder-default-dwim-comma))
+    (?. (dwim-coder-default-dwim-dot))))
 
-(provide 'crazy-default)
-;;; crazy-default.el ends here
+(provide 'dwim-coder-default)
+;;; dwim-coder-default.el ends here

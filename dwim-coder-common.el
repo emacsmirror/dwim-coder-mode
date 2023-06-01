@@ -1,8 +1,8 @@
-;;; crazy-common.el --- Crazy ways to code  -*- lexical-binding: t; -*-
+;;; dwim-coder-common.el --- DWIM keybindings for programming modes -*- lexical-binding: t; -*-
 
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 ;; SPDX-License-Identifier: CC0-1.0
-;; Last-Updated: 2022-12-18
+;; Last-Updated: 2023-06-02
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -21,66 +21,66 @@
 ;;; Code:
 
 
-(defvar-local crazy-skip nil)
-(defvar-local crazy-last-was-camel nil)
+(defvar-local dwim-coder-skip nil)
+(defvar-local dwim-coder-last-was-camel nil)
 
-(defgroup crazy nil
-  "Crazy ways to code."
+(defgroup dwim-coder nil
+  "DWIM keybindings for programming modes."
   :group 'convenience
   :group 'editing
-  :prefix "crazy-")
+  :prefix "dwim-coder-")
 
-(defcustom crazy-auto-space t
+(defcustom dwim-coder-auto-space t
   "Automatically insert space around operators.
 
 Experimental, may be removed/disabled in the future"
   :type 'boolean
-  :group 'crazy)
+  :group 'dwim-coder)
 ;;;###autoload
-(put 'crazy-auto-space 'safe-local-variable #'booleanp)
+(put 'dwim-coder-auto-space 'safe-local-variable #'booleanp)
 
-(defcustom crazy-space-char nil
+(defcustom dwim-coder-space-char nil
   "Character to be inserted on SPC, can be one of nil, ?_, ?- or ?\s."
   :type 'integer
-  :group 'crazy)
+  :group 'dwim-coder)
 ;;;###autoload
-(put 'crazy-space-char 'safe-local-variable (lambda (x) (and (integerp x) (memq x '(?_ ?- ?\s)))))
+(put 'dwim-coder-space-char 'safe-local-variable (lambda (x) (and (integerp x) (memq x '(?_ ?- ?\s)))))
 
-(defun crazy-preceding-point ()
+(defun dwim-coder-preceding-point ()
   (max (1- (point)) (line-beginning-position)))
 
-(defun crazy-insert-interactive (char &optional skip-override)
+(defun dwim-coder-insert-interactive (char &optional skip-override)
   "Interactively insert CHAR.
 
 This will simply use `call-interactively' with the given character CHAR,
 so that the default handlers when CHAR is inserted is run.
-If SKIP-OVERRIDE is t, the default handlers run by `crazy-mode'
+If SKIP-OVERRIDE is t, the default handlers run by `dwim-coder-mode'
 shall be ignored."
   (interactive)
-  (setq crazy-skip skip-override
+  (setq dwim-coder-skip skip-override
         last-command-event char
         this-command 'self-insert-command)
   (call-interactively #'self-insert-command)
-  (setq crazy-skip nil))
+  (setq dwim-coder-skip nil))
 
-(defun crazy-skip-or-insert (char &optional interactive skip-override)
+(defun dwim-coder-skip-or-insert (char &optional interactive skip-override)
   (if (eq (preceding-char) char)
       nil
     (if (eq (following-char) char)
         (forward-char)
       (if interactive
-          (crazy-insert-interactive char skip-override)
+          (dwim-coder-insert-interactive char skip-override)
         (insert-char char)))))
 
 ;; Copied from s.el
 ;; URL: https://github.com/magnars/s.el
 ;; GPL-3.0+ license
-(defun crazy-s-join (separator strings)
+(defun dwim-coder-s-join (separator strings)
   "Join all the strings in STRINGS with SEPARATOR in between."
   (declare (pure t) (side-effect-free t))
   (mapconcat #'identity strings separator))
 
-(defun crazy-s-split (separator s &optional omit-nulls)
+(defun dwim-coder-s-split (separator s &optional omit-nulls)
   "Split S into substrings bounded by matches for regexp SEPARATOR.
 If OMIT-NULLS is non-nil, zero-length substrings are omitted.
 This is a simple wrapper around the built-in `split-string'."
@@ -88,10 +88,10 @@ This is a simple wrapper around the built-in `split-string'."
   (save-match-data
     (split-string s separator omit-nulls)))
 
-(defun crazy-s-split-words (s)
+(defun dwim-coder-s-split-words (s)
   "Split S into list of words."
   (declare (side-effect-free t))
-  (crazy-s-split
+  (dwim-coder-s-split
    "[^[:word:]0-9]+"
    (let ((case-fold-search nil))
      (replace-regexp-in-string
@@ -99,27 +99,27 @@ This is a simple wrapper around the built-in `split-string'."
       (replace-regexp-in-string "\\([[:upper:]]\\)\\([[:upper:]][0-9[:lower:]]\\)" "\\1 \\2" s)))
    t))
 
-(defun crazy-s-snake-case (s)
+(defun dwim-coder-s-snake-case (s)
   "Convert S to snake_case."
   (declare (side-effect-free t))
-  (crazy-s-join "_" (mapcar #'downcase (crazy-s-split-words s))))
+  (dwim-coder-s-join "_" (mapcar #'downcase (dwim-coder-s-split-words s))))
 
-(defun crazy-s-upper-snake-case (s)
+(defun dwim-coder-s-upper-snake-case (s)
   "Convert S to snake_case."
   (declare (side-effect-free t))
-  (upcase (crazy-s-snake-case s)))
+  (upcase (dwim-coder-s-snake-case s)))
 
-(defun crazy-s-upper-camel-case (s)
+(defun dwim-coder-s-upper-camel-case (s)
   "Convert S to UpperCamelCase."
   (declare (side-effect-free t))
-  (crazy-s-join "" (mapcar #'capitalize (crazy-s-split-words s))))
+  (dwim-coder-s-join "" (mapcar #'capitalize (dwim-coder-s-split-words s))))
 
-(defun crazy-s-dashed-words (s)
+(defun dwim-coder-s-dashed-words (s)
   "Convert S to dashed-words."
   (declare (side-effect-free t))
-  (crazy-s-join "-" (mapcar #'downcase (crazy-s-split-words s))))
+  (dwim-coder-s-join "-" (mapcar #'downcase (dwim-coder-s-split-words s))))
 
-(defun crazy-s-get-style-case (s)
+(defun dwim-coder-s-get-style-case (s)
   "Return the style case of S as a string, or nil if S contain no alphabet.
 
 The value can be one of \"spaced\", \"snake\", \"upper-snake\", \"lisp\",
@@ -148,10 +148,10 @@ heuristics used to interpret the style."
      ((string-match-p "[[:upper:]]" s)
       "lower-camel"))))
 
-(defun crazy-s-to-style (str style)
+(defun dwim-coder-s-to-style (str style)
   (let* ((case-fold-search nil)
          (str (or str ""))
-         (current-style (crazy-s-get-style-case str))
+         (current-style (dwim-coder-s-get-style-case str))
          (prefix nil)
          (suffix nil))
 
@@ -176,28 +176,28 @@ heuristics used to interpret the style."
         (setq str (replace-regexp-in-string "\\([A-Z]\\)" "_\\1" str t)))
     (cond
      ((string= style "snake")
-      (setq str (crazy-s-snake-case str)))
+      (setq str (dwim-coder-s-snake-case str)))
      ((string= style "upsnake")
-      (setq str (crazy-s-upper-snake-case str)))
+      (setq str (dwim-coder-s-upper-snake-case str)))
      ((string= style "upcamel")
-      (setq str (crazy-s-upper-camel-case str)))
+      (setq str (dwim-coder-s-upper-camel-case str)))
      ((string= style "lisp")
-      (setq str (crazy-s-dashed-words str)))
+      (setq str (dwim-coder-s-dashed-words str)))
      ((string= style "cycle")
       (cond
        ((string= current-style "snake")
-        (setq str (crazy-s-upper-snake-case str)))
+        (setq str (dwim-coder-s-upper-snake-case str)))
        ((string= current-style "upper-snake")
-        (setq str (crazy-s-upper-camel-case str)))
+        (setq str (dwim-coder-s-upper-camel-case str)))
        ((string= current-style "upper-camel")
-        (setq str (crazy-s-snake-case str)))
+        (setq str (dwim-coder-s-snake-case str)))
        (t
-        (setq str (crazy-s-snake-case str))))))
+        (setq str (dwim-coder-s-snake-case str))))))
 
     (setq str (replace-regexp-in-string "അ" ":" str))
     (setq str (replace-regexp-in-string "ആ" "|" str))
 
     (concat prefix str suffix)))
 
-(provide 'crazy-common)
-;;; crazy-common.el ends here
+(provide 'dwim-coder-common)
+;;; dwim-coder-common.el ends here

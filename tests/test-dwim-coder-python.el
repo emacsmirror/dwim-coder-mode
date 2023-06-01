@@ -5,22 +5,22 @@
 
 (require 'buttercup)
 (require 'cl-lib)
-(require 'crazy-python)
-(require 'crazy-mode)
+(require 'dwim-coder-python)
+(require 'dwim-coder-mode)
 
-(defun crazy-test-python-mode ()
+(defun dwim-coder-test-python-mode ()
   (setq python-indent-guess-indent-offset nil)
   (python-ts-mode)
   (electric-pair-mode)
-  (setq crazy-auto-space nil)
-  (crazy-mode))
+  (setq dwim-coder-auto-space nil)
+  (dwim-coder-mode))
 
-(defun crazy-test-auto-space-python-mode ()
+(defun dwim-coder-test-auto-space-python-mode ()
   (setq python-indent-guess-indent-offset nil)
   (python-ts-mode)
   (electric-pair-mode)
-  (setq crazy-auto-space t)
-  (crazy-mode))
+  (setq dwim-coder-auto-space t)
+  (dwim-coder-mode))
 
 (defun test-files (mode-func directory file-name-regex)
   (let ((files nil)
@@ -48,7 +48,7 @@
             (unless (null current-point)
               (expect (nth 1 result) :to-equal current-point)))))))
 
-(describe "crazy-python-all"
+(describe "dwim-coder-python-all"
   (let* ((file (concat (file-name-directory load-file-name) "python/basic-tests"))
          (content (get-file-contents file))
          (lines (split-string content "\n" t)))
@@ -61,5 +61,5 @@
               expected-with-space (nth 2 items))
         (if (not (string-match-p "^‖" line))
             (signal 'buttercup-pending "skipped")
-          (test-content in expected 'crazy-test-python-mode "test.py")
-          (test-content in expected-with-space 'crazy-test-auto-space-python-mode "test.py"))))))
+          (test-content in expected 'dwim-coder-test-python-mode "test.py")
+          (test-content in expected-with-space 'dwim-coder-test-auto-space-python-mode "test.py"))))))

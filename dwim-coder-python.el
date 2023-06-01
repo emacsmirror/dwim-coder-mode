@@ -1,9 +1,9 @@
-;;; crazy-python.el --- Crazy ways to code  -*- lexical-binding: t; -*-
+;;; dwim-coder-python.el --- DWIM keybindings for programming modes -*- lexical-binding: t; -*-
 
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 ;; SPDX-License-Identifier: CC0-1.0
 ;; Created: 2023-01-26
-;; Last-Updated: 2023-05-01
+;; Last-Updated: 2023-06-02
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -17,14 +17,14 @@
 ;; <http://creativecommons.org/publicdomain/zero/1.0/>.
 
 ;;; Commentary:
-;; dwim hacks implemeted for `python-ts-mode'
+;; dwim hacks implemented for `python-ts-mode'
 
 ;;; Code:
 
 
-(require 'crazy-default)
+(require 'dwim-coder-default)
 
-(defun crazy-python-be-sane ()
+(defun dwim-coder-python-be-sane ()
   ;; situations to avoid being crazy
   (cond
    ;; comments and strings
@@ -33,63 +33,63 @@
     t)
    (t nil)))
 
-(defun crazy-python-dwim-space ()
-  (let ((node (treesit-node-at (crazy-preceding-point))))
+(defun dwim-coder-python-dwim-space ()
+  (let ((node (treesit-node-at (dwim-coder-preceding-point))))
     (cond
      ((and (nth 3 (syntax-ppss))
            (treesit-node-top-level (treesit-node-at (point)) "^interpolation$"))
-      (crazy-insert-interactive ?_)
+      (dwim-coder-insert-interactive ?_)
       t)
      ((and (nth 3 (syntax-ppss))
            (memq (following-char) '(?\" ?\'))
            (looking-back ", " (line-beginning-position)))
       (delete-char -2)
       (forward-char)
-      (crazy-skip-or-insert ?\, t)
+      (dwim-coder-skip-or-insert ?\, t)
       t)
-     ((crazy-python-be-sane)
+     ((dwim-coder-python-be-sane)
       nil)
      ((and (eolp)
            (looking-back ") ?" (line-beginning-position))
            (save-excursion
-             (skip-chars-backward "[ ]" (crazy-preceding-point))
+             (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
              (backward-sexp)
-             (and (setq node (treesit-node-at (crazy-preceding-point)))
+             (and (setq node (treesit-node-at (dwim-coder-preceding-point)))
                   (equal (treesit-node-type node) "identifier")
                   (goto-char (treesit-node-start node))
                   (or (backward-char) t)
-                  (setq node (treesit-node-at (crazy-preceding-point)))
+                  (setq node (treesit-node-at (dwim-coder-preceding-point)))
                   (equal (treesit-node-type node) "def"))))
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
       (insert "->")
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
       t)
      ((and (looking-back ", " (line-beginning-position))
            (memq (following-char) '(?\) ?\] ?})))
       (delete-char -2)
       (forward-char)
-      (crazy-skip-or-insert ?, t)
+      (dwim-coder-skip-or-insert ?, t)
       t)
      ((or (bolp)
           (memq (preceding-char) '(?\s ?. ?\())
           (and node (equal (treesit-node-type node) "identifier"))
           (and node (equal (treesit-node-type node) "integer")))
-      (crazy-insert-interactive ?_)
+      (dwim-coder-insert-interactive ?_)
       t))))
 
-(defun crazy-python-dwim-dot ()
+(defun dwim-coder-python-dwim-dot ()
   (cond
    ((eq (preceding-char) ?.)
     (delete-char -1)
-    (crazy-insert-interactive ?\()
+    (dwim-coder-insert-interactive ?\()
     t)
    ((looking-back "^ *" (line-beginning-position))
-    (crazy-skip-or-insert ?@ t)
+    (dwim-coder-skip-or-insert ?@ t)
     t)
    ((and
-     (crazy-python-be-sane)
+     (dwim-coder-python-be-sane)
      (eq (preceding-char) ?\()
      (eq (following-char) ?\)))
     (delete-char -1)
@@ -98,44 +98,44 @@
     t)
    ((looking-back "^ *@" (line-beginning-position))
     (delete-char -1)
-    (crazy-insert-interactive ?\()
+    (dwim-coder-insert-interactive ?\()
     t)))
 
-(defun crazy-python-dwim-comma ()
-  (let ((node (treesit-node-at (crazy-preceding-point))))
+(defun dwim-coder-python-dwim-comma ()
+  (let ((node (treesit-node-at (dwim-coder-preceding-point))))
     (cond
      ((and (nth 3 (syntax-ppss))
            (setq node (treesit-node-top-level (treesit-node-at (point)) "^interpolation$")))
       (goto-char (treesit-node-end node))
       t)
-     ((crazy-default-be-sane)
-      (crazy-skip-or-insert ?\, t t)
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
+     ((dwim-coder-default-be-sane)
+      (dwim-coder-skip-or-insert ?\, t t)
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
       t)
      ((looking-back "^ *" (line-beginning-position))
-      (crazy-skip-or-insert ?# t nil)
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
+      (dwim-coder-skip-or-insert ?# t nil)
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
       t)
      ((looking-back ", ?" (line-beginning-position))
       (if (eq (preceding-char) ?\s)
           (delete-char -1))
       (delete-char -1)
-      (crazy-skip-or-insert ?= t)
+      (dwim-coder-skip-or-insert ?= t)
       t)
      ((save-excursion
-        (skip-chars-backward "[ ]" (crazy-preceding-point))
+        (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
         (memq (preceding-char) '(?= ?- ?+ ?* ?/ ?% ?< ?> ?! ?^ ?| ?&)))
-      (crazy-insert-interactive ?=)
+      (dwim-coder-insert-interactive ?=)
       t)
      (t
-      (crazy-insert-interactive ?\, t)
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
+      (dwim-coder-insert-interactive ?\, t)
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
       t))))
 
-(defun crazy-python-dwim-semi ()
+(defun dwim-coder-python-dwim-semi ()
   (if (eolp)
       (progn
         (unless (looking-at-p "\n\n")
@@ -144,8 +144,8 @@
     (end-of-line))
   t)
 
-(defun crazy-python-dwim-quote ()
-  (let ((node (treesit-node-at (crazy-preceding-point)))
+(defun dwim-coder-python-dwim-quote ()
+  (let ((node (treesit-node-at (dwim-coder-preceding-point)))
         (value nil)
         (style nil))
     (when (and node
@@ -153,44 +153,44 @@
                (setq value (treesit-node-text node))
                (> (length value) 1))
       (delete-region (treesit-node-start node) (treesit-node-end node))
-      (setq style (crazy-s-get-style-case value))
+      (setq style (dwim-coder-s-get-style-case value))
       (if (equal style "snake")
-          (insert (crazy-s-to-style value "upcamel"))
+          (insert (dwim-coder-s-to-style value "upcamel"))
         (if (equal style "upper-camel")
-            (insert (crazy-s-to-style value "upsnake"))
-          (insert (crazy-s-to-style value "snake"))))
+            (insert (dwim-coder-s-to-style value "upsnake"))
+          (insert (dwim-coder-s-to-style value "snake"))))
       t)))
 
-(defun crazy-python-dwim-equal ()
+(defun dwim-coder-python-dwim-equal ()
   (let ((node nil))
     (cond
-     ((treesit-node-top-level (treesit-node-at (crazy-preceding-point)) "^type$")
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
-      (crazy-insert-interactive ?\= t)
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
+     ((treesit-node-top-level (treesit-node-at (dwim-coder-preceding-point)) "^type$")
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
+      (dwim-coder-insert-interactive ?\= t)
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
       t)
      ((and (setq node (treesit-node-parent (treesit-node-at (point))))
            (equal (treesit-node-type node) "argument_list"))
-      (crazy-skip-or-insert ?= t t)
+      (dwim-coder-skip-or-insert ?= t t)
       t)
      ((and (setq node (treesit-node-parent (treesit-node-at (point))))
            (equal (treesit-node-type node) "parameters"))
-      (crazy-skip-or-insert ?= t t)
+      (dwim-coder-skip-or-insert ?= t t)
       t)
-     ((setq node (treesit-node-at (crazy-preceding-point)))
+     ((setq node (treesit-node-at (dwim-coder-preceding-point)))
       (if (equal (treesit-node-type node) "identifier")
-          (if crazy-auto-space
-              (crazy-skip-or-insert ?\s))
-        (skip-chars-backward "[ ]" (crazy-preceding-point)))
-      (crazy-insert-interactive ?\= t)
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
+          (if dwim-coder-auto-space
+              (dwim-coder-skip-or-insert ?\s))
+        (skip-chars-backward "[ ]" (dwim-coder-preceding-point)))
+      (dwim-coder-insert-interactive ?\= t)
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
       t))))
 
-(defun crazy-python-dwim-op (char)
-  (let ((node (treesit-node-at (crazy-preceding-point)))
+(defun dwim-coder-python-dwim-op (char)
+  (let ((node (treesit-node-at (dwim-coder-preceding-point)))
         (value nil))
     (cond
      ((and (eq char ?/)
@@ -203,30 +203,30 @@
            (setq value (treesit-node-text node))
            (member value '(">" "<"))
            (memq char '(?> ?< ?=)))
-      (skip-chars-backward "[ ]" (crazy-preceding-point))
-      (crazy-insert-interactive char t)
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
+      (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
+      (dwim-coder-insert-interactive char t)
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
       t)
      ((and (equal (treesit-node-type node) "identifier")
            (memq char '(?= ?- ?+ ?* ?/ ?% ?< ?> ?! ?^ ?| ?&)))
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
-      (crazy-skip-or-insert char t t)
-      (if crazy-auto-space
-          (crazy-skip-or-insert ?\s))
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
+      (dwim-coder-skip-or-insert char t t)
+      (if dwim-coder-auto-space
+          (dwim-coder-skip-or-insert ?\s))
       t))))
 
-(defun crazy-python-override-self-insert (char)
+(defun dwim-coder-python-override-self-insert (char)
   (pcase char
-    (?\s (crazy-python-dwim-space))
-    (?. (crazy-python-dwim-dot))
-    (?, (crazy-python-dwim-comma))
-    (?\; (crazy-python-dwim-semi))
-    ((guard (crazy-default-be-sane) nil))
-    (?' (crazy-python-dwim-quote))
-    (?= (crazy-python-dwim-equal))
-    (_ (crazy-python-dwim-op char))))
+    (?\s (dwim-coder-python-dwim-space))
+    (?. (dwim-coder-python-dwim-dot))
+    (?, (dwim-coder-python-dwim-comma))
+    (?\; (dwim-coder-python-dwim-semi))
+    ((guard (dwim-coder-default-be-sane) nil))
+    (?' (dwim-coder-python-dwim-quote))
+    (?= (dwim-coder-python-dwim-equal))
+    (_ (dwim-coder-python-dwim-op char))))
 
-(provide 'crazy-python)
-;;; crazy-python.el ends here
+(provide 'dwim-coder-python)
+;;; dwim-coder-python.el ends here
