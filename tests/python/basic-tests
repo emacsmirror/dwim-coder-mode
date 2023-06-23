@@ -11,6 +11,11 @@
 ‖first name‖first_name‖first_name‖
 ‖def ‖def ‖def ‖
 
+‖[] ‖[] ‖[] ‖
+‖{} ‖{} ‖{} ‖
+‖() ‖() ‖() ‖
+‖func() ‖func() ‖func() ‖
+
 ‖i=‖i=❚‖i = ❚‖
 ‖i+‖i+❚‖i + ❚‖
 ‖i-‖i-❚‖i - ❚‖

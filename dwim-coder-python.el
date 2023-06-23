@@ -75,8 +75,11 @@
       t)
      ((or (bolp)
           (memq (preceding-char) '(?\s ?. ?\())
-          (and node (equal (treesit-node-type node) "identifier"))
-          (and node (equal (treesit-node-type node) "integer")))
+          (and
+           (setq node (treesit-node-at (dwim-coder-preceding-point)))
+           (or
+            (equal (treesit-node-type node) "identifier")
+            (equal (treesit-node-type node) "integer"))))
       (dwim-coder-insert-interactive ?_)
       t))))
 
