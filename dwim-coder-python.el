@@ -136,13 +136,27 @@
       t))))
 
 (defun dwim-coder-python-dwim-semi ()
-  (if (eolp)
-      (progn
-        (unless (looking-at-p "\n\n")
-          (insert-char ?\n)
-          (indent-according-to-mode)))
-    (end-of-line))
-  t)
+  (cond
+   ;; goto end of string if inside one
+   ((nth 3 (syntax-ppss))
+    (skip-syntax-forward "^\"")
+    (forward-char)
+    t)
+   ;; Move forward if inside empty pairs
+   ((and (not (bolp))
+         (not (eolp))
+         (save-excursion
+           (backward-char)
+           (looking-at-p "\\(()\\)\\|\\(\\[\\]\\)\\|\\({}\\)\\|\\(<>\\)")))
+    (forward-char)
+    t)
+   ;; return nil, so that the default handlers are run
+   ((eolp)
+    nil)
+   (t
+    (end-of-line)
+    t)))
+
 
 (defun dwim-coder-python-dwim-quote ()
   (let ((node (treesit-node-at (dwim-coder-preceding-point)))

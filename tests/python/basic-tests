@@ -49,8 +49,6 @@
 ‖open(  file  ‖open(__file__❚)‖open(__file__❚)‖
 ‖if not first name‖if not first_name‖if not first_name‖
 ‖help(❪..❫)‖help((❚))‖help((❚))‖
-‖print("He❪;❫llo")‖print("Hello")❚‖print("Hello")❚‖
-‖a❪;❫ge = 10‖age = 10❚‖age = 10❚‖
 
 ‖import os‖import os‖import os‖
 ‖if age ❪is not 10❫‖if age is not 10❚‖if age is not 10❚‖
@@ -61,7 +59,6 @@
 ‖def log(text: str, style: int❪,,❫)‖def log(text: str, style: int=❚)‖def log(text: str, style: int = ❚)‖
 ‖def log(text, style❪,,❫0)‖def log(text, style=0)‖def log(text, style=0)‖
 ‖def log(text, style=0)❪ ❫‖def log(text, style=0)->❚‖def log(text, style=0) -> ❚‖
-‖if n❪;❫ot True‖if not True❚‖if not True❚‖
 ‖# help,‖# help,❚‖# help, ❚‖
 ‖# help..‖# help(❚)‖# help(❚)‖
 ‖# help...‖# help...❚‖# help...❚‖
@@ -82,9 +79,15 @@
 ‖"func ..‖"func (❚)"‖"func (❚)"‖
 ‖"func...‖"func...❚"‖"func...❚"‖
 ‖f'‖f'❚'‖f'❚'‖
-‖"Hello ❪;❫World"‖"Hello World"❚‖"Hello World"❚‖
 ‖b'‖b'❚'‖b'❚'‖
 
 ‖f"{self}❪,❫"‖f"{self},❚"‖f"{self}, ❚"‖
 ‖f"In {self.  class  .  name  }"‖f"In {self.__class__.__name__}"‖f"In {self.__class__.__name__}"‖
 ‖f"{self.__class❪,❫__.__name__}"‖f"{self.__class__.__name__}❚"‖f"{self.__class__.__name__}❚"‖
+
+‖func(❪;❫) + b‖func()❚ + b‖func()❚ + b‖
+‖func("Some ❪;❫Test") + b‖func("Some Test"❚) + b‖func("Some Test"❚) + b‖
+‖func("Some Test"❪;❫) + b‖func("Some Test") + b❚‖func("Some Test") + b❚‖
+‖"Hello ❪;❫World"‖"Hello World"❚‖"Hello World"❚‖
+‖a❪;❫ge = 10‖age = 10❚‖age = 10❚‖
+‖if n❪;❫ot True‖if not True❚‖if not True❚‖
