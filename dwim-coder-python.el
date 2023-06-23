@@ -57,6 +57,7 @@
              (and (setq node (treesit-node-at (dwim-coder-preceding-point)))
                   (equal (treesit-node-type node) "identifier")
                   (goto-char (treesit-node-start node))
+                  (not (bolp))
                   (or (backward-char) t)
                   (setq node (treesit-node-at (dwim-coder-preceding-point)))
                   (equal (treesit-node-type node) "def"))))
