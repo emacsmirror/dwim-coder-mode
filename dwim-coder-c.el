@@ -452,9 +452,8 @@
       (insert "\n")
       (indent-according-to-mode)
       t)
-     ;; Don't do anything further if in enum and function declarations
-     ((or (dwim-coder-c-in-enum-p)
-          (dwim-coder-c-defun-arg-list))
+     ;; Don't do anything further if in function declarations
+     ((dwim-coder-c-defun-arg-list)
       nil)
      ((save-excursion
         (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
@@ -713,12 +712,6 @@
      ((and (equal (treesit-node-type node) "\"")
            (not (dwim-coder-c-in-include-fname)))
       (dwim-coder-c-dwim-in-string char))
-     ;; upcase letters inside enum
-     ((and (>= char ?a)
-           (<= char ?z)
-           (dwim-coder-c-in-enum-p))
-      (dwim-coder-insert-interactive (upcase char))
-      t)
      ((eq char ?,)
       (dwim-coder-c-dwim-comma))
      ((eq char ?\s)
