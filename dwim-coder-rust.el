@@ -238,6 +238,13 @@
            (eq (preceding-char) ?'))
       (insert-char ?,)
       t)
+     ((looking-back ":[ ]?" (line-beginning-position))
+      (when dwim-coder-auto-space
+        (dwim-coder-skip-or-insert ?\s))
+      (if (looking-at-p "&")
+          (forward-char)
+        (insert-char ?&))
+      t)
      ((save-excursion
         (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
         (eq (preceding-char) ?,))

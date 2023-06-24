@@ -48,3 +48,4 @@
 
 ‖let mut❪ ❫x‖let mut ❚x‖let mut ❚x‖
 ‖let mut x‖let mut x❚‖let mut x❚‖
+‖let x: ❪,❫mut i32‖let x: &❚mut i32‖let x: &❚mut i32‖
