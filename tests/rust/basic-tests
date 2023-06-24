@@ -45,3 +45,6 @@
 ‖"Hello, ❪ ❫World"‖"Hello,  ❚World"‖"Hello,  ❚World"‖
 
 ‖n items‖n_items❚‖n_items❚‖
+
+‖let mut❪ ❫x‖let mut ❚x‖let mut ❚x‖
+‖let mut x‖let mut x❚‖let mut x❚‖

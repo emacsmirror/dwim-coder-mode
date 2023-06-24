@@ -97,6 +97,11 @@
       (delete-char -1)
       (insert "::")
       t)
+     ((and (setq value (thing-at-point 'symbol t))
+           (string-prefix-p "mut" value)
+           (looking-back "mut" (line-beginning-position)))
+      (insert-char ?\s)
+      t)
      ;; After function arguments let SPC SPC do SPC -> SPC
      ((and (eq (preceding-char) ?\s)
            (dwim-coder-rust-after-function-param-p))
