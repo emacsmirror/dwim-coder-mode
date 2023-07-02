@@ -47,5 +47,6 @@
 ‖n items‖n_items❚‖n_items❚‖
 
 ‖let mut❪ ❫x‖let mut ❚x‖let mut ❚x‖
-‖let mut x‖let mut x❚‖let mut x❚‖
+‖let unmut❪ ❫e‖let unmut_❚e‖let unmut_❚e‖
+‖fn func(val: impl❪ ❫SomeThing)‖fn func(val: impl ❚SomeThing)‖fn func(val: impl ❚SomeThing)‖
 ‖let x: ❪,❫mut i32‖let x: &❚mut i32‖let x: &❚mut i32‖

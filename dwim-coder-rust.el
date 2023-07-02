@@ -98,8 +98,8 @@
       (insert "::")
       t)
      ((and (setq value (thing-at-point 'symbol t))
-           (string-prefix-p "mut" value)
-           (looking-back "mut" (line-beginning-position)))
+           (string-match-p "^\\(mut\\|impl\\|dyn\\)" value)
+           (looking-back "mut\\|impl\\|dyn" (line-beginning-position)))
       (insert-char ?\s)
       t)
      ;; After function arguments let SPC SPC do SPC -> SPC
