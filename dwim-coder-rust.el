@@ -225,11 +225,11 @@
       (if dwim-coder-auto-space
           (dwim-coder-skip-or-insert ?\s))
       t)
-     ;; Replace , with # if in the beginning of line
-     ((bolp)
+     ;; Replace , with # if preceding content is blank
+     ((looking-back "^ *" (line-beginning-position))
       (dwim-coder-insert-interactive ?#)
       t)
-     ((looking-back "^#" (line-beginning-position))
+     ((looking-back "^ *#" (line-beginning-position))
       (insert "!")
       t)
      ((and (setq value (treesit-node-at (point)))
