@@ -225,6 +225,10 @@
       (if dwim-coder-auto-space
           (dwim-coder-skip-or-insert ?\s))
       t)
+     ((and (eq (preceding-char) ?.)
+           (not (eq (char-before (1- (point))) ?.)))
+      (dwim-coder-insert-interactive ?. t)
+      t)
      ;; Replace , with # if preceding content is blank
      ((looking-back "^ *" (line-beginning-position))
       (dwim-coder-insert-interactive ?#)
