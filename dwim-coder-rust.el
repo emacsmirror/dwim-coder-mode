@@ -395,15 +395,6 @@
           (dwim-coder-skip-or-insert ?\s)))
     t))
 
-(defun dwim-coder-rust-dwim-rest (char)
-  (cond
-   ;; Convert x()y to x..y
-   ((and (eq (preceding-char) ?\))
-         (string-match-p "[a-zA-Z0-9_]" (string char))
-         (looking-back "[a-z0-9A-Z_ ]()" (line-beginning-position)))
-    (delete-char -2)
-    (insert ".."))))
-
 (defun dwim-coder-rust-override-self-insert (char)
   (cond
    ;; be sane with comments
@@ -431,9 +422,7 @@
    ((eq char ?>)
     (dwim-coder-rust-dwim-gt))
    ((memq char '(?/ ?% ?- ?+ ?|))
-    (dwim-coder-rust-dwim-operator char))
-   (t
-    (dwim-coder-rust-dwim-rest char))))
+    (dwim-coder-rust-dwim-operator char))))
 
 (provide 'dwim-coder-rust)
 ;;; dwim-coder-rust.el ends here
