@@ -332,7 +332,8 @@
         (dwim-coder-skip-or-insert ?\s))
       (forward-char))
     (dwim-coder-insert-interactive ?= t)
-    (when dwim-coder-auto-space
+    (when (and dwim-coder-auto-space
+               (not (eq (char-before (1- (point))) ?.)))
       (dwim-coder-skip-or-insert ?\s))
     t)))
 
