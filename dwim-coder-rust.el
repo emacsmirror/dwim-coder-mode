@@ -242,6 +242,9 @@
            (eq (preceding-char) ?'))
       (insert-char ?,)
       t)
+     ((looking-back "::" (line-beginning-position))
+      (dwim-coder-insert-interactive ?*)
+      t)
      ((looking-back ":[ ]?" (line-beginning-position))
       (when dwim-coder-auto-space
         (dwim-coder-skip-or-insert ?\s))
