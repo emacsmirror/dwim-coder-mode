@@ -69,7 +69,8 @@
             (looking-back "[a-zA-Z_0-9]" (dwim-coder-preceding-point)))
       (setq node (treesit-node-at (dwim-coder-preceding-point))))
     (when (member (treesit-node-type node)
-                  '("identifier" "type_identifier" "field_identifier" "true" "false"))
+                  '("identifier" "type_identifier" "field_identifier"
+                    "shorthand_field_identifier" "true" "false"))
       (when (and (> p (treesit-node-start node))
                  (<= p (treesit-node-end node)))
         (list (treesit-node-start node) (treesit-node-end node)
