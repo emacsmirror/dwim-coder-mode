@@ -312,8 +312,10 @@
         (backward-char))
     t)
    ;; Skip to the end of the current statement if inside an argument list
-   ((and (memq (preceding-char) '(?, ?\{ ?\[ ?\())
-         (memq (char-after (nth 1 (syntax-ppss))) '(?\( ?\[ ?\{)))
+   ((save-excursion
+      (skip-chars-backward " ")
+      (and (memq (preceding-char) '(?, ?\{ ?\[ ?\())
+           (memq (char-after (nth 1 (syntax-ppss))) '(?\( ?\[ ?\{))))
     (goto-char (nth 1 (syntax-ppss)))
     (forward-sexp)
     t)))
