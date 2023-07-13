@@ -73,9 +73,10 @@
               expected-with-space (nth 2 items))
         (if (not (string-match-p "^‖" line))
             (signal 'buttercup-pending "skipped")
-          (test-content in expected 'dwim-coder-test-gnu-mode "test.c")
-          (test-content in expected-with-space 'dwim-coder-test-gnu-space-mode "test.c")))
-      )))
+          (when (and expected-with-space
+                     (not (string-empty-p expected-with-space)))
+            (test-content in expected-with-space 'dwim-coder-test-gnu-space-mode "test.c"))
+          (test-content in expected 'dwim-coder-test-gnu-mode "test.c"))))))
 
 (describe "dwim-coder-c-main"
   (let* ((file (concat (file-name-directory load-file-name) "c/main-tests"))

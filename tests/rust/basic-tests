@@ -6,7 +6,7 @@
 ‖,,‖#!❚‖#!❚‖
 ‖ #❪,❫‖ #!❚‖ #!❚‖
 ‖.,‖..❚‖..❚‖
-‖..❪,❫‖..,❚‖.., ❚‖
+‖..❪,❫‖..,❚‖
 ‖..,❪,❫‖..=❚‖..=❚‖
 ‖.., ❪,❫‖..=❚‖..=❚‖
 
@@ -23,18 +23,11 @@
 ‖i::*‖i::*❚‖i::*❚‖
 ‖i::,‖i::*❚‖i::*❚‖
 ‖super  ‖super::❚‖super::❚‖
-‖i:‖i:❚‖i: ❚‖
-‖i❪:❫=‖i:❚=‖i: ❚ =‖
-‖i,‖i,❚‖i, ❚‖
-‖i,,‖i=❚‖i = ❚‖
-‖i,,,‖i==❚‖i == ❚‖
-
-‖i=‖i=❚‖i = ❚‖
-‖i-‖i-❚‖i - ❚‖
-‖i->‖i->❚‖i -> ❚‖
-‖i=>‖i=>❚‖i => ❚‖
-‖i<‖i<❚‖i<❚‖
-‖i<=‖i<=❚‖i <= ❚‖
+‖i:‖i:❚‖
+‖i❪:❫=‖i:❚=‖
+‖i,‖i,❚‖
+‖i,,‖i=❚‖
+‖i,,,‖i==❚‖
 
 ‖f (.❪ ❫)‖f (_❚)‖f (_❚)‖
 ‖f (&.❪ ❫)‖f (&_❚)‖f (&_❚)‖
@@ -47,8 +40,8 @@
 ‖f (arg, ❪*❫)‖f (arg, *❚)‖f (arg, *❚)‖
 ‖f (❪;❫) + g ()‖f ()❚ + g ()‖f ()❚ + g ()‖
 
-‖"Hello World❪,❫"‖"Hello World,❚"‖"Hello World, ❚"‖
-‖"Hello World, ❪ ❫"‖"Hello World",❚‖"Hello World", ❚‖
+‖"Hello World❪,❫"‖"Hello World,❚"‖
+‖"Hello World, ❪ ❫"‖"Hello World",❚‖
 ‖"Hello, ❪ ❫World"‖"Hello,  ❚World"‖"Hello,  ❚World"‖
 
 ‖n items‖n_items❚‖n_items❚‖

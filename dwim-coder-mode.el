@@ -7,7 +7,7 @@
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 ;; URL: https://sadiqpk.org/projects/dwim-coder-mode.html
 ;; Package-Requires: ((emacs "29"))
-;; Last-Updated: 2023-06-02
+;; Last-Updated: 2023-07-13
 ;; Keywords: convenience, hacks
 
 ;; This file is NOT part of GNU Emacs.

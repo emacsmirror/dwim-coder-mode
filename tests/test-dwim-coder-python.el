@@ -61,5 +61,7 @@
               expected-with-space (nth 2 items))
         (if (not (string-match-p "^‖" line))
             (signal 'buttercup-pending "skipped")
-          (test-content in expected 'dwim-coder-test-python-mode "test.py")
-          (test-content in expected-with-space 'dwim-coder-test-auto-space-python-mode "test.py"))))))
+          (when (and expected-with-space
+                     (not (string-empty-p expected-with-space)))
+            (test-content in expected-with-space 'dwim-coder-test-auto-space-python-mode "test.py"))
+          (test-content in expected 'dwim-coder-test-python-mode "test.py"))))))

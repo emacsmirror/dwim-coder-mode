@@ -85,9 +85,7 @@
           (progn
             (delete-char -2)
             (forward-char)
-            (dwim-coder-skip-or-insert ?,)
-            (if dwim-coder-auto-space
-                (dwim-coder-skip-or-insert ?\s)))
+            (dwim-coder-skip-or-insert ?,))
         (dwim-coder-insert-interactive ?\s t))
       t)
      ;; Let SPC at start of line do '_'
@@ -210,11 +208,6 @@
     t)
    (t
     (dwim-coder-insert-interactive ?: t)
-    (when dwim-coder-auto-space
-      (dwim-coder-skip-or-insert ?\s)
-      (when (eq (following-char) ?=)
-        (dwim-coder-insert-interactive ?\s t)
-        (backward-char)))
     t)))
 
 (defun dwim-coder-rust-dwim-comma ()
@@ -223,8 +216,6 @@
     (cond
      ((nth 3 (syntax-ppss))
       (dwim-coder-skip-or-insert ?,)
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
       t)
      ((and (eq (preceding-char) ?.)
            (not (eq (char-before (1- (point))) ?.)))
@@ -247,8 +238,6 @@
       (dwim-coder-insert-interactive ?*)
       t)
      ((looking-back ":[ ]?" (line-beginning-position))
-      (when dwim-coder-auto-space
-        (dwim-coder-skip-or-insert ?\s))
       (if (looking-at-p "&")
           (forward-char)
         (insert-char ?&))
@@ -265,16 +254,6 @@
         (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
         (memq (preceding-char) '(?+ ?- ?* ?& ?^ ?\% ?! ?~ ?< ?> ?=)))
       (dwim-coder-insert-interactive ?=)
-      t)
-     (t
-      (if dwim-coder-auto-space
-          (if (eq (preceding-char) ?\s)
-              (delete-char -1))
-        (if (eq (following-char) ?\s)
-            (delete-char 1)))
-      (dwim-coder-skip-or-insert ?,)
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
       t))))
 
 (defun dwim-coder-rust-dwim-brace ()
@@ -320,88 +299,6 @@
     (forward-sexp)
     t)))
 
-(defun dwim-coder-rust-dwim-equal ()
-  (cond
-   ((looking-back "[]a-zA-Z0-9)}_] ?" (line-beginning-position))
-    (when dwim-coder-auto-space
-      (dwim-coder-skip-or-insert ?\s))
-    (dwim-coder-insert-interactive ?= t)
-    (when dwim-coder-auto-space
-      (dwim-coder-skip-or-insert ?\s))
-    t)
-   (t
-    (if (looking-back "[^ \t]* " (line-beginning-position))
-        (backward-char))
-    (when (memq (preceding-char) '(?> ?< ?- ?+ ?! ?& ?*))
-      (backward-char)
-      (when dwim-coder-auto-space
-        (dwim-coder-skip-or-insert ?\s))
-      (forward-char))
-    (dwim-coder-insert-interactive ?= t)
-    (when (and dwim-coder-auto-space
-               (not (eq (char-before (1- (point))) ?.)))
-      (dwim-coder-skip-or-insert ?\s))
-    t)))
-
-(defun dwim-coder-rust-dwim-gt ()
-  (cond
-   ((looking-back "[-=>] ?" (line-beginning-position))
-    (if (eq (preceding-char) ?\s)
-        (delete-char -1))
-    (dwim-coder-insert-interactive ?> t)
-    (when dwim-coder-auto-space
-      (dwim-coder-skip-or-insert ?\s))
-    t)))
-
-(defun dwim-coder-rust-dwim-operator (char)
-  (let ((value nil))
-    (save-excursion
-      (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
-      (setq value (dwim-coder-rust-op-at-point (dwim-coder-preceding-point))))
-
-    (if (and value
-             (nth 3 value)
-             (or (not (looking-back "= ?[-+!]*" (line-beginning-position)))
-                 (memq char '(?, ?=))))
-        (skip-chars-backward "[ ]" (dwim-coder-preceding-point)))
-    (dwim-coder-insert-interactive char t)
-    (setq value (dwim-coder-rust-op-at-point (dwim-coder-preceding-point)))
-    (cond
-     ;; Handle =>
-     ((and (eq char ?\>)
-           (looking-back "=>" (line-beginning-position)))
-      (dwim-coder-skip-or-insert ?\s)
-      t)
-     ((member (nth 2 value) '("--" "++"))
-      (goto-char (nth 0 value))
-      (if (eq (preceding-char) ?\s)
-          (unless (or (looking-back "^[ \t]*" (line-beginning-position))
-                      (looking-back "= *" (line-beginning-position)))
-            (delete-char -1)))
-      (indent-according-to-mode)
-      (forward-char 2)
-      (when (eq (following-char) ?\s)
-        (delete-char 1)))
-     ;; do nothing if preceding content is empty
-     ((looking-back "^[ \t]*" (line-beginning-position))
-      t)
-     ;; Insert space before operator
-     ((save-excursion
-        (backward-char)
-        (looking-back "[]a-zA-Z0-9_)]" (dwim-coder-preceding-point)))
-      (goto-char (nth 0 value))
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
-      ;; update start and end point
-      (setq value (dwim-coder-rust-op-at-point))
-      (goto-char (nth 1 value))))
-    (unless (or (member (nth 2 value) '("--" "++" "!"))
-                (memq (char-before (nth 0 value)) '(?\( ?\[ ?{ ?<)))
-      (if (and dwim-coder-auto-space
-               (not (looking-back "= ?[-+!]" (line-beginning-position))))
-          (dwim-coder-skip-or-insert ?\s)))
-    t))
-
 (defun dwim-coder-rust-override-self-insert (char)
   (cond
    ;; be sane with comments
@@ -423,13 +320,7 @@
    ((eq char ?\')
     (dwim-coder-rust-dwim-quote))
    ((eq char ?{)
-    (dwim-coder-rust-dwim-brace))
-   ((eq char ?=)
-    (dwim-coder-rust-dwim-equal))
-   ((eq char ?>)
-    (dwim-coder-rust-dwim-gt))
-   ((memq char '(?/ ?% ?- ?+ ?|))
-    (dwim-coder-rust-dwim-operator char))))
+    (dwim-coder-rust-dwim-brace))))
 
 (provide 'dwim-coder-rust)
 ;;; dwim-coder-rust.el ends here

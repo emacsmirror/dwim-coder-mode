@@ -2,8 +2,6 @@
 
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 ;; SPDX-License-Identifier: CC0-1.0
-;; Created: 2023-01-26
-;; Last-Updated: 2023-06-02
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -61,11 +59,7 @@
                   (or (backward-char) t)
                   (setq node (treesit-node-at (dwim-coder-preceding-point)))
                   (equal (treesit-node-type node) "def"))))
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
       (insert "->")
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
       t)
      ((and (looking-back ", " (line-beginning-position))
            (memq (following-char) '(?\) ?\] ?})))
@@ -114,13 +108,9 @@
       t)
      ((dwim-coder-default-be-sane)
       (dwim-coder-skip-or-insert ?\, t t)
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
       t)
      ((looking-back "^ *" (line-beginning-position))
       (dwim-coder-skip-or-insert ?# t nil)
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
       t)
      ((looking-back ", ?" (line-beginning-position))
       (if (eq (preceding-char) ?\s)
@@ -132,11 +122,6 @@
         (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
         (memq (preceding-char) '(?= ?- ?+ ?* ?/ ?% ?< ?> ?! ?^ ?| ?&)))
       (dwim-coder-insert-interactive ?=)
-      t)
-     (t
-      (dwim-coder-insert-interactive ?\, t)
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
       t))))
 
 (defun dwim-coder-python-dwim-semi ()
@@ -179,34 +164,6 @@
           (insert (dwim-coder-s-to-style value "snake"))))
       t)))
 
-(defun dwim-coder-python-dwim-equal ()
-  (let ((node nil))
-    (cond
-     ((treesit-node-top-level (treesit-node-at (dwim-coder-preceding-point)) "^type$")
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
-      (dwim-coder-insert-interactive ?\= t)
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
-      t)
-     ((and (setq node (treesit-node-parent (treesit-node-at (point))))
-           (equal (treesit-node-type node) "argument_list"))
-      (dwim-coder-skip-or-insert ?= t t)
-      t)
-     ((and (setq node (treesit-node-parent (treesit-node-at (point))))
-           (equal (treesit-node-type node) "parameters"))
-      (dwim-coder-skip-or-insert ?= t t)
-      t)
-     ((setq node (treesit-node-at (dwim-coder-preceding-point)))
-      (if (equal (treesit-node-type node) "identifier")
-          (if dwim-coder-auto-space
-              (dwim-coder-skip-or-insert ?\s))
-        (skip-chars-backward "[ ]" (dwim-coder-preceding-point)))
-      (dwim-coder-insert-interactive ?\= t)
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
-      t))))
-
 (defun dwim-coder-python-dwim-op (char)
   (let ((node (treesit-node-at (dwim-coder-preceding-point)))
         (value nil))
@@ -223,16 +180,6 @@
            (memq char '(?> ?< ?=)))
       (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
       (dwim-coder-insert-interactive char t)
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
-      t)
-     ((and (equal (treesit-node-type node) "identifier")
-           (memq char '(?= ?- ?+ ?* ?/ ?% ?< ?> ?! ?^ ?| ?&)))
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
-      (dwim-coder-skip-or-insert char t t)
-      (if dwim-coder-auto-space
-          (dwim-coder-skip-or-insert ?\s))
       t))))
 
 (defun dwim-coder-python-override-self-insert (char)
@@ -243,7 +190,6 @@
     (?\; (dwim-coder-python-dwim-semi))
     ((guard (dwim-coder-default-be-sane) nil))
     (?' (dwim-coder-python-dwim-quote))
-    (?= (dwim-coder-python-dwim-equal))
     (_ (dwim-coder-python-dwim-op char))))
 
 (provide 'dwim-coder-python)

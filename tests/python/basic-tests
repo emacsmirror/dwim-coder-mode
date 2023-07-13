@@ -1,10 +1,10 @@
 ‖ input ‖ output ‖ output with auto-space ‖
 ‖ ‖_❚‖_❚‖
-‖,‖#❚‖# ❚‖
+‖,‖#❚‖
 ‖i ‖i_❚‖i_❚‖
-‖i,‖i,‖i, ❚‖
-‖i,,‖i=‖i = ‖
-‖i,,,‖i==❚‖i == ❚‖
+‖i,‖i,‖
+‖i,,‖i=‖
+‖i,,,‖i==❚‖
 ‖i..‖i(❚)‖i(❚)‖
 ‖i.. ‖i(_❚)‖i(_❚)‖
 
@@ -16,38 +16,23 @@
 ‖() ‖() ‖() ‖
 ‖func() ‖func() ‖func() ‖
 
-‖i=‖i=❚‖i = ❚‖
-‖i+‖i+❚‖i + ❚‖
-‖i-‖i-❚‖i - ❚‖
-‖i*‖i*❚‖i * ❚‖
-‖i/‖i/❚‖i / ❚‖
-‖i%‖i%❚‖i % ❚‖
-‖i<‖i<❚‖i < ❚‖
-‖i<j‖i<j❚‖i < j❚‖
-‖i>‖i>❚‖i > ❚‖
-‖i^‖i^❚‖i ^ ❚‖
-‖i<<‖i<<❚‖i << ❚‖
-‖i>>‖i>>❚‖i >> ❚‖
-‖i|‖i|❚‖i | ❚‖
-‖i&‖i&❚‖i & ❚‖
-‖i=,‖i==❚‖i == ❚‖
-‖i+=‖i+=❚‖i += ❚‖
-‖i-,‖i-=❚‖i -= ❚‖
-‖i*,‖i*=❚‖i *= ❚‖
-‖i/,‖i/=❚‖i /= ❚‖
-‖i%,‖i%=❚‖i %= ❚‖
-‖i<,‖i<=❚‖i <= ❚‖
-‖i>,‖i>=❚‖i >= ❚‖
-‖i^,‖i^=❚‖i ^= ❚‖
-‖i<<,‖i<<=❚‖i <<= ❚‖
-‖i>>,‖i>>=❚‖i >>= ❚‖
-‖i!,‖i!=❚‖i != ❚‖
-‖i|,‖i|=❚‖i |= ❚‖
-‖i&,‖i&=❚‖i &= ❚‖
+‖i=,‖i==❚‖
+‖i-,‖i-=❚‖
+‖i*,‖i*=❚‖
+‖i/,‖i/=❚‖
+‖i%,‖i%=❚‖
+‖i<,‖i<=❚‖
+‖i>,‖i>=❚‖
+‖i^,‖i^=❚‖
+‖i<<,‖i<<=❚‖
+‖i>>,‖i>>=❚‖
+‖i!,‖i!=❚‖
+‖i|,‖i|=❚‖
+‖i&,‖i&=❚‖
 
 ‖..‖(❚)‖(❚)‖
 ‖.app‖@app‖@app‖
-‖i = len(str, ❪ ❫)‖i = len(str),❚‖i = len(str), ❚‖
+‖i = len(str, ❪ ❫)‖i = len(str),❚‖
 ‖1 000 000‖1_000_000‖1_000_000‖
 ‖  name  ‖__name__‖__name__‖
 ‖obj.  name  ‖obj.__name__‖obj.__name__‖
@@ -60,11 +45,11 @@
 ‖models.CharField(max_length=200)‖models.CharField(max_length=200)‖models.CharField(max_length=200)‖
 ‖good,/‖good❚‖good❚‖
 
-‖def log(text: str, style: int❪,,❫0)‖def log(text: str, style: int=❚0)‖def log(text: str, style: int = ❚0)‖
-‖def log(text: str, style: int❪,,❫)‖def log(text: str, style: int=❚)‖def log(text: str, style: int = ❚)‖
+‖def log(text: str, style: int❪,,❫0)‖def log(text: str, style: int=❚0)‖
+‖def log(text: str, style: int❪,,❫)‖def log(text: str, style: int=❚)‖
 ‖def log(text, style❪,,❫0)‖def log(text, style=0)‖def log(text, style=0)‖
-‖def log(text, style=0)❪ ❫‖def log(text, style=0)->❚‖def log(text, style=0) -> ❚‖
-‖# help,‖# help,❚‖# help, ❚‖
+‖def log(text, style=0)❪ ❫‖def log(text, style=0)->❚‖
+‖# help,‖# help,❚‖
 ‖# help..‖# help(❚)‖# help(❚)‖
 ‖# help...‖# help...❚‖# help...❚‖
 
@@ -76,9 +61,11 @@
 ‖"Hello World"‖"Hello World"‖"Hello World"‖
 ‖"Hello  World"‖"Hello  World"‖"Hello  World"‖
 ‖'Hello  World'‖'Hello  World'‖'Hello  World'‖
-‖"Hello World,‖"Hello World,❚"‖"Hello World, ❚"‖
-‖"Hello World, ‖"Hello World, ❚"‖"Hello World", ❚‖
-‖'Hello World, ‖'Hello World, ❚'‖'Hello World', ❚‖
+‖"Hello World,‖"Hello World,❚"‖
+‖"Hello World, ‖"Hello World, ❚"‖
+‖'Hello World, ‖'Hello World, ❚'‖
+‖"Hello World,  ‖"Hello World",❚‖
+‖'Hello World,  ‖'Hello World',❚‖
 
 ‖"func..‖"func(❚)"‖"func(❚)"‖
 ‖"func ..‖"func (❚)"‖"func (❚)"‖
@@ -86,7 +73,7 @@
 ‖f'‖f'❚'‖f'❚'‖
 ‖b'‖b'❚'‖b'❚'‖
 
-‖f"{self}❪,❫"‖f"{self},❚"‖f"{self}, ❚"‖
+‖f"{self}❪,❫"‖f"{self},❚"‖
 ‖f"In {self.  class  .  name  }"‖f"In {self.__class__.__name__}"‖f"In {self.__class__.__name__}"‖
 ‖f"{self.__class❪,❫__.__name__}"‖f"{self.__class__.__name__}❚"‖f"{self.__class__.__name__}❚"‖
 
