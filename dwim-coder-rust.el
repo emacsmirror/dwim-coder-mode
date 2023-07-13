@@ -85,7 +85,7 @@
           (progn
             (delete-char -2)
             (forward-char)
-            (dwim-coder-skip-or-insert ?,))
+            (dwim-coder-skip-or-insert ?, t))
         (dwim-coder-insert-interactive ?\s t))
       t)
      ;; Let SPC at start of line do '_'
