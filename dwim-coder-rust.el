@@ -256,16 +256,6 @@
       (dwim-coder-insert-interactive ?=)
       t))))
 
-(defun dwim-coder-rust-dwim-brace ()
-  (cond
-   ((dwim-coder-rust-after-function-param-p)
-    (dwim-coder-skip-or-insert ?\s)
-    (dwim-coder-skip-or-insert ?{ t t)
-    (insert "\n\n")
-    (backward-char)
-    (indent-according-to-mode)
-    t)))
-
 (defun dwim-coder-rust-dwim-semi-colon ()
   (cond
    ((eq (following-char) ?\;)
@@ -318,9 +308,7 @@
    ((eq char ?.)
     (dwim-coder-rust-dwim-dot))
    ((eq char ?\')
-    (dwim-coder-rust-dwim-quote))
-   ((eq char ?{)
-    (dwim-coder-rust-dwim-brace))))
+    (dwim-coder-rust-dwim-quote))))
 
 (provide 'dwim-coder-rust)
 ;;; dwim-coder-rust.el ends here
