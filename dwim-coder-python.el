@@ -164,24 +164,6 @@
           (insert (dwim-coder-s-to-style value "snake"))))
       t)))
 
-(defun dwim-coder-python-dwim-op (char)
-  (let ((node (treesit-node-at (dwim-coder-preceding-point)))
-        (value nil))
-    (cond
-     ((and (eq char ?/)
-           (looking-back ", ?" (line-beginning-position)))
-      (if (eq (preceding-char) ?\s)
-          (delete-char -1))
-      (delete-char -1)
-      t)
-     ((and node
-           (setq value (treesit-node-text node))
-           (member value '(">" "<"))
-           (memq char '(?> ?< ?=)))
-      (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
-      (dwim-coder-insert-interactive char t)
-      t))))
-
 (defun dwim-coder-python-override-self-insert (char)
   (pcase char
     (?\s (dwim-coder-python-dwim-space))
@@ -189,8 +171,7 @@
     (?, (dwim-coder-python-dwim-comma))
     (?\; (dwim-coder-python-dwim-semi))
     ((guard (dwim-coder-default-be-sane) nil))
-    (?' (dwim-coder-python-dwim-quote))
-    (_ (dwim-coder-python-dwim-op char))))
+    (?' (dwim-coder-python-dwim-quote))))
 
 (provide 'dwim-coder-python)
 ;;; dwim-coder-python.el ends here

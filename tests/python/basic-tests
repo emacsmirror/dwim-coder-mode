@@ -43,7 +43,6 @@
 ‖import os‖import os‖import os‖
 ‖if age ❪is not 10❫‖if age is not 10❚‖if age is not 10❚‖
 ‖models.CharField(max_length=200)‖models.CharField(max_length=200)‖models.CharField(max_length=200)‖
-‖good,/‖good❚‖good❚‖
 
 ‖def log(text: str, style: int❪,,❫0)‖def log(text: str, style: int=❚0)‖
 ‖def log(text: str, style: int❪,,❫)‖def log(text: str, style: int=❚)‖
