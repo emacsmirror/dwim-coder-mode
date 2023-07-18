@@ -199,5 +199,27 @@ heuristics used to interpret the style."
 
     (concat prefix str suffix)))
 
+(defun dwim-coder-common-dwim-op (char)
+  (dwim-coder-insert-interactive char t)
+  ;; electric-oprator inserts space after an operator even
+  ;; if the character followed is another operator.
+  (cond
+   ((not (eq (preceding-char) ?\s))
+    t)
+   ((not (memq char '(?+ ?- ?* ?% ?^ ?& ?| ?< ?> ?=)))
+    t)
+   ((eq (following-char) ?=)
+    (delete-char -1))
+   ((and (eq char ?=)
+         (eq (following-char) ?>))
+    (delete-char -1))
+   ((and (memq char '(?< ?>))
+         (memq (following-char) '(?< ?>)))
+    (delete-char -1))
+   ((and (memq char '(?& ?|))
+         (memq (following-char) '(?& ?|)))
+    (delete-char -1)))
+  t)
+
 (provide 'dwim-coder-common)
 ;;; dwim-coder-common.el ends here

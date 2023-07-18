@@ -171,7 +171,8 @@
     (?, (dwim-coder-python-dwim-comma))
     (?\; (dwim-coder-python-dwim-semi))
     ((guard (dwim-coder-default-be-sane) nil))
-    (?' (dwim-coder-python-dwim-quote))))
+    (?' (dwim-coder-python-dwim-quote))
+    (_ (dwim-coder-common-dwim-op char))))
 
 (provide 'dwim-coder-python)
 ;;; dwim-coder-python.el ends here

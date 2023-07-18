@@ -308,7 +308,9 @@
    ((eq char ?.)
     (dwim-coder-rust-dwim-dot))
    ((eq char ?\')
-    (dwim-coder-rust-dwim-quote))))
+    (dwim-coder-rust-dwim-quote))
+   ((memq char '(?+ ?- ?* ?% ?^ ?& ?| ?< ?> ?=))
+    (dwim-coder-common-dwim-op char))))
 
 (provide 'dwim-coder-rust)
 ;;; dwim-coder-rust.el ends here

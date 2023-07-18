@@ -671,7 +671,9 @@
      ((eq char ?{)
       (dwim-coder-c-dwim-brace))
      ((memq char '(?\[ ?\]))
-      (dwim-coder-c-dwim-square-bracket char)))))
+      (dwim-coder-c-dwim-square-bracket char))
+     ((memq char '(?+ ?- ?* ?% ?^ ?& ?| ?< ?> ?=))
+      (dwim-coder-common-dwim-op char)))))
 
 (provide 'dwim-coder-c)
 ;;; dwim-coder-c.el ends here
