@@ -80,5 +80,6 @@
 ‖func("Some ❪;❫Test") + b‖func("Some Test"❚) + b‖func("Some Test"❚) + b‖
 ‖func("Some Test"❪;❫) + b‖func("Some Test") + b❚‖func("Some Test") + b❚‖
 ‖"Hello ❪;❫World"‖"Hello World"❚‖"Hello World"❚‖
+‖"""Hello ❪;❫World"""‖"""Hello World"""❚‖"""Hello World"""❚‖
 ‖a❪;❫ge = 10‖age = 10❚‖age = 10❚‖
 ‖if n❪;❫ot True‖if not True❚‖if not True❚‖
