@@ -166,7 +166,9 @@
      ((eolp)
       ;; On lines with _ only, convert it to an empty line
       (when (looking-back "^ *_$" (line-beginning-position))
-        (delete-line))
+        (delete-line)
+        (backward-char)
+        (dwim-coder-insert-interactive ?\n))
       (dwim-coder-insert-interactive ?\n)
       t)
      (t
