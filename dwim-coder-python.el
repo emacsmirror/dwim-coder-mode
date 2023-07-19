@@ -156,9 +156,19 @@
              (looking-at-p "\\(()\\)\\|\\(\\[\\]\\)\\|\\({}\\)\\|\\(<>\\)")))
       (forward-char)
       t)
-     ;; return nil, so that the default handlers are run
+     ;; On empty lines, delete the line and go to the end of last line
+     ((save-excursion (beginning-of-line)
+                      (looking-at-p "^ *$"))
+      (delete-line)
+      ;; Don't warn if we are at the beginning of the buffer
+      (ignore-errors (backward-char))
+      t)
      ((eolp)
-      nil)
+      ;; On lines with _ only, convert it to an empty line
+      (when (looking-back "^ *_$" (line-beginning-position))
+        (delete-line))
+      (dwim-coder-insert-interactive ?\n)
+      t)
      (t
       (end-of-line)
       t))))
