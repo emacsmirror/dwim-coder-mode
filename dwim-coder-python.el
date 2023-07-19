@@ -79,6 +79,14 @@
 
 (defun dwim-coder-python-dwim-dot ()
   (cond
+   ((and (> dwim-coder-last-dot-point 0)
+         (= (point) dwim-coder-last-dot-point))
+    (setq dwim-coder-last-dot-point 0)
+    ;; Replace last inserted space with _()
+    (delete-char -1)
+    (dwim-coder-insert-interactive ?\s)
+    (dwim-coder-insert-interactive ?\()
+    t)
    ((eq (preceding-char) ?.)
     (delete-char -1)
     (dwim-coder-insert-interactive ?\()
@@ -97,6 +105,12 @@
    ((looking-back "^ *@" (line-beginning-position))
     (delete-char -1)
     (dwim-coder-insert-interactive ?\()
+    t)
+   ;; On _. do SPC
+   ((looking-back "[A-Za-z0-9]_" (line-beginning-position))
+    (delete-char -1)
+    (dwim-coder-insert-interactive ?\s t)
+    (setq dwim-coder-last-dot-point (point))
     t)))
 
 (defun dwim-coder-python-dwim-comma ()
@@ -166,14 +180,22 @@
       t)))
 
 (defun dwim-coder-python-override-self-insert (char)
-  (pcase char
-    (?\s (dwim-coder-python-dwim-space))
-    (?. (dwim-coder-python-dwim-dot))
-    (?, (dwim-coder-python-dwim-comma))
-    (?\; (dwim-coder-python-dwim-semi))
-    ((guard (dwim-coder-default-be-sane) nil))
-    (?' (dwim-coder-python-dwim-quote))
-    (_ (dwim-coder-common-dwim-op char))))
+  (let ((last-dot-point dwim-coder-last-dot-point)
+        (status nil))
+    (setq status
+          (pcase char
+            (?\s (dwim-coder-python-dwim-space))
+            (?. (dwim-coder-python-dwim-dot))
+            (?, (dwim-coder-python-dwim-comma))
+            (?\; (dwim-coder-python-dwim-semi))
+            ((guard (dwim-coder-default-be-sane) nil))
+            (?' (dwim-coder-python-dwim-quote))
+            (_ (dwim-coder-common-dwim-op char))))
+
+    ;; Reset last dot point cache if we didn't update
+    (when (= last-dot-point dwim-coder-last-dot-point)
+      (setq dwim-coder-last-dot-point 0))
+    status))
 
 (provide 'dwim-coder-python)
 ;;; dwim-coder-python.el ends here

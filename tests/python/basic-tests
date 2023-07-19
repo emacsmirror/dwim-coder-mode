@@ -36,6 +36,12 @@
 ‖1 000 000‖1_000_000‖1_000_000‖
 ‖  name  ‖__name__‖__name__‖
 ‖obj.  name  ‖obj.__name__‖obj.__name__‖
+‖__class__.__name__‖__class__.__name__❚‖__class__.__name__‖
+‖_.‖_.❚‖_.❚‖
+‖var_.‖var ❚‖var ❚‖
+‖from .‖from .❚‖from .❚‖
+from ..‖from ..❚‖from ..❚‖
+‖var_..‖var_(❚)‖var_(❚)‖
 ‖open(  file  ‖open(__file__❚)‖open(__file__❚)‖
 ‖if not first name‖if not first_name‖if not first_name‖
 ‖help(❪..❫)‖help((❚))‖help((❚))‖
