@@ -59,7 +59,9 @@
                   (or (backward-char) t)
                   (setq node (treesit-node-at (dwim-coder-preceding-point)))
                   (equal (treesit-node-type node) "def"))))
-      (insert "->")
+      ;; do interactively so that modes like electric-operator shall act on it
+      (dwim-coder-insert-interactive ?- t)
+      (dwim-coder-insert-interactive ?> t)
       t)
      ((and (looking-back ", " (line-beginning-position))
            (memq (following-char) '(?\) ?\] ?})))
