@@ -80,14 +80,7 @@
   (let ((value nil))
     (cond
      ((nth 3 (syntax-ppss))
-      (if (and (looking-back ", " (line-beginning-position))
-               (eq (following-char) ?\"))
-          (progn
-            (delete-char -2)
-            (forward-char)
-            (dwim-coder-skip-or-insert ?, t))
-        (dwim-coder-insert-interactive ?\s t))
-      t)
+      nil)
      ;; Let SPC at start of line do '_'
      ((bolp)
       (insert "_")

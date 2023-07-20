@@ -41,7 +41,7 @@
 ‖f (❪;❫) + g ()‖f ()❚ + g ()‖f ()❚ + g ()‖
 
 ‖"Hello World❪,❫"‖"Hello World,❚"‖
-‖"Hello World, ❪ ❫"‖"Hello World",❚‖
+‖"Hello World, ❪ ❫"‖"Hello World,  ❚"‖
 ‖"Hello, ❪ ❫World"‖"Hello,  ❚World"‖"Hello,  ❚World"‖
 
 ‖n items‖n_items❚‖n_items❚‖
