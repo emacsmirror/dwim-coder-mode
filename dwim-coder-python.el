@@ -144,14 +144,6 @@
       (setq node (treesit-node-parent (treesit-node-at (point))))
       (goto-char (treesit-node-end node))
       t)
-     ;; Move forward if inside empty pairs
-     ((and (not (bolp))
-           (not (eolp))
-           (save-excursion
-             (backward-char)
-             (looking-at-p "\\(()\\)\\|\\(\\[\\]\\)\\|\\({}\\)\\|\\(<>\\)")))
-      (forward-char)
-      t)
      ;; On empty lines, delete the line and go to the end of last line
      ((save-excursion (beginning-of-line)
                       (looking-at-p "^ *$"))
