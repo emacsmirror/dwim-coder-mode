@@ -13,6 +13,18 @@ int main(void)
   ❚
 }
 
+‖‖ int i;;
+int i;;
+‖ gnu-none
+int i;
+❚
+‖‖ int i;;_;
+int i;
+ ;
+‖ gnu-none
+int i;
+
+❚
 ‖‖ if❪ ❫
 int main(void)
 {

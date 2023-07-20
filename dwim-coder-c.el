@@ -610,13 +610,33 @@
        (skip-syntax-forward "^\"")
        (forward-char)
        t)
-      ;; Move forward if inside empty pairs
-      ((and (not (bolp))
-            (not (eolp))
-            (save-excursion
-              (backward-char)
-              (looking-at-p "\\(()\\)\\|\\(\\[\\]\\)\\|\\({}\\)\\|\\(<>\\)")))
-      (forward-char)
+     ;; On empty lines, delete the line and go to the end of last line
+     ((save-excursion (beginning-of-line)
+                      (looking-at-p "^ *$"))
+      (delete-line)
+      ;; Don't warn if we are at the beginning of the buffer
+      (ignore-errors (backward-char))
+      t)
+     ((eolp)
+      ;; On lines with _ only, convert it to an empty line
+      (if (looking-back "^ *_$" (line-beginning-position))
+          (progn
+            (delete-line)
+            (dwim-coder-insert-interactive ?\n))
+        (if (eq (preceding-char) ?\;)
+            (dwim-coder-insert-interactive ?\n)
+          (insert ";")))
+      t)
+     ;; Move up a list if list we contain ends in the same line.
+     ;; Do a regex match first as `up-list' can be very slow if list is big
+     ;; fixme: Use a better approach
+     ((and (looking-at-p ".*[])}].")
+           (setq value (save-excursion
+                         (ignore-errors (up-list))
+                         (point)))
+           (> value (point))
+           (< value (line-end-position)))
+      (up-list)
       t)
       ((not (eolp))
        (end-of-line)
