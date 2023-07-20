@@ -151,16 +151,6 @@
             (insert "::"))
         (dwim-coder-insert-interactive ?_))
       t)
-     ;; func (test, |) -> func (test), |
-     ;; or {test, |} -> {test}, |
-     ((save-excursion
-        (and (not (eolp))
-             (or (forward-char) t)
-             (looking-back ", [)}]" (line-beginning-position))))
-      (delete-char -2)
-      (forward-char)
-      (dwim-coder-insert-interactive ?,)
-      t)
      ((eq (preceding-char) ?\s)
       (dwim-coder-insert-interactive ?_)
       t))))
