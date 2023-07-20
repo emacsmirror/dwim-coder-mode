@@ -279,6 +279,9 @@
       t)
      ((memq (preceding-char) '(?\s ?\( ?\[ ?\!))
       (dwim-coder-insert-interactive ?_)
+      t)
+     ((looking-back "[,([] ?[&*-]" (line-beginning-position))
+      (dwim-coder-insert-interactive ?_)
       t))))
 
 (defun dwim-coder-c-dwim-quote ()
