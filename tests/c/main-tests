@@ -34,6 +34,17 @@ int i;
 
 ❚
 int j;
+‖‖ int i;;_;
+int i;
+_❪;❫
+
+int j;
+‖ gnu-none
+int i;
+
+❚
+
+int j;
 ‖‖ if❪ ❫
 int main(void)
 {

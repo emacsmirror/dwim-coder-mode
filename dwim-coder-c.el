@@ -607,11 +607,9 @@
       ;; On lines with _ only, convert it to an empty line
       (if (looking-back "^ *_$" (line-beginning-position))
           (progn
-            (delete-line)
-            (backward-char)
-            (if (looking-at-p "\n$")
-                (forward-char)
-              (dwim-coder-insert-interactive ?\n))
+            (delete-region (line-beginning-position) (line-end-position))
+            (when (looking-at-p ".+$")
+              (backward-char))
             (dwim-coder-insert-interactive ?\n))
         (if (eq (preceding-char) ?\;)
             (dwim-coder-insert-interactive ?\n)
