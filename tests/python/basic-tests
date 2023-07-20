@@ -32,7 +32,7 @@
 
 ‖..‖(❚)‖(❚)‖
 ‖.app‖@app‖@app‖
-‖i = len(str, ❪ ❫)‖i = len(str),❚‖
+‖i = len(str, ❪ ❫)‖i = len(str, _❚)‖
 ‖1 000 000‖1_000_000‖1_000_000‖
 ‖  name  ‖__name__‖__name__‖
 ‖obj.  name  ‖obj.__name__‖obj.__name__‖
@@ -69,8 +69,6 @@ from ..‖from ..❚‖from ..❚‖
 ‖"Hello World,‖"Hello World,❚"‖
 ‖"Hello World, ‖"Hello World, ❚"‖
 ‖'Hello World, ‖'Hello World, ❚'‖
-‖"Hello World,  ‖"Hello World",❚‖
-‖'Hello World,  ‖'Hello World',❚‖
 
 ‖"func..‖"func(❚)"‖"func(❚)"‖
 ‖"func ..‖"func (❚)"‖"func (❚)"‖
