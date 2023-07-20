@@ -257,18 +257,6 @@
       ;; insert a '()' or skip to it
       (dwim-coder-skip-or-insert ?! t)
       t)
-     ;; ( SPC, (& SPC, and (* SPC
-     ((looking-back "([&*]?" (line-beginning-position))
-      (setq value (preceding-char))
-      (if (memq (following-char) '(?& ?*))
-          (forward-char)
-        (if (eq value ?\()
-            (dwim-coder-skip-or-insert ?& t)
-          (delete-char -1)
-          (if (eq value ?&)
-              (dwim-coder-skip-or-insert ?* t)
-            (dwim-coder-skip-or-insert ?& t))))
-      t)
      ;; Insert real space after type_t
      ((and (setq value (dwim-coder-c-identifier-at-point))
            (or (string-suffix-p "_t" (nth 2 value))
@@ -285,21 +273,11 @@
             (insert "->"))
         (dwim-coder-insert-interactive ?_))
       t)
-     ;; func (test, |) -> func (test), |
-     ;; or {test, |} -> {test}, |
-     ((save-excursion
-        (and (not (eolp))
-             (or (forward-char) t)
-             (looking-back ", [)}]" (line-beginning-position))))
-      (delete-char -2)
-      (forward-char)
-      (dwim-coder-insert-interactive ?,)
-      t)
      ;; If there are more than one space before, insert space again on SPC
      ((looking-back "[^ \t]+[ \t][ \t]+" (line-beginning-position))
       (insert-char ?\s)
       t)
-     ((eq (preceding-char) ?\s)
+     ((memq (preceding-char) '(?\s ?\( ?\[ ?\!))
       (dwim-coder-insert-interactive ?_)
       t))))
 
@@ -391,12 +369,17 @@
         (insert ">"))
       (goto-char p)
       t)
-     ((save-excursion
-        (and (not (eolp))
-             (or (forward-char) t)
-             (looking-back "[({[][])}]" (line-beginning-position))))
-      (forward-char)
-      (dwim-coder-insert-interactive ?,)
+     ;; ( SPC, (& SPC, and (* SPC
+     ((looking-back "([&*]?" (line-beginning-position))
+      (setq value (preceding-char))
+      (if (memq (following-char) '(?& ?*))
+          (forward-char)
+        (if (eq value ?\()
+            (dwim-coder-skip-or-insert ?& t)
+          (delete-char -1)
+          (if (eq value ?&)
+              (dwim-coder-skip-or-insert ?* t)
+            (dwim-coder-skip-or-insert ?& t))))
       t)
      ((and (setq value (treesit-node-at (point)))
            (equal (treesit-node-type value) "'")

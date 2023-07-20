@@ -42,7 +42,6 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖#include "conf❪,❫ig.h"‖#include <conf❚ig.h>‖#include <conf❚ig.h>‖
 
 ‖char a[,‖char a[],❚‖
-‖a[,‖a[],❚‖
 ‖char c = ❪'❫‖char c = '❚'‖char c = '❚'‖
 ‖char c=';;‖char c=';'❚‖
 ‖char c=',,‖char c=',',❚‖
@@ -57,10 +56,12 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 
 ‖(&‖(&❚)‖(&❚)‖
 ‖f (.❪ ❫)‖f (_❚)‖f (_❚)‖
-‖f (❪ ❫)‖f (&❚)‖f (&❚)‖
+‖f (❪ ❫)‖f (_❚)‖f (_❚)‖
 ‖f (&.❪ ❫)‖f (&_❚)‖f (&_❚)‖
-‖f (&❪ ❫)‖f (*❚)‖f (*❚)‖
-‖f (*❪ ❫)‖f (&❚)‖f (&❚)‖
+f (&❪ ❫)‖f (&_❚)‖f (&_❚)‖
+‖f (&❪,❫)‖f (*❚)‖f (*❚)‖
+f (*❪ ❫)‖f (*_❚)‖f (*_❚)‖
+‖f (*❪,❫)‖f (&❚)‖f (&❚)‖
 ‖f (*.❪ ❫)‖f (*_❚)‖f (*_❚)‖
 ‖f (arg, .❪ ❫)‖f (arg, _❚)‖f (arg, _❚)‖
 ‖f (arg,.❪ ❫)‖f (arg,_❚)‖f (arg,_❚)‖
@@ -76,8 +77,7 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖g uri flags'' uri flags‖GUriFlags uri_flags❚‖GUriFlags uri_flags❚‖
 ‖int     ❪ ❫ age‖int      ❚ age‖int      ❚ age‖
 ‖int ❪ ❫age‖int _❚age‖int _❚age‖
-‖func(arg, ❪ ❫)‖func(arg),❚‖
-‖func(❪,❫)‖func(),❚‖
+‖func(❪,❫)‖func(&❚)‖
 ‖char *s = "Hello world❪,❫"‖char *s = "Hello world,❚"‖
 ‖char *s = "Hello world, ❪ ❫"‖char *s = "Hello world",❚‖
 ‖func(❪..❫)‖func((❚))‖func((❚))‖
