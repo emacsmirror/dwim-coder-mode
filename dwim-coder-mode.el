@@ -33,6 +33,7 @@
 
 (require 'dwim-coder-default)
 (require 'dwim-coder-c)
+(require 'dwim-coder-elisp)
 (require 'dwim-coder-python)
 (require 'dwim-coder-rust)
 
@@ -59,6 +60,8 @@
       (if (treesit-language-available-p 'c)
           (setq val (dwim-coder-c-override-self-insert (cadr args)))
         (error "`treesitter' not available for C")))
+     ((derived-mode-p 'emacs-lisp-mode)
+      (setq val (dwim-coder-elisp-override-self-insert (cadr args))))
      ((derived-mode-p 'rust-ts-mode)
       (if (treesit-language-available-p 'rust)
           (setq val (dwim-coder-rust-override-self-insert (cadr args)))

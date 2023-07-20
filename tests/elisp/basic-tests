@@ -1,0 +1,14 @@
+‖ input ‖ output ‖ output with auto-space ‖
+‖ ‖-❚‖-❚‖
+. ‖ ❚‖ ❚‖
+‖  ‖--❚‖--❚‖
+
+‖i ‖i-❚‖i-❚‖
+‖i-.‖i ❚‖i ❚‖
+‖n items‖n-items❚‖n-items❚‖
+‖..‖(❚)‖(❚)‖
+‖(and.❪.❫)‖(and (❚))‖(and (❚))‖
+‖(and (eolp)❪ ❫)‖(and (eolp) ❚)‖(and (eolp) ❚)‖
+‖(.❪.❫)‖((❚))‖((❚))‖
+‖(and (eolp)❪;❫)‖(and (eolp))❚‖(and (eolp))❚‖
+‖(and (eolp❪;❫))‖(and (eolp)❚)‖(and (eolp)❚)‖
