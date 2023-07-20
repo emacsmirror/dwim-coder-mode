@@ -149,7 +149,8 @@
       t))))
 
 (defun dwim-coder-python-dwim-semi ()
-  (let ((node nil))
+  (let ((node nil)
+        (value nil))
     (cond
      ;; goto end of string if inside one
      ((nth 3 (syntax-ppss))
@@ -178,6 +179,17 @@
         (backward-char)
         (dwim-coder-insert-interactive ?\n))
       (dwim-coder-insert-interactive ?\n)
+      t)
+     ;; Move up a list if list we contain ends in the same line.
+     ;; Do a regex match first as `up-list' can be very slow if list is big
+     ;; fixme: Use a better approach
+     ((and (looking-at-p ".*[])}].")
+           (setq value (save-excursion
+                         (ignore-errors (up-list))
+                         (point)))
+           (> value (point))
+           (< value (line-end-position)))
+      (up-list)
       t)
      (t
       (end-of-line)

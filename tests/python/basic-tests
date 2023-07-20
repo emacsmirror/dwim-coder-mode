@@ -84,7 +84,10 @@ from ..‖from ..❚‖from ..❚‖
 
 ‖func(❪;❫) + b‖func()❚ + b‖func()❚ + b‖
 ‖func("Some ❪;❫Test") + b‖func("Some Test"❚) + b‖func("Some Test"❚) + b‖
-‖func("Some Test"❪;❫) + b‖func("Some Test") + b❚‖func("Some Test") + b❚‖
+‖func("Some Test"❪;❫) + b‖func("Some Test")❚ + b‖func("Some Test")❚ + b‖
+‖func("Some Test")❪;❫ + b‖func("Some Test") + b❚‖func("Some Test") + b❚‖
+‖func(❪;❫"Some (Test)")‖func("Some (Test)")❚‖func("Some (Test)")❚‖
+‖func(a, funcb(c❪;❫))‖func(a, funcb(c)❚)‖func(a, funcb(c)❚)‖
 ‖"Hello ❪;❫World"‖"Hello World"❚‖"Hello World"❚‖
 ‖"""Hello ❪;❫World"""‖"""Hello World"""❚‖"""Hello World"""❚‖
 ‖a❪;❫ge = 10‖age = 10❚‖age = 10❚‖
