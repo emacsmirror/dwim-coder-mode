@@ -608,6 +608,10 @@
       (if (looking-back "^ *_$" (line-beginning-position))
           (progn
             (delete-line)
+            (backward-char)
+            (if (looking-at-p "\n$")
+                (forward-char)
+              (dwim-coder-insert-interactive ?\n))
             (dwim-coder-insert-interactive ?\n))
         (if (eq (preceding-char) ?\;)
             (dwim-coder-insert-interactive ?\n)

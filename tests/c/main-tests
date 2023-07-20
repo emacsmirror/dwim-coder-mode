@@ -25,6 +25,15 @@ int i;
 int i;
 
 ❚
+‖‖ int i;;_;
+int i;
+_❪;❫
+int j;
+‖ gnu-none
+int i;
+
+❚
+int j;
 ‖‖ if❪ ❫
 int main(void)
 {
