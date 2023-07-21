@@ -17,3 +17,7 @@
 ‖(1-❪;❫ (point))‖(1- (point))❚‖(1- (point))❚‖
 
 ‖"Hello"❪ ❫‖"Hello" ❚‖"Hello" ❚‖
+
+‖(require-❪'❫)‖(require '❚)‖(require '❚)‖
+‖(s-❪"❫)‖(s "❚")‖(s "❚")‖
+‖(s-❪,❫)‖(s ,❚)‖(s ,❚)‖

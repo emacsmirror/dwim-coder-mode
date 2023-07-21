@@ -107,6 +107,15 @@
     (dwim-coder-insert-interactive ?\n)
     t)))
 
+(defun dwim-coder-elisp-dwim-op (char)
+  (cond
+   ((and (eq (preceding-char) ?\-)
+         (memq char '(?\' ?\" ?,)))
+    (delete-char -1)
+    (dwim-coder-skip-or-insert ?\s)
+    (dwim-coder-insert-interactive char t)
+    t)))
+
 (defun dwim-coder-elisp-override-self-insert (char)
   (pcase char
     ((guard (dwim-coder-elisp-be-sane) nil))
@@ -114,7 +123,8 @@
     ;; skip in strings
     ((guard (nth 3 (syntax-ppss)) nil))
     (?\s (dwim-coder-elisp-dwim-space))
-    (?. (dwim-coder-elisp-dwim-dot))))
+    (?. (dwim-coder-elisp-dwim-dot))
+    (_ (dwim-coder-elisp-dwim-op char))))
 
 (provide 'dwim-coder-elisp)
 ;;; dwim-coder-elisp.el ends here
