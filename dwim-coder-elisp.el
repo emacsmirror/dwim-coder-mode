@@ -76,6 +76,13 @@
    ((and (bobp) (eolp))
     (dwim-coder-insert-interactive ?\; t)
     t)
+   ((save-excursion
+      (beginning-of-line)
+      (and (looking-at-p "^[ \t]*$")
+           (or (backward-char)
+               (nth 4 (syntax-ppss)))))
+    (dwim-coder-insert-interactive ?\; t)
+    t)
    ((and (looking-back "(1?-")
          (looking-at-p "[ (]"))
     (if (and (setq value (save-excursion

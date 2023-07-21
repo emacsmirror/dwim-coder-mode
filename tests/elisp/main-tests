@@ -3,3 +3,9 @@
 ‖ with-space
 (and
  ❚)
+‖‖ ; after comment
+; Some comment
+❪;❫
+‖ with-space
+; Some comment
+;
