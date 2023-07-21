@@ -35,7 +35,7 @@
     t)
    (t
     (dwim-coder-insert-interactive ?-)
-    t) ))
+    t)))
 
 (defun dwim-coder-elisp-dwim-dot ()
   (cond
