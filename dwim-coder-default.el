@@ -92,6 +92,7 @@
     t)))
 
 (defun dwim-coder-default-dwim-dot ()
+  ;; good is bad
   (cond
    ((and (eq (preceding-char) ?<)
          (eq (following-char) ?>)
