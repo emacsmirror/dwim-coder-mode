@@ -51,6 +51,21 @@
     (indent-according-to-mode)
     t)))
 
+(defun dwim-coder-elisp-dwim-comma ()
+  (cond
+   ((eq (preceding-char) ?\()
+    (dwim-coder-skip-or-insert ?& t)
+    t)
+   ((looking-back "[a-zA-Z0-9]" (line-beginning-position))
+    (dwim-coder-skip-or-insert ?\s t t)
+    (dwim-coder-skip-or-insert ?& t)
+    t)
+   ((eq (preceding-char) ?\-)
+    (delete-char -1)
+    (dwim-coder-skip-or-insert ?\s)
+    (dwim-coder-insert-interactive ?, t)
+    t)))
+
 (defun dwim-coder-elisp-dwim-semi-colon ()
   (cond
    ;; goto end of string if inside one
@@ -123,6 +138,7 @@
     ((guard (nth 3 (syntax-ppss)) nil))
     (?\s (dwim-coder-elisp-dwim-space))
     (?. (dwim-coder-elisp-dwim-dot))
+    (?, (dwim-coder-elisp-dwim-comma))
     (_ (dwim-coder-elisp-dwim-op char))))
 
 (provide 'dwim-coder-elisp)
