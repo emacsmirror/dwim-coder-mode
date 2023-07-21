@@ -30,7 +30,7 @@
 
 (defun dwim-coder-elisp-dwim-space ()
   (cond
-   ((memq (preceding-char) '(?\) ?\s))
+   ((memq (preceding-char) '(?\) ?\s ?\"))
     (dwim-coder-insert-interactive ?\s t)
     t)
    (t
