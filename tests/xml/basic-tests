@@ -1,0 +1,9 @@
+‖ input ‖ output ‖ output with auto-space ‖
+‖ ‖ ❚‖ ❚‖
+‖  ‖  ❚‖  ❚‖
+
+‖..‖<❚>‖<❚>‖
+‖...‖...❚‖...❚‖
+‖<h❪;❫tml>‖<html>❚‖<html>❚‖
+‖<div class,❪,❫>‖<div class="❚">‖<div class="❚">‖
+‖<div class="some❪ ❫">‖<div class="some-❚">‖<div class="some-❚">‖

@@ -36,6 +36,7 @@
 (require 'dwim-coder-elisp)
 (require 'dwim-coder-python)
 (require 'dwim-coder-rust)
+(require 'dwim-coder-xml)
 
 (defun dwim-coder-insert-space ()
   "Interactvely insert SPC."
@@ -44,7 +45,8 @@
 
 (cl-defun dwim-coder-pre-self-insert-function (&rest args)
   (let ((val nil)
-        (last-was-camel dwim-coder-last-was-camel))
+        (last-was-camel dwim-coder-last-was-camel)
+        (last-space-point dwim-coder-last-space-point))
 
     ;; Override only character inputs with no prefixes
     (unless (and (eq (car args) 1)
@@ -70,12 +72,16 @@
       (if (treesit-language-available-p 'python)
           (setq val (dwim-coder-python-override-self-insert (cadr args)))
         (error "`treesitter' not available for Python")))
+     ((or (derived-mode-p 'nxml-mode 'sgml-mode))
+      (setq val (dwim-coder-xml-override-self-insert (cadr args))))
      ((derived-mode-p 'prog-mode 'conf-mode 'text-mode)
       (setq val (dwim-coder-default-override-self-insert (cadr args)))))
     ;; Reset only if the variable was set in some past call,
     ;; not on changes made in this call.
     (if last-was-camel
         (setq dwim-coder-last-was-camel nil))
+    (if (eq last-space-point dwim-coder-last-space-point)
+        (setq dwim-coder-last-space-pointer 0))
     val))
 
 ;;;###autoload
