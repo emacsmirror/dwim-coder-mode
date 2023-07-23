@@ -66,7 +66,10 @@
    ((eq (preceding-char) ?\,)
     (delete-char -1)
     (dwim-coder-skip-or-insert ?= t)
-    (dwim-coder-skip-or-insert ?\" t)
+    ;; web-mode may auto insert quotes
+    ;; fixme: This is not supposed to break though, but it does
+    (unless (derived-mode-p 'web-mode)
+      (dwim-coder-skip-or-insert ?\" t))
     t)))
 
 (defun dwim-coder-xml-dwim-semi-colon ()
