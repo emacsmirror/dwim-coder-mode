@@ -591,6 +591,15 @@
             (not (dwim-coder-c-get-char-literal)))
        (dwim-coder-insert-interactive ?\; t)
        t)
+      ;; Insert newlinew on ; after #include
+      ((save-excursion
+         (and (eolp)
+              (looking-back "[>\"]" (line-beginning-position))
+              (or (backward-char)
+                  (dwim-coder-c-in-include-fname))))
+       (end-of-line)
+       (dwim-coder-insert-interactive ?\n)
+       t)
       ;; goto end of string if inside one
       ((nth 3 (syntax-ppss))
        (skip-syntax-forward "^\"")

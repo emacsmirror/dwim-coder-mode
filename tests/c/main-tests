@@ -222,3 +222,14 @@ int
 func(char *name)
 {❚
 }
+
+‖‖ #include <stdio.h>;
+#include <stdio.h>❪;❫
+‖ linux-gnome
+#include <stdio.h>
+❚
+‖‖ #include "configh.h";
+#include "config.h"❪;❫
+‖ linux-gnome
+#include "config.h"
+❚
