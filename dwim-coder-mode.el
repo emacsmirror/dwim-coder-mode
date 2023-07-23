@@ -57,7 +57,7 @@
 
     (cond
      (dwim-coder-skip nil)
-     ((not dwim-coder-mode) nil)
+     ((not (bound-and-true-p dwim-coder-mode)) nil)
      ((derived-mode-p 'c-ts-mode)
       (if (treesit-language-available-p 'c)
           (setq val (dwim-coder-c-override-self-insert (cadr args)))
