@@ -259,10 +259,8 @@
       t)
      ;; Insert real space after type_t
      ((and (setq value (dwim-coder-c-identifier-at-point))
-           (or (string-suffix-p "_t" (nth 2 value))
-               dwim-coder-last-was-camel))
+           (string-suffix-p "_t" (nth 2 value)))
       (dwim-coder-skip-or-insert ?\s)
-      (setq dwim-coder-last-was-camel nil)
       t)
      ;; change __ to ->
      ((setq value (dwim-coder-c-identifier-at-point))
@@ -293,8 +291,6 @@
            (string-match-p "^[a-zA-Z_]" value))
       (delete-region (car bounds) (cdr bounds))
       (insert (dwim-coder-s-to-style value "cycle"))
-      (if (equal (dwim-coder-s-get-style-case value) "upper-snake")
-          (setq dwim-coder-last-was-camel t))
       t))))
 
 (defun dwim-coder-c-dwim-dquote ()
