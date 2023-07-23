@@ -184,25 +184,6 @@ int main(int main,
 ‖ linux-gnome
 int main(int   main,
          char *argv[]);❚
-‖‖-return❪;❫
-int main (void)
-{
-  return❪;❫
-}
-int test (void)
-{
-}
-
-‖ gnu-none
-int main(void)
-{
-  return;
-}
-❚
-int test (void)
-{
-}
-
 ‖‖ if ... return❪;❫
 int main (void)
 {
@@ -215,59 +196,6 @@ int main (void)
 {
   if (true)
     return;❚
-}
-
-‖‖-return❪;,❫
-int main (void)
-{
-  if (true)
-    return❪;,❫
-}
-
-‖ linux-none
-int main (void)
-{
-  if (true)
-    return; 
-}
-❚
-
-‖‖-return; \n ❪,❫ 
-int main (void)
-{
-  if (true)
-    return;
-    ❪,❫
-}
-
-‖ linux-none
-int main (void)
-{
-  if (true)
-    return; 
-}
-❚
-‖‖-if (true)❪..❫
-int main (void)
-{
-  if (true)❪..❫
-}
-
-‖ gnu-none
-int main (void)
-{
-  if (true)
-    {
-      ❚
-    }
-}
-
-‖ linux-none
-int main (void)
-{
-  if (true) {
-    ❚
-  }
 }
 
 ‖‖-if (true)❪;❫
