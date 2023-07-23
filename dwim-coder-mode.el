@@ -100,9 +100,7 @@ This is a local minor mode."
   :keymap (let ((map (make-sparse-keymap)))
             (define-key map (kbd "S-SPC") 'dwim-coder-insert-space)
             map)
-  (if dwim-coder-mode
-      (advice-add #'self-insert-command :before-until 'dwim-coder-pre-self-insert-function)
-    (advice-remove #'self-insert-command 'dwim-coder-pre-self-insert-function)))
+  (advice-add #'self-insert-command :before-until 'dwim-coder-pre-self-insert-function))
 
 (provide 'dwim-coder-mode)
 ;;; dwim-coder-mode.el ends here
