@@ -81,7 +81,7 @@
     (if last-was-camel
         (setq dwim-coder-last-was-camel nil))
     (if (eq last-space-point dwim-coder-last-space-point)
-        (setq dwim-coder-last-space-pointer 0))
+        (setq dwim-coder-last-space-point 0))
     val))
 
 ;;;###autoload
