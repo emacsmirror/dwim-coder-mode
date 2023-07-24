@@ -31,6 +31,14 @@
 
 (defun dwim-coder-default-dwim-space ()
   (cond
+   ((and (bolp) (eolp))
+    (let ((char dwim-coder-space-char))
+      (unless char
+        (if (derived-mode-p 'css-mode)
+            (setq char ?\-)
+          (setq char ?\_)))
+      (dwim-coder-insert-interactive char))
+    t)
    ;; On ", )]}" move forward and insert comma
    ((and (looking-back ", " (line-beginning-position))
          (memq (following-char) '(?\) ?} ?\] )))
@@ -88,30 +96,51 @@
          (not (eq (char-before (1- (point))) ?.)))
     (delete-char -1)
     (dwim-coder-insert-interactive ?\()
+    t)
+   ((and (eq (preceding-char) ?\()
+         (eq (following-char) ?\)))
+    (delete-char -1)
+    (delete-char 1)
+    (insert "...")
     t)))
 
 (defun dwim-coder-default-dwim-semi-colon ()
-  (cond
-   ;; Move forward if inside empty pairs
-   ((and (not (bolp))
-         (not (eolp))
-         (save-excursion
-           (backward-char)
-           (looking-at-p "\\(()\\)\\|\\(\\[\\]\\)\\|\\({}\\)\\|\\(<>\\)")))
-    (forward-char)
-    t)
-   ((not (eolp))
-    (end-of-line)
-    t)
-   ;; ignore further actions if in string
-   ((nth 3 (syntax-ppss))
-    nil)
-     ;; Skip to the end of the current statement as possible
-   ((and (memq (preceding-char) '(?, ?\{ ?\[ ?\())
-         (memq (char-after (nth 1 (syntax-ppss))) '(?\( ?\[ ?\{)))
-    (goto-char (nth 1 (syntax-ppss)))
-    (forward-sexp)
-    t)))
+  (let ((value nil))
+    (cond
+     ;; goto end of string if inside one
+     ((nth 3 (syntax-ppss))
+      (skip-syntax-forward "^\"")
+      (forward-char)
+      t)
+     ;; On empty lines, delete the line and go to the end of last line
+     ((save-excursion (beginning-of-line)
+                      (looking-at-p "^ *$"))
+      (delete-line)
+      ;; Don't warn if we are at the beginning of the buffer
+      (ignore-errors (backward-char))
+      t)
+     ((eolp)
+      ;; On lines with _ only, convert it to an empty line
+      (when (looking-back "^ *[_-]$" (line-beginning-position))
+        (delete-line)
+        (backward-char)
+        (dwim-coder-insert-interactive ?\n))
+      (dwim-coder-insert-interactive ?\n)
+      t)
+     ;; Move up a list if list we contain ends in the same line.
+     ;; Do a regex match first as `up-list' can be very slow if list is big
+     ;; fixme: Use a better approach
+     ((and (looking-at-p ".*[])}].")
+           (setq value (save-excursion
+                         (ignore-errors (up-list))
+                         (point)))
+           (> value (point))
+           (< value (line-end-position)))
+      (up-list)
+      t)
+     (t
+      (end-of-line)
+      t))))
 
 (defun dwim-coder-default-override-self-insert (char)
   (pcase char
