@@ -252,13 +252,24 @@
       (dwim-coder-insert-interactive ?=)
       t))))
 
+(defun dwim-coder-rust-dwim-semi-colon ()
+  (cond
+   ((and (eolp)
+         (not (eq (preceding-char) ?\;))
+         (looking-back "[^ \t]" (line-beginning-position))
+         (not (looking-back "^ *_$" (line-beginning-position))))
+    (insert ";")
+    t)
+   (t
+    (dwim-coder-common-dwim-semi-colon))))
+
 (defun dwim-coder-rust-override-self-insert (char)
   (cond
    ;; be sane with comments
    ((nth 4 (syntax-ppss))
     nil)
    ((eq char ?\;)
-    (dwim-coder-common-dwim-semi-colon))
+    (dwim-coder-rust-dwim-semi-colon))
    ((eq char ?,)
     (dwim-coder-rust-dwim-comma))
    ((eq char ?\s)
