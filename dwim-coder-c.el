@@ -609,7 +609,7 @@
      ((and (eolp)
            (not (eq (preceding-char) ?\;))
            (looking-back "[^ \t]" (line-beginning-position))
-           (not (looking-back "^_$" (line-beginning-position))))
+           (not (looking-back "^ *_$" (line-beginning-position))))
       (insert ";")
       t)
      (t
