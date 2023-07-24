@@ -46,7 +46,8 @@
 (cl-defun dwim-coder-pre-self-insert-function (&rest args)
   (let ((val nil)
         (last-was-camel dwim-coder-last-was-camel)
-        (last-space-point dwim-coder-last-space-point))
+        (last-space-point dwim-coder-last-space-point)
+        (last-dot-point dwim-coder-last-dot-point))
 
     ;; Override only character inputs with no prefixes
     (unless (and (eq (car args) 1)
@@ -85,6 +86,8 @@
         (setq dwim-coder-last-was-camel nil))
     (if (eq last-space-point dwim-coder-last-space-point)
         (setq dwim-coder-last-space-point 0))
+    (if (eq last-dot-point dwim-coder-last-dot-point)
+        (setq dwim-coder-last-dot-point 0))
     val))
 
 ;;;###autoload
