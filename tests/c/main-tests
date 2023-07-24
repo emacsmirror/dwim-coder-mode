@@ -18,7 +18,7 @@ int i;;
 ‖ gnu-none
 int i;
 ❚
-‖‖ int i;;_;
+‖‖-int i;;_;
 int i;
  ;
 ‖ gnu-none
@@ -233,3 +233,16 @@ func(char *name)
 ‖ linux-gnome
 #include "config.h"
 ❚
+‖‖ empty line ;
+int
+main (void)
+{
+  func ();
+  ❪;❫
+}
+‖ linux-gnome
+int
+main (void)
+{
+  func ();❚
+}
