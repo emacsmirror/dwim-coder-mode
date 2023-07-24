@@ -597,6 +597,12 @@
            (not (dwim-coder-c-get-char-literal)))
       (dwim-coder-insert-interactive ?\; t)
       t)
+     ;; Insert newline on ; on preprocessor lines
+     ;; fixme: This won't work if it's multiline
+     ((and (eolp)
+           (looking-back "^ *#.*" (line-beginning-position)))
+      (dwim-coder-insert-interactive ?\n)
+      t)
      ;; Insert newlinew on ; after #include
      ((save-excursion
         (and (eolp)
