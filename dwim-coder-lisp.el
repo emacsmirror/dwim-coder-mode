@@ -69,11 +69,6 @@
 (defun dwim-coder-lisp-dwim-semi-colon ()
   (let ((value nil))
     (cond
-     ;; goto end of string if inside one
-     ((nth 3 (syntax-ppss))
-      (skip-syntax-forward "^\"")
-      (forward-char)
-      t)
      ((and (bobp) (eolp))
       (dwim-coder-insert-interactive ?\; t)
       t)
@@ -115,22 +110,8 @@
            (< value (line-end-position)))
       (up-list)
       t)
-     ((not (eolp))
-      (end-of-line)
-      t)
-     ((save-excursion (beginning-of-line)
-                      (looking-at-p "^ *$"))
-      (delete-line)
-      ;; Don't warn if we are at the beginning of the buffer
-      (ignore-errors (backward-char))
-      t)
-     ((eolp)
-      (if (looking-back "^ *-$" (line-beginning-position))
-          (delete-region (line-beginning-position) (line-end-position))
-        (if (looking-back "[a-zA-Z-]-" (line-beginning-position))
-            (delete-char -1)))
-      (dwim-coder-insert-interactive ?\n)
-      t))))
+     (t
+      (dwim-coder-common-dwim-semi-colon)))))
 
 (defun dwim-coder-lisp-dwim-op (char)
   (cond

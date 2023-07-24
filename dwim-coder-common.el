@@ -223,5 +223,48 @@ heuristics used to interpret the style."
     (delete-char -1)))
   t)
 
+(defun dwim-coder-common-dwim-semi-colon ()
+  (let ((value nil))
+    (cond
+     ;; goto end of string if inside one
+     ((nth 3 (syntax-ppss))
+      (skip-syntax-forward "^\"")
+      (forward-char)
+      t)
+     ;; On empty lines, delete the line and go to the end of last line
+     ((save-excursion (beginning-of-line)
+                      (looking-at-p "^ *$"))
+      (delete-line)
+      ;; Don't warn if we are at the beginning of the buffer
+      (ignore-errors (backward-char))
+      t)
+     ((eq (following-char) ?\;)
+      (forward-char)
+      t)
+     ;; Move up a list if list we contain ends in the same line.
+     ;; Do a regex match first as `up-list' can be very slow if list is big
+     ;; fixme: Use a better approach
+     ((and (looking-at-p ".*[])}].")
+           (setq value (save-excursion
+                         (ignore-errors (up-list))
+                         (point)))
+           (> value (point))
+           (< value (line-end-position)))
+      (up-list)
+      t)
+     ((not (eolp))
+      (end-of-line)
+      (if (eq (preceding-char) ?\;)
+          (backward-char))
+      t)
+     ((eolp)
+      ;; On lines with _ only, convert it to an empty line
+      (when (looking-back "^ *[_-]$" (line-beginning-position))
+        (delete-line)
+        (backward-char)
+        (dwim-coder-insert-interactive ?\n))
+      (dwim-coder-insert-interactive ?\n)
+      t))))
+
 (provide 'dwim-coder-common)
 ;;; dwim-coder-common.el ends here

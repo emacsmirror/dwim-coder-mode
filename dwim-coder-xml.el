@@ -74,30 +74,14 @@
 
 (defun dwim-coder-xml-dwim-semi-colon ()
   (cond
-   ;; goto end of string if inside one
-   ((nth 3 (syntax-ppss))
-    (skip-syntax-forward "^\"")
-    (forward-char)
-    t)
-   ((not (eolp))
-    (end-of-line)
-    t)
    ((and (> dwim-coder-last-space-point 0)
          (= (point) dwim-coder-last-space-point)
          (looking-back "^ *" (line-beginning-position)))
     (dwim-coder-insert-interactive ?\n)
     (setq dwim-coder-last-space-point 0)
     t)
-   ((save-excursion (beginning-of-line)
-                    (looking-at-p "^ *$"))
-    (delete-line)
-    ;; Don't warn if we are at the beginning of the buffer
-    (ignore-errors (backward-char))
-    (indent-according-to-mode)
-    t)
-   ((eolp)
-    (dwim-coder-insert-interactive ?\n)
-    t)))
+   (t
+    (dwim-coder-common-dwim-semi-colon))))
 
 (defun dwim-coder-xml-override-self-insert (char)
   (pcase char

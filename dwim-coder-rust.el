@@ -252,46 +252,13 @@
       (dwim-coder-insert-interactive ?=)
       t))))
 
-(defun dwim-coder-rust-dwim-semi-colon ()
-  (cond
-   ((eq (following-char) ?\;)
-    (forward-char)
-    t)
-   ;; goto end of string if inside one
-   ((nth 3 (syntax-ppss))
-    (skip-syntax-forward "^\"")
-    (forward-char)
-    t)
-   ;; Move forward if inside empty pairs
-   ((and (not (bolp))
-         (not (eolp))
-         (save-excursion
-           (backward-char)
-           (looking-at-p "\\(()\\)\\|\\(\\[\\]\\)\\|\\({}\\)\\|\\(<>\\)")))
-    (forward-char)
-    t)
-   ;; If not end of line, go to end of line
-   ((not (eolp))
-    (end-of-line)
-    (if (eq (preceding-char) ?\;)
-        (backward-char))
-    t)
-   ;; Skip to the end of the current statement if inside an argument list
-   ((save-excursion
-      (skip-chars-backward " ")
-      (and (memq (preceding-char) '(?, ?\{ ?\[ ?\())
-           (memq (char-after (nth 1 (syntax-ppss))) '(?\( ?\[ ?\{))))
-    (goto-char (nth 1 (syntax-ppss)))
-    (forward-sexp)
-    t)))
-
 (defun dwim-coder-rust-override-self-insert (char)
   (cond
    ;; be sane with comments
    ((nth 4 (syntax-ppss))
     nil)
    ((eq char ?\;)
-    (dwim-coder-rust-dwim-semi-colon))
+    (dwim-coder-common-dwim-semi-colon))
    ((eq char ?,)
     (dwim-coder-rust-dwim-comma))
    ((eq char ?\s)

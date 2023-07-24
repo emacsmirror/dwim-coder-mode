@@ -591,35 +591,20 @@
           (forward-sexp))
       (insert ";")
       t)
-     ((eq (following-char) ?\;)
-      (forward-char)
-      t)
      ;; Insert ; at point if inside empty string literal
-      ((and (eq (preceding-char) ?')
-            (eq (following-char) ?')
-            (not (dwim-coder-c-get-char-literal)))
-       (dwim-coder-insert-interactive ?\; t)
-       t)
-      ;; Insert newlinew on ; after #include
-      ((save-excursion
-         (and (eolp)
-              (looking-back "[>\"]" (line-beginning-position))
-              (or (backward-char)
-                  (dwim-coder-c-in-include-fname))))
-       (end-of-line)
-       (dwim-coder-insert-interactive ?\n)
-       t)
-      ;; goto end of string if inside one
-      ((nth 3 (syntax-ppss))
-       (skip-syntax-forward "^\"")
-       (forward-char)
-       t)
-     ;; On empty lines, delete the line and go to the end of last line
-     ((save-excursion (beginning-of-line)
-                      (looking-at-p "^ *$"))
-      (delete-line)
-      ;; Don't warn if we are at the beginning of the buffer
-      (ignore-errors (backward-char))
+     ((and (eq (preceding-char) ?')
+           (eq (following-char) ?')
+           (not (dwim-coder-c-get-char-literal)))
+      (dwim-coder-insert-interactive ?\; t)
+      t)
+     ;; Insert newlinew on ; after #include
+     ((save-excursion
+        (and (eolp)
+             (looking-back "[>\"]" (line-beginning-position))
+             (or (backward-char)
+                 (dwim-coder-c-in-include-fname))))
+      (end-of-line)
+      (dwim-coder-insert-interactive ?\n)
       t)
      ((eolp)
       ;; On lines with _ only, convert it to an empty line
@@ -633,28 +618,8 @@
             (dwim-coder-insert-interactive ?\n)
           (insert ";")))
       t)
-     ;; Move up a list if list we contain ends in the same line.
-     ;; Do a regex match first as `up-list' can be very slow if list is big
-     ;; fixme: Use a better approach
-     ((and (looking-at-p ".*[])}].")
-           (setq value (save-excursion
-                         (ignore-errors (up-list))
-                         (point)))
-           (> value (point))
-           (< value (line-end-position)))
-      (up-list)
-      t)
-      ((not (eolp))
-       (end-of-line)
-       (if (eq (preceding-char) ?\;)
-           (backward-char))
-       t)
-      ;; Skip to the end of the current statement as possible
-      ((and (memq (preceding-char) '(?, ?\{ ?\[ ?\())
-            (memq (char-after (nth 1 (syntax-ppss))) '(?\( ?\[ ?\{)))
-       (goto-char (nth 1 (syntax-ppss)))
-       (forward-sexp)
-       t))))
+     (t
+      (dwim-coder-common-dwim-semi-colon)))))
 
 (defun dwim-coder-c-dwim-square-bracket (char)
   (let ((node (treesit-node-parent (treesit-node-at (point)))))
