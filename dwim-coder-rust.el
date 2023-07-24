@@ -255,7 +255,7 @@
 (defun dwim-coder-rust-dwim-semi-colon ()
   (cond
    ((and (eolp)
-         (looking-back " *#.*$" (line-beginning-position)))
+         (looking-back "^ *#!?[[].*$" (line-beginning-position)))
     (dwim-coder-insert-interactive ?\n)
     t)
    ((and (eolp)
