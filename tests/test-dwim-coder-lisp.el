@@ -5,18 +5,18 @@
 
 (require 'buttercup)
 (require 'cl-lib)
-(require 'dwim-coder-elisp)
+(require 'dwim-coder-lisp)
 (require 'dwim-coder-mode)
 
-(defun dwim-coder-test-elisp-mode ()
-  (setq elisp-indent-guess-indent-offset nil)
+(defun dwim-coder-test-lisp-mode ()
+  (setq lisp-indent-guess-indent-offset nil)
   (emacs-lisp-mode)
   (electric-pair-mode)
   (setq dwim-coder-auto-space nil)
   (dwim-coder-mode))
 
-(defun dwim-coder-test-auto-space-elisp-mode ()
-  (setq elisp-indent-guess-indent-offset nil)
+(defun dwim-coder-test-auto-space-lisp-mode ()
+  (setq lisp-indent-guess-indent-offset nil)
   (emacs-lisp-mode)
   (electric-pair-mode)
   (setq dwim-coder-auto-space t)
@@ -50,8 +50,8 @@
           )))
     ))
 
-(describe "dwim-coder-elisp-basic"
-  (let* ((file (concat (file-name-directory load-file-name) "elisp/basic-tests"))
+(describe "dwim-coder-lisp-basic"
+  (let* ((file (concat (file-name-directory load-file-name) "lisp/basic-tests"))
          (content (get-file-contents file))
          (lines (split-string content "\n" t)))
     ;; skip the first line
@@ -65,11 +65,11 @@
             (signal 'buttercup-pending "skipped")
           (when (and expected-with-space
                      (not (string-empty-p expected-with-space)))
-            (test-content in expected-with-space 'dwim-coder-test-auto-space-elisp-mode "test.el"))
-          (test-content in expected 'dwim-coder-test-elisp-mode "test.el"))))))
+            (test-content in expected-with-space 'dwim-coder-test-auto-space-lisp-mode "test.el"))
+          (test-content in expected 'dwim-coder-test-lisp-mode "test.el"))))))
 
-(describe "dwim-coder-elisp-main"
-  (let* ((file (concat (file-name-directory load-file-name) "elisp/main-tests"))
+(describe "dwim-coder-lisp-main"
+  (let* ((file (concat (file-name-directory load-file-name) "lisp/main-tests"))
          (content (get-file-contents file))
          (test-cases (split-string content "‖‖")))
     (dolist (test-case (cdr test-cases))
@@ -85,7 +85,7 @@
              ((string-match-p "^-" item)
               (setq func nil))
              ((string-match-p " *with-space" item)
-              (setq func 'dwim-coder-test-auto-space-elisp-mode))
+              (setq func 'dwim-coder-test-auto-space-lisp-mode))
              (t
               (error "Invalid test case")))
             (if (not (bound-and-true-p func))

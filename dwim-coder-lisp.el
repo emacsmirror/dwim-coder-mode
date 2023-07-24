@@ -1,4 +1,4 @@
-;;; dwim-coder-elisp.el --- DWIM keybindings for programming modes -*- lexical-binding: t; -*-
+;;; dwim-coder-lisp.el --- DWIM keybindings for programming modes -*- lexical-binding: t; -*-
 
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 ;; SPDX-License-Identifier: CC0-1.0
@@ -20,7 +20,7 @@
 ;;; Code:
 
 
-(defun dwim-coder-elisp-be-sane ()
+(defun dwim-coder-lisp-be-sane ()
   "Check if we should act sane at `point'."
   (cond
    ;; comments
@@ -28,7 +28,7 @@
     t)
    (t nil)))
 
-(defun dwim-coder-elisp-dwim-space ()
+(defun dwim-coder-lisp-dwim-space ()
   (cond
    ((memq (preceding-char) '(?\) ?\s ?\"))
     (dwim-coder-insert-interactive ?\s t)
@@ -37,7 +37,7 @@
     (dwim-coder-insert-interactive ?-)
     t)))
 
-(defun dwim-coder-elisp-dwim-dot ()
+(defun dwim-coder-lisp-dwim-dot ()
   (cond
    ((eq (preceding-char) ?-)
     (delete-char -1)
@@ -51,7 +51,7 @@
     (indent-according-to-mode)
     t)))
 
-(defun dwim-coder-elisp-dwim-comma ()
+(defun dwim-coder-lisp-dwim-comma ()
   (cond
    ((eq (preceding-char) ?\()
     (dwim-coder-skip-or-insert ?& t)
@@ -66,7 +66,7 @@
     (dwim-coder-insert-interactive ?, t)
     t)))
 
-(defun dwim-coder-elisp-dwim-semi-colon ()
+(defun dwim-coder-lisp-dwim-semi-colon ()
   (let ((value nil))
     (cond
      ;; goto end of string if inside one
@@ -132,7 +132,7 @@
       (dwim-coder-insert-interactive ?\n)
       t))))
 
-(defun dwim-coder-elisp-dwim-op (char)
+(defun dwim-coder-lisp-dwim-op (char)
   (cond
    ((and (eq (preceding-char) ?\-)
          (memq char '(?\' ?\" ?,)))
@@ -141,16 +141,16 @@
     (dwim-coder-insert-interactive char t)
     t)))
 
-(defun dwim-coder-elisp-override-self-insert (char)
+(defun dwim-coder-lisp-override-self-insert (char)
   (pcase char
-    ((guard (dwim-coder-elisp-be-sane) nil))
-    (?\; (dwim-coder-elisp-dwim-semi-colon))
+    ((guard (dwim-coder-lisp-be-sane) nil))
+    (?\; (dwim-coder-lisp-dwim-semi-colon))
     ;; skip in strings
     ((guard (nth 3 (syntax-ppss)) nil))
-    (?\s (dwim-coder-elisp-dwim-space))
-    (?. (dwim-coder-elisp-dwim-dot))
-    (?, (dwim-coder-elisp-dwim-comma))
-    (_ (dwim-coder-elisp-dwim-op char))))
+    (?\s (dwim-coder-lisp-dwim-space))
+    (?. (dwim-coder-lisp-dwim-dot))
+    (?, (dwim-coder-lisp-dwim-comma))
+    (_ (dwim-coder-lisp-dwim-op char))))
 
-(provide 'dwim-coder-elisp)
-;;; dwim-coder-elisp.el ends here
+(provide 'dwim-coder-lisp)
+;;; dwim-coder-lisp.el ends here
