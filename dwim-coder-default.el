@@ -3,7 +3,6 @@
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 ;; SPDX-License-Identifier: CC0-1.0
 ;; Created: 2022-12-22
-;; Last-Updated: 2023-06-02
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -30,10 +29,6 @@
     t)
    (t nil)))
 
-(defun dwim-coder-default-is-xml-p ()
-  (or (derived-mode-p 'sgml-mode 'nxml-mode)
-      (string-match-p "\.\\(ui$\\)\\|\\(xml$\\)" (or (buffer-file-name) ""))))
-
 (defun dwim-coder-default-dwim-space ()
   (cond
    ;; On ", )]}" move forward and insert comma
@@ -50,8 +45,7 @@
     (cond
      (dwim-coder-space-char
       (insert-char dwim-coder-space-char))
-     ((or (derived-mode-p 'css-mode 'lisp-data-mode)
-          (dwim-coder-default-is-xml-p))
+     ((derived-mode-p 'css-mode)
       (insert-char ?\-))
      (t
       (insert-char ?\_)))
@@ -66,10 +60,6 @@
     ;; In shell scripts ignore var,,|}
     (cond ((and (derived-mode-p 'sh-mode 'bash-ts-mode)
                 (eq (following-char) ?})) nil)
-          ;; don't insert space before = in xml
-          ((dwim-coder-default-is-xml-p)
-           (delete-char -1)
-           (dwim-coder-insert-interactive ?=))
           (t
            (delete-char -1)
            (if dwim-coder-auto-space
@@ -92,32 +82,12 @@
     t)))
 
 (defun dwim-coder-default-dwim-dot ()
-  ;; good is bad
   (cond
-   ((and (eq (preceding-char) ?<)
-         (eq (following-char) ?>)
-         (dwim-coder-default-is-xml-p))
-    (delete-char -1)
-    (delete-char 1)
-    (insert "...")
-    t)
    ;; replace ..| with (|) or <|>
    ((and (eq (preceding-char) ?.)
          (not (eq (char-before (1- (point))) ?.)))
     (delete-char -1)
-    (cond ((dwim-coder-default-is-xml-p)
-           (dwim-coder-insert-interactive ?<)
-           (unless (eq (following-char) ?>)
-             (dwim-coder-insert-interactive ?>)
-             (backward-char)))
-          ((derived-mode-p 'lisp-data-mode)
-           (unless (or (bolp)
-                       (memq (preceding-char) '(?\s ?\( ?\' ?\` ?\, ?\@)))
-             (if dwim-coder-auto-space
-                 (dwim-coder-skip-or-insert ?\s)))
-           (dwim-coder-insert-interactive ?\())
-          (t
-           (dwim-coder-insert-interactive ?\()))
+    (dwim-coder-insert-interactive ?\()
     t)))
 
 (defun dwim-coder-default-dwim-semi-colon ()
