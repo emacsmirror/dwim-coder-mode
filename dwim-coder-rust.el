@@ -255,6 +255,10 @@
 (defun dwim-coder-rust-dwim-semi-colon ()
   (cond
    ((and (eolp)
+         (looking-back " *#.*$" (line-beginning-position)))
+    (dwim-coder-insert-interactive ?\n)
+    t)
+   ((and (eolp)
          (not (eq (preceding-char) ?\;))
          (looking-back "[^ \t]" (line-beginning-position))
          (not (looking-back "^ *_$" (line-beginning-position))))
