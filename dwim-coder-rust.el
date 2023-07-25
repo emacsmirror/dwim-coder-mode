@@ -214,7 +214,7 @@
       (insert "!")
       t)
      ;; (, (&, and (*,
-     ((looking-back "([&*]" (line-beginning-position))
+     ((looking-back "([&*]?" (line-beginning-position))
       (setq value (preceding-char))
       (if (memq (following-char) '(?& ?*))
           (forward-char)
