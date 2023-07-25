@@ -178,7 +178,11 @@
     t)
    ((and (eq (preceding-char) ?.))
     (delete-char -1)
-    (dwim-coder-insert-interactive ?\()
+    (if (looking-back "::" (line-beginning-position))
+        (progn
+          (insert "<>")
+          (backward-char))
+      (dwim-coder-insert-interactive ?\())
     t)
    ((dwim-coder-rust-after-function-param-p)
     (dwim-coder-insert-interactive ?{)
