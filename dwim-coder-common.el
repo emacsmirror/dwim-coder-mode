@@ -257,6 +257,12 @@ heuristics used to interpret the style."
       (if (eq (preceding-char) ?\;)
           (backward-char))
       t)
+     ((and (eolp)
+           (looking-back ", ?" (line-beginning-position)))
+      (if (eq (preceding-char) ?\s)
+          (delete-char -1))
+      (dwim-coder-insert-interactive ?\n)
+      t)
      ((eolp)
       ;; On lines with _ only, convert it to an empty line
       (when (looking-back "^ *[_-]$" (line-beginning-position))
