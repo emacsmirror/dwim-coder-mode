@@ -94,3 +94,4 @@ from ..‖from ..❚‖from ..❚‖
 ‖func(❪,❫)‖func(*❚)‖func(*❚)‖
 ‖func(arg1, *❪,❫)‖func(arg1, **❚)‖func(arg1, **❚)‖
 ‖b*❪,❫‖b*=❚‖b*=❚‖
+‖b, ❪,❫‖b=❚‖b=❚‖

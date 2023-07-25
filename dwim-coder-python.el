@@ -112,7 +112,7 @@
      ((dwim-coder-default-be-sane)
       (dwim-coder-skip-or-insert ?\, t t)
       t)
-     ((looking-back "\\([([]\\)\\|\\(, \\)" (line-beginning-position))
+     ((looking-back "\\([([]\\)" (line-beginning-position))
       (dwim-coder-skip-or-insert ?* t t)
       t)
      ((looking-back "\\([([][*]+\\)\\|\\(, [*]+\\)" (line-beginning-position))
