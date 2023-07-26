@@ -97,3 +97,5 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖for(;❪;❫)‖for(;;❚)‖for(;;❚)‖
 ‖for(;;❪;❫)‖for(;;)❚‖for(;;)❚‖
 ‖for(❪;❫;)‖for(;❚;)‖for(;❚;)‖
+‖i++❪;❫‖i++;❚‖i++;❚‖
+‖i--❪;❫‖i--;❚‖i--;❚‖
