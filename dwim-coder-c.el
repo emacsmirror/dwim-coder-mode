@@ -589,7 +589,7 @@
         (setq value t))
       (if value
           (forward-sexp))
-      (insert ";")
+      (dwim-coder-insert-interactive ?\; t)
       t)
      ;; Insert ; at point if inside empty string literal
      ((and (eq (preceding-char) ?')
@@ -625,7 +625,7 @@
      ((and (eolp)
            (looking-back "[^[ \t;{(|&*^!~<>,?/:+=-]" (line-beginning-position))
            (not (looking-back "^ *_$" (line-beginning-position))))
-      (insert ";")
+      (dwim-coder-skip-or-insert ?\; t t)
       t)
      (t
       (dwim-coder-common-dwim-semi-colon)))))
