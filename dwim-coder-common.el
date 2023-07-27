@@ -228,8 +228,13 @@ heuristics used to interpret the style."
     (cond
      ;; goto end of string if inside one
      ((nth 3 (syntax-ppss))
-      (skip-syntax-forward "^\"")
-      (forward-char)
+      (while (and (not (eobp))
+                  (nth 3 (syntax-ppss)))
+        (if (next-property-change (point))
+            (goto-char (next-property-change (point))))
+        (if (nth 3 (syntax-ppss))
+            (forward-char))
+        )
       t)
      ;; On lines with _ only, delete the line and go to the end of last line
      ((and (looking-back "^ *[_-]$" (line-beginning-position))
