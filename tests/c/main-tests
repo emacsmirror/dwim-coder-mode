@@ -37,9 +37,7 @@ int i;
 _❪;❫
 int j;
 ‖ gnu-none
-int i;
-
-❚
+int i;❚
 int j;
 ‖‖ int i;;_;
 int i;
@@ -47,9 +45,7 @@ _❪;❫
 
 int j;
 ‖ gnu-none
-int i;
-
-❚
+int i;❚
 
 int j;
 ‖‖ if❪ ❫
@@ -251,5 +247,7 @@ main (void)
 int
 main (void)
 {
-  func ();❚
+  func ();
+
+  ❚
 }

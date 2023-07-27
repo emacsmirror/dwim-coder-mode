@@ -77,7 +77,10 @@
    ((and (> dwim-coder-last-space-point 0)
          (= (point) dwim-coder-last-space-point)
          (looking-back "^ *" (line-beginning-position)))
-    (dwim-coder-insert-interactive ?\n)
+    (delete-line)
+    ;; Don't warn if we are at the beginning of the buffer
+    (ignore-errors (backward-char))
+    (indent-according-to-mode)
     (setq dwim-coder-last-space-point 0)
     t)
    (t

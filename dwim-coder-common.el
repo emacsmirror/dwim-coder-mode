@@ -231,9 +231,9 @@ heuristics used to interpret the style."
       (skip-syntax-forward "^\"")
       (forward-char)
       t)
-     ;; On empty lines, delete the line and go to the end of last line
-     ((save-excursion (beginning-of-line)
-                      (looking-at-p "^ *$"))
+     ;; On lines with _ only, delete the line and go to the end of last line
+     ((and (looking-back "^ *[_-]$" (line-beginning-position))
+           (looking-at-p " *$"))
       (delete-line)
       ;; Don't warn if we are at the beginning of the buffer
       (ignore-errors (backward-char))
@@ -264,8 +264,8 @@ heuristics used to interpret the style."
       (dwim-coder-insert-interactive ?\n)
       t)
      ((eolp)
-      ;; On lines with _ only, convert it to an empty line
-      (when (looking-back "^ *[_-]$" (line-beginning-position))
+      ;; On empty lines, insert a newline
+      (when (looking-back "^ *$" (line-beginning-position))
         (delete-line)
         (backward-char)
         (dwim-coder-insert-interactive ?\n))

@@ -6,12 +6,13 @@
 ‖‖ <html>;;
 <html>;;
 ‖ with-space
-<html>❚
+<html>
+
+  ❚
 
 ‖‖ <html>; ;</html>
 <html>; ;</html>;
 ‖ with-space
-<html>
-
-</html>
+<html></html>
 ❚
+
