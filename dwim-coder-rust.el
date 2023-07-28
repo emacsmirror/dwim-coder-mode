@@ -270,7 +270,7 @@
     (dwim-coder-insert-interactive ?\n)
     t)
    ((and (eolp)
-         (looking-back "[^[ \t;{(|&*^!~<>,?/:+=-]" (line-beginning-position))
+         (looking-back "[^[ \t;{(|&*^!~<>,/:+=-]" (line-beginning-position))
          (not (looking-back "^ *_$" (line-beginning-position))))
     (insert ";")
     t)
