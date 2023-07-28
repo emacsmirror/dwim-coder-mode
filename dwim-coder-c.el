@@ -440,12 +440,6 @@
       (delete-char -1)
       (dwim-coder-insert-interactive ?=)
       t)
-     ((and (eq dwim-coder-c-sub-style 'gnome)
-           (dwim-coder-c-defun-arg-list))
-      (dwim-coder-skip-or-insert ?,)
-      (insert "\n")
-      (indent-according-to-mode)
-      t)
      ;; Don't do anything further if in function declarations
      ((dwim-coder-c-defun-arg-list)
       nil)
