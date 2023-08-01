@@ -264,11 +264,13 @@ heuristics used to interpret the style."
       t)
      ((and (eolp)
            (looking-back ", ?" (line-beginning-position)))
+      (undo-boundary)
       (if (eq (preceding-char) ?\s)
           (delete-char -1))
       (dwim-coder-insert-interactive ?\n)
       t)
      ((eolp)
+      (undo-boundary)
       ;; On empty lines, insert a newline
       (when (looking-back "^ *$" (line-beginning-position))
         (delete-line)
