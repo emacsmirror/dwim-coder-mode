@@ -8,7 +8,7 @@ test:
   script:
     - cask install
     - cask exec buttercup -L . -L tests
-    - genhtml ./coverage/lcov.info -o coverage
+    - genhtml --precision 2 ./coverage/lcov.info -o coverage
   coverage: /lines\.\.\..* (\d+\.?\d+\%)/
   cache:
     paths:
