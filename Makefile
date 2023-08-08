@@ -15,3 +15,9 @@ uninstall:
 	emacs --batch --eval="(progn $(INIT_PKG) (if $(HAS_PKG) $(RM_PKG)))"
 test:
 	emacs -batch -f package-initialize -L . -f buttercup-run-discover
+
+.PHONY: coverage
+coverage:
+	cask install
+	UNDERCOVER_FORCE=true cask exec buttercup -L . -L tests
+	genhtml --precision 2 ./coverage/lcov.info -o coverage
