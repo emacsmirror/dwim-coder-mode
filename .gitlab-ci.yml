@@ -1,0 +1,28 @@
+stages:
+  - test
+  - pages
+
+test:
+  image: pksadiq/emacs:alpine-amd64
+  stage: test
+  script:
+  - cask install
+  - cask exec buttercup -L . -L tests
+  - genhtml ./coverage/lcov.info -o coverage
+  cache:
+    paths:
+      - .cask
+      - coverage
+
+pages:
+  image: busybox:1
+  stage: pages
+  script:
+    - mkdir public
+    - mv coverage ${CI_PROJECT_DIR}/public/coverage
+  artifacts:
+    paths:
+      - public
+  # only:
+  #   refs:
+  #     - main
