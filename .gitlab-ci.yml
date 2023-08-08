@@ -1,6 +1,6 @@
 stages:
   - test
-  - pages
+  - deploy
 
 test:
   image: pksadiq/emacs:alpine-amd64
@@ -12,11 +12,13 @@ test:
   cache:
     paths:
       - .cask
+  artifacts:
+    paths:
       - coverage
 
 pages:
   image: busybox:1
-  stage: pages
+  stage: deploy
   script:
     - mkdir public
     - mv coverage ${CI_PROJECT_DIR}/public/coverage
