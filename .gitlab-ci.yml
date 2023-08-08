@@ -6,9 +6,9 @@ test:
   image: pksadiq/emacs:alpine-amd64
   stage: test
   script:
-  - cask install
-  - cask exec buttercup -L . -L tests
-  - genhtml ./coverage/lcov.info -o coverage
+    - cask install
+    - cask exec buttercup -L . -L tests
+    - genhtml ./coverage/lcov.info -o coverage
   cache:
     paths:
       - .cask
