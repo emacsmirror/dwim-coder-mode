@@ -23,6 +23,6 @@ pages:
   artifacts:
     paths:
       - public
-  # only:
-  #   refs:
-  #     - main
+  only:
+    refs:
+      - main
