@@ -1,5 +1,10 @@
 ;; -*- lexical-binding:t -*-
 
+(when (require 'undercover nil t)
+  (undercover "*.el"
+              (:report-format 'lcov)
+              (:send-report nil)))
+
 (defun create-file-cons (file-name)
   (cons (concat (replace-regexp-in-string "[^/]*/[^/-]*-\\([a-z-]*\\)[0-9]+$" "" file-name nil nil 1) ".in")
         (concat file-name ".expected")))
