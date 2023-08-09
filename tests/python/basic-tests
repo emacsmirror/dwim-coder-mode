@@ -95,6 +95,7 @@ from ..‖from ..❚‖from ..❚‖
 ‖if n❪;❫ot True‖if not True❚‖if not True❚‖
 
 ‖func(❪,❫)‖func(*❚)‖func(*❚)‖
+‖func(❪,❫*)‖func(*❚)‖func(*❚)‖
 ‖func(arg1, *❪,❫)‖func(arg1, **❚)‖func(arg1, **❚)‖
 ‖b*❪,❫‖b*=❚‖b*=❚‖
 ‖b, ❪,❫‖b=❚‖b=❚‖
