@@ -101,7 +101,11 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖for(❪;❫;)‖for(;❚;)‖for(;❚;)‖
 ‖i++❪;❫‖i++;❚‖i++;❚‖
 ‖i--❪;❫‖i--;❚‖i--;❚‖
+‖❪;❫i--;‖i--❚;‖i--❚;‖
+‖i--❪;❫;‖i--;❚‖i--;❚‖
 
 ‖int❪"❫‖int *❚‖int *❚‖
+‖a()❪  ❫‖a()->❚‖
+‖some_random_t"‖some_random_t *❚‖
 ‖some_t❪"❫‖some_t *❚‖some_t *❚‖
 ‖'❪;❫'‖';❚'‖
