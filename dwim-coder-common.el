@@ -233,6 +233,8 @@ heuristics used to interpret the style."
             (goto-char (next-property-change (point))))
         (if (nth 3 (syntax-ppss))
             (forward-char)))
+      (when (looking-at-p "\"\"")
+        (forward-char 2))
       t)
      ;; On lines with _ only, delete the line and go to the end of last line
      ((and (looking-back "^ *[_-]$" (line-beginning-position))
