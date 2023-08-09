@@ -22,7 +22,6 @@
 
 
 (defvar-local dwim-coder-skip nil)
-(defvar-local dwim-coder-last-was-camel nil)
 (defvar-local dwim-coder-last-dot-point 0)
 (defvar-local dwim-coder-last-space-point 0)
 

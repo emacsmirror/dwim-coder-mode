@@ -45,7 +45,6 @@
 
 (cl-defun dwim-coder-pre-self-insert-function (&rest args)
   (let ((val nil)
-        (last-was-camel dwim-coder-last-was-camel)
         (last-space-point dwim-coder-last-space-point)
         (last-dot-point dwim-coder-last-dot-point))
 
@@ -53,7 +52,6 @@
     (unless (and (eq (car args) 1)
                  (eq (type-of (cdr args)) 'cons)
                  (eq (type-of (cadr args)) 'integer))
-      (setq dwim-coder-last-was-camel nil)
       (cl-return-from dwim-coder-pre-self-insert-function nil))
 
     (cond
@@ -82,8 +80,6 @@
       (setq val (dwim-coder-default-override-self-insert (cadr args)))))
     ;; Reset only if the variable was set in some past call,
     ;; not on changes made in this call.
-    (if last-was-camel
-        (setq dwim-coder-last-was-camel nil))
     (if (eq last-space-point dwim-coder-last-space-point)
         (setq dwim-coder-last-space-point 0))
     (if (eq last-dot-point dwim-coder-last-dot-point)
