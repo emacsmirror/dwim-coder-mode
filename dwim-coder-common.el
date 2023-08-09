@@ -232,8 +232,7 @@ heuristics used to interpret the style."
         (if (next-property-change (point))
             (goto-char (next-property-change (point))))
         (if (nth 3 (syntax-ppss))
-            (forward-char))
-        )
+            (forward-char)))
       t)
      ;; On lines with _ only, delete the line and go to the end of last line
      ((and (looking-back "^ *[_-]$" (line-beginning-position))
