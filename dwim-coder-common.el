@@ -273,8 +273,9 @@ heuristics used to interpret the style."
       ;; On empty lines, insert a newline
       (when (looking-back "^ *$" (line-beginning-position))
         (delete-line)
-        (backward-char)
-        (dwim-coder-insert-interactive ?\n))
+        (unless (bobp)
+          (backward-char)
+          (dwim-coder-insert-interactive ?\n)))
       (dwim-coder-insert-interactive ?\n)
       t))))
 
