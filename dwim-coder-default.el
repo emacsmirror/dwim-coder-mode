@@ -39,13 +39,6 @@
           (setq char ?\_)))
       (dwim-coder-insert-interactive char))
     t)
-   ;; On ", )]}" move forward and insert comma
-   ((and (looking-back ", " (line-beginning-position))
-         (memq (following-char) '(?\) ?} ?\] )))
-    (delete-char -2)
-    (forward-char)
-    (dwim-coder-insert-interactive ?,)
-    t)
    ;; If folled by a valid variable replace SPC with _ or -
    ((save-excursion
       (and (< (skip-syntax-backward "w_" (pos-bol)) 0)
