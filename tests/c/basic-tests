@@ -9,6 +9,7 @@
 ‖func ..‖func_ (❚)‖func_ (❚)‖
 ‖i,‖i,❚‖
 ‖i,,‖i=❚‖
+‖i, ,‖i=❚‖
 ‖i,,,‖i==❚‖
 ‖i,,,,‖i==,❚‖
 
@@ -45,6 +46,7 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖#include "main❪ ❫config.h"‖#include "main-❚config.h"‖
 ‖#include "main-❪ ❫config.h"‖#include "main_❚config.h"‖
 
+‖char argv[❪[❫]‖char argv[][❚]‖
 ‖char a[,‖char a[],❚‖
 ‖char c = ❪'❫‖char c = '❚'‖char c = '❚'‖
 ‖char c=';;‖char c=';'❚‖
@@ -68,6 +70,8 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖f (-❪ ❫)‖f (-_❚)‖f (-_❚)‖
 ‖f (!❪ ❫)‖f (!_❚)‖f (!_❚)‖
 ‖f (*❪,❫)‖f (&❚)‖f (&❚)‖
+‖f (❪,❫*)‖f (*❚)‖f (*❚)‖
+‖f (❪,❫&)‖f (&❚)‖f (&❚)‖
 ‖f (*.❪ ❫)‖f (*_❚)‖f (*_❚)‖
 ‖f (arg, .❪ ❫)‖f (arg, _❚)‖f (arg, _❚)‖
 ‖f (arg,.❪ ❫)‖f (arg,_❚)‖f (arg,_❚)‖

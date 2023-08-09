@@ -13,6 +13,21 @@ int main(void)
   ❚
 }
 
+‖‖ int main();
+int main(void❪{❫);
+‖ gnu-gnome
+int
+main (void)
+{
+  ❚
+}
+
+‖ linux-none
+int main(void)
+{
+  ❚
+}
+
 ‖‖ say_hello(value,
 say_helo(value, ❪;❫
 )
