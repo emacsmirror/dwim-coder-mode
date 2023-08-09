@@ -172,11 +172,6 @@
                 (nth 3 (syntax-ppss)))
             (list (treesit-node-start node) (treesit-node-end node))))))
 
-(defun dwim-coder-c-in-enum-p ()
-  (let ((node (treesit-node-at (point))))
-    (and (not (eq (following-char) ?{))
-         (treesit-node-top-level node "^enumerator_list$"))))
-
 (defun dwim-coder-c-get-char-literal ()
   (let ((node (treesit-node-parent (treesit-node-at (point)))))
     (when (equal (treesit-node-type node) "char_literal")
