@@ -144,17 +144,6 @@
       (dwim-coder-insert-interactive ?=)
       t))))
 
-(defun dwim-coder-python-dwim-semi ()
-  (let ((node nil))
-    (cond
-     ;; goto end of string if inside one
-     ((nth 3 (syntax-ppss))
-      (setq node (treesit-node-parent (treesit-node-at (point))))
-      (goto-char (treesit-node-end node))
-      t)
-     (t
-      (dwim-coder-common-dwim-semi-colon)))))
-
 (defun dwim-coder-python-dwim-quote ()
   (let ((node (treesit-node-at (dwim-coder-preceding-point)))
         (value nil)
@@ -180,7 +169,7 @@
             (?\s (dwim-coder-python-dwim-space))
             (?. (dwim-coder-python-dwim-dot))
             (?, (dwim-coder-python-dwim-comma))
-            (?\; (dwim-coder-python-dwim-semi))
+            (?\; (dwim-coder-common-dwim-semi-colon))
             ((guard (dwim-coder-default-be-sane) nil))
             (?' (dwim-coder-python-dwim-quote))
             (_ (dwim-coder-common-dwim-op char))))
