@@ -109,3 +109,4 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖some_random_t"‖some_random_t *❚‖
 ‖some_t❪"❫‖some_t *❚‖some_t *❚‖
 ‖'❪;❫'‖';❚'‖
+‖notify->use_underline.,‖"notify::use-underline",❚‖

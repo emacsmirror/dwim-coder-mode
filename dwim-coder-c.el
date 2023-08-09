@@ -106,12 +106,15 @@
                                 (treesit-node-text node t))))))))
 
 (defun dwim-coder-c-identifier-at-point (&optional p)
-  (let* ((p (or p (point)))
+  (let* ((preceding-point p)
+         (p (or p (point)))
          (node (treesit-node-at p)))
+    (unless preceding-point
+      (setq preceding-point (dwim-coder-preceding-point)))
     (when (save-excursion
             (goto-char p)
-            (looking-back "[a-zA-Z_0-9]" (dwim-coder-preceding-point)))
-      (setq node (treesit-node-at (dwim-coder-preceding-point))))
+            (looking-back "[a-zA-Z_0-9]" preceding-point))
+      (setq node (treesit-node-at preceding-point)))
     (when (member (treesit-node-type node)
                   '("identifier" "type_identifier" "field_identifier" "true" "false"))
       (when (and (> p (treesit-node-start node))
@@ -403,8 +406,8 @@
       (dwim-coder-insert-interactive ?,)
       t)
      ;; Eg: Replace notify->use_underline., to "notify::use_underline",
-     ((and (eq (preceding-char) ?.)
-           (setq value (dwim-coder-c-identifier-at-point (dwim-coder-preceding-point))))
+     ((and (looking-back "[a-zA-Z_][.]" (line-beginning-position))
+           (setq value (dwim-coder-c-identifier-at-point (- (point) 2))))
       ;; Delete the . first
       (delete-char -1)
       (setq start (nth 0 value))
