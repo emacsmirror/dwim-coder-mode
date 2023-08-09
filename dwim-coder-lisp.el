@@ -33,6 +33,9 @@
    ((memq (preceding-char) '(?\) ?\s ?\"))
     (dwim-coder-insert-interactive ?\s t)
     t)
+   ((looking-back " [.]" (line-beginning-position))
+    (dwim-coder-insert-interactive ?\s t)
+    t)
    (t
     (dwim-coder-insert-interactive ?-)
     t)))
