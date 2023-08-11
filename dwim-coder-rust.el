@@ -149,9 +149,6 @@
           (backward-char))
       (dwim-coder-insert-interactive ?\())
     t)
-   ((dwim-coder-rust-after-function-param-p)
-    (dwim-coder-insert-interactive ?{)
-    t)
    (t
     (dwim-coder-common-dwim-dot))))
 
