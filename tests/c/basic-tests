@@ -83,7 +83,6 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖f (❪;❫) + g ()‖f ()❚ + g ()‖f ()❚ + g ()‖
 
 ‖"Hello World❪,❫"‖"Hello World,❚"‖
-‖"Hello World, ❪ ❫"‖"Hello World",❚‖
 ‖"Hello, ❪ ❫World"‖"Hello,  ❚World"‖"Hello,  ❚World"‖
 
 ‖g_uri_flags'_none'‖G_URI_FLAGS_NONE❚‖G_URI_FLAGS_NONE❚‖
@@ -91,7 +90,6 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖int ❪ ❫age‖int _❚age‖int _❚age‖
 ‖func(❪,❫)‖func(&❚)‖
 ‖char *s = "Hello world❪,❫"‖char *s = "Hello world,❚"‖
-‖char *s = "Hello world, ❪ ❫"‖char *s = "Hello world",❚‖
 ‖func(❪..❫)‖func((❚))‖func((❚))‖
 ‖func(‖func (❚)‖func (❚)‖
 ‖s = "He❪;❫llo"‖s = "Hello"❚‖s = "Hello"❚‖

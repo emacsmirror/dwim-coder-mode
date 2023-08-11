@@ -181,22 +181,6 @@
       (list (treesit-node-start node) (treesit-node-end node)
             (treesit-node-text node t)))))
 
-(defun dwim-coder-c-dwim-in-string (char)
-  (let ((node (treesit-node-parent (treesit-node-at (point)))))
-    (cond
-     ;; insert a space after ','
-     ((eq char ?\,)
-      (dwim-coder-skip-or-insert ?\,)
-      t)
-     ;; replace ", SPC" with "",SPC
-     ((and (eq char ?\s)
-           (eq (1+ (point)) (treesit-node-end node))
-           (looking-back ", " (- (point) 2)))
-      (delete-char -2)
-      (forward-char)
-      (dwim-coder-insert-interactive ?\,)
-      t))))
-
 (defun dwim-coder-c-dwim-space ()
   (let ((value nil)
         (node nil))
@@ -628,7 +612,7 @@
      ((and (or (equal (treesit-node-type node) "\"")
                (equal (treesit-node-type node) "string_content"))
            (not (dwim-coder-c-in-include-fname)))
-      (dwim-coder-c-dwim-in-string char))
+      nil)
      ((eq char ?,)
       (dwim-coder-c-dwim-comma))
      ((eq char ?\s)
