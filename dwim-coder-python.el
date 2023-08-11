@@ -71,23 +71,11 @@
 
 (defun dwim-coder-python-dwim-dot ()
   (cond
-   ((and (> dwim-coder-last-dot-point 0)
-         (= (point) dwim-coder-last-dot-point))
-    (setq dwim-coder-last-dot-point 0)
-    ;; Replace last inserted space with _()
-    (delete-char -1)
-    (dwim-coder-insert-interactive ?\s)
-    (dwim-coder-insert-interactive ?\()
-    t)
    ((eq (preceding-char) ?.)
     (if (looking-back "^ *from [.]" (line-beginning-position))
         (dwim-coder-insert-interactive ?\. t)
       (delete-char -1)
       (dwim-coder-insert-interactive ?\())
-    t)
-   ((looking-back "[.]_" (line-beginning-position))
-    (delete-char -1)
-    (dwim-coder-insert-interactive ?\s t)
     t)
    ((looking-back "^ *" (line-beginning-position))
     (dwim-coder-skip-or-insert ?@ t)
@@ -104,12 +92,8 @@
     (delete-char -1)
     (dwim-coder-insert-interactive ?\()
     t)
-   ;; On _. do SPC
-   ((looking-back "[A-Za-z0-9]_" (line-beginning-position))
-    (delete-char -1)
-    (dwim-coder-insert-interactive ?\s t)
-    (setq dwim-coder-last-dot-point (point))
-    t)))
+   (t
+    (dwim-coder-common-dwim-dot))))
 
 (defun dwim-coder-python-dwim-comma ()
   (let ((node (treesit-node-at (dwim-coder-preceding-point))))
