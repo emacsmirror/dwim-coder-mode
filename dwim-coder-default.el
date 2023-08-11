@@ -84,18 +84,14 @@
 
 (defun dwim-coder-default-dwim-dot ()
   (cond
-   ;; replace ..| with (|) or <|>
-   ((and (eq (preceding-char) ?.)
-         (not (eq (char-before (1- (point))) ?.)))
-    (delete-char -1)
-    (dwim-coder-insert-interactive ?\()
-    t)
    ((and (eq (preceding-char) ?\()
          (eq (following-char) ?\)))
     (delete-char -1)
     (delete-char 1)
     (insert "...")
-    t)))
+    t)
+   (t
+    (dwim-coder-common-dwim-dot))))
 
 (defun dwim-coder-default-override-self-insert (char)
   (pcase char
