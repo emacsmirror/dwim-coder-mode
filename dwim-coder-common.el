@@ -246,6 +246,10 @@ heuristics used to interpret the style."
            (not (eq (char-before (1- (point))) ?.)))
       (delete-char -1)
       (dwim-coder-insert-interactive ?\()
+      (if (looking-at-p "[)][\"'<>?/|\\~!@#$%^&*-+=]")
+          (save-excursion
+            (forward-char)
+            (dwim-coder-insert-interactive ?\s)))
       t))))
 
 (defun dwim-coder-common-dwim-semi-colon ()
