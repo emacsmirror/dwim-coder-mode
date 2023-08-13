@@ -30,7 +30,7 @@
 
 (defun dwim-coder-lisp-dwim-space ()
   (cond
-   ((memq (preceding-char) '(?\) ?\s ?\"))
+   ((memq (preceding-char) '(?\) ?\"))
     (dwim-coder-insert-interactive ?\s t)
     t)
    ((looking-back " [.]" (line-beginning-position))
@@ -38,6 +38,7 @@
     t)
    (t
     (dwim-coder-insert-interactive ?-)
+    (setq dwim-coder-last-space-point (point))
     t)))
 
 (defun dwim-coder-lisp-dwim-dot ()
@@ -98,13 +99,10 @@
       (dwim-coder-insert-interactive ?\n)
       t)
      ((and (eq (preceding-char) ?-)
-           (looking-at "[) ]"))
+           (looking-at "[) ]")
+           (not (looking-back "^ *-" (line-beginning-position))))
       (delete-char -1)
       (dwim-coder-insert-interactive ?\n)
-      t)
-     ((and (looking-back "^ *" (line-beginning-position))
-           (looking-at-p " *)"))
-      (delete-indentation)
       t)
      ((and (setq value (save-excursion
                          (ignore-errors (up-list))
