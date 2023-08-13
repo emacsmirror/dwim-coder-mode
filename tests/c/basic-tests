@@ -84,6 +84,7 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 
 ‖"Hello World❪,❫"‖"Hello World,❚"‖
 ‖"Hello, ❪ ❫World"‖"Hello,  ❚World"‖"Hello,  ❚World"‖
+‖s,❪,❫"Hello"‖s=❚"Hello"‖
 
 ‖g_uri_flags'_none'‖G_URI_FLAGS_NONE❚‖G_URI_FLAGS_NONE❚‖
 ‖int     ❪ ❫ age‖int      ❚ age‖int      ❚ age‖

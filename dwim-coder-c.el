@@ -603,7 +603,7 @@
       t))))
 
 (defun dwim-coder-c-override-self-insert (char)
-  (let ((node (treesit-node-at (point))))
+  (let ((node (treesit-node-at (dwim-coder-preceding-point))))
     (cond
      ;; be sane with comments
      ((nth 4 (syntax-ppss))
