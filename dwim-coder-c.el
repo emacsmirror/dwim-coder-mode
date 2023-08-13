@@ -585,7 +585,7 @@
       (dwim-coder-skip-or-insert ?\; t t)
       t)
      ((and (eolp)
-           (looking-back "[^[ \t;{(|&*^!~<>,?/:+=-]" (line-beginning-position))
+           (looking-back "[^[ \t;{(|&*^!~<>.,?/:+=-]" (line-beginning-position))
            (not (looking-back "^ *_$" (line-beginning-position))))
       (dwim-coder-skip-or-insert ?\; t t)
       t)

@@ -273,6 +273,12 @@ heuristics used to interpret the style."
       (delete-char -1)
       (delete-indentation)
       t)
+     ((and (eolp)
+           (eq (preceding-char) ?\.)
+           (> (nth 0 (syntax-ppss)) 0))
+      (delete-char -1)
+      (up-list)
+      t)
      ;; On lines with _ only, delete the line and go to the end of last line
      ((and (looking-back "^ *[_-]$" (line-beginning-position))
            (looking-at-p " *$"))
