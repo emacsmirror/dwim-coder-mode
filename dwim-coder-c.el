@@ -201,6 +201,7 @@
      ;; Let SPC at start of line do '_'
      ((bolp)
       (insert "_")
+      (setq dwim-coder-last-space-point (point))
       t)
      ;; Let .SPC give '_'
      ((and (eq (preceding-char) ?\.)
@@ -251,7 +252,8 @@
           (progn
             (delete-char -1)
             (insert "->"))
-        (dwim-coder-insert-interactive ?_))
+        (dwim-coder-insert-interactive ?_)
+        (setq dwim-coder-last-space-point (point)))
       t)
      ;; If there are more than one space before, insert space again on SPC
      ((looking-back "[^ \t]+[ \t][ \t]+" (line-beginning-position))
@@ -259,9 +261,11 @@
       t)
      ((memq (preceding-char) '(?\s ?\( ?\[ ?\!))
       (dwim-coder-insert-interactive ?_)
+      (setq dwim-coder-last-space-point (point))
       t)
      ((looking-back "[,([] ?[&*-]" (line-beginning-position))
       (dwim-coder-insert-interactive ?_)
+      (setq dwim-coder-last-space-point (point))
       t))))
 
 (defun dwim-coder-c-dwim-quote ()

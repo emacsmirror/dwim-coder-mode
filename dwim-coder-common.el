@@ -266,6 +266,13 @@ heuristics used to interpret the style."
       (when (looking-at-p "\"\"")
         (forward-char 2))
       t)
+     ((and dwim-coder-last-space-point
+           (= (point) dwim-coder-last-space-point)
+           (looking-at-p "[])}]")
+           (looking-back "^ *[_-]" (line-beginning-position)))
+      (delete-char -1)
+      (delete-indentation)
+      t)
      ;; On lines with _ only, delete the line and go to the end of last line
      ((and (looking-back "^ *[_-]$" (line-beginning-position))
            (looking-at-p " *$"))
