@@ -216,7 +216,7 @@ int main (void)
     return;❚
 }
 
-‖‖-if (true)❪;❫
+‖‖ if (true)❪;❫
 int main (void)
 {
   if (true)❪;❫
@@ -228,6 +228,62 @@ int main (void)
   if (true)
   ❚
 }
+
+‖‖ while (true)❪;❫
+int main (void)
+{
+  while (true)❪;❫
+}
+
+‖ gnu-none
+int main (void)
+{
+  while (true)
+  ❚
+}
+
+‖‖ do while ()❪;❫
+int main (void)
+{
+  do
+    puts("Hello");
+  while (true)❪;❫
+}
+
+‖ gnu-none
+int main (void)
+{
+  do
+    puts("Hello");
+  while (true);❚
+}
+
+‖‖ struct {}❪;❫
+int main (void)
+{
+  struct SomeType
+    {
+    }❪;❫
+}
+
+‖ gnu-none
+int main (void)
+{
+  struct SomeType
+    {
+    };❚
+}
+
+‖‖ int main {}❪;❫
+int main (void)
+{
+}❪;❫
+
+‖ gnu-none
+int main (void)
+{
+}
+❚
 
 ‖‖-func(char *name❪{❫)
 int
