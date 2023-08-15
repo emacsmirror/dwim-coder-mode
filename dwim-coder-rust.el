@@ -207,19 +207,8 @@
           (forward-char)
         (insert-char ?&))
       t)
-     ((save-excursion
-        (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
-        (eq (preceding-char) ?,))
-      (if (eq (preceding-char) ?\s)
-          (delete-char -1))
-      (delete-char -1)
-      (dwim-coder-insert-interactive ?=)
-      t)
-     ((save-excursion
-        (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
-        (memq (preceding-char) '(?+ ?- ?* ?& ?^ ?\% ?! ?~ ?< ?> ?=)))
-      (dwim-coder-insert-interactive ?=)
-      t))))
+     (t
+      (dwim-coder-common-dwim-comma)))))
 
 (defun dwim-coder-rust-dwim-semi-colon ()
   (cond

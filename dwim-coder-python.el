@@ -116,17 +116,8 @@
      ((looking-back "^ *" (line-beginning-position))
       (dwim-coder-skip-or-insert ?# t nil)
       t)
-     ((looking-back ", ?" (line-beginning-position))
-      (if (eq (preceding-char) ?\s)
-          (delete-char -1))
-      (delete-char -1)
-      (dwim-coder-skip-or-insert ?= t)
-      t)
-     ((save-excursion
-        (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
-        (memq (preceding-char) '(?= ?- ?+ ?* ?/ ?% ?< ?> ?! ?^ ?| ?&)))
-      (dwim-coder-insert-interactive ?=)
-      t))))
+     (t
+      (dwim-coder-common-dwim-comma)))))
 
 (defun dwim-coder-python-dwim-quote ()
   (let ((node (treesit-node-at (dwim-coder-preceding-point)))

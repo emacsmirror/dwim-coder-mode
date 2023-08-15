@@ -424,28 +424,8 @@
       (insert-char ?\")
       (dwim-coder-insert-interactive ?,)
       t)
-     ;; Replace ,, with =
-     ((save-excursion
-        (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
-        (eq (preceding-char) ?,))
-      (if (eq (preceding-char) ?\s)
-          (delete-char -1))
-      (delete-char -1)
-      (dwim-coder-insert-interactive ?=)
-      t)
-     ;; Don't do anything further if in function declarations
-     ((dwim-coder-c-defun-arg-list)
-      nil)
-     ((save-excursion
-        (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
-        (if (memq (preceding-char) '(?+ ?- ?* ?& ?^ ?\% ?! ?~ ?< ?> ?=))
-            (backward-char))
-        (setq value (dwim-coder-c-op-at-point))
-        ;; Check if '=' is allowed here
-        (and value (nth 3 value)))
-      (goto-char (nth 1 value))
-      (dwim-coder-insert-interactive ?=)
-      t))))
+     (t
+      (dwim-coder-common-dwim-comma)))))
 
 (defun dwim-coder-c-dwim-paren ()
   (let ((value nil))

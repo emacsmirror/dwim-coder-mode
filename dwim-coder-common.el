@@ -323,5 +323,22 @@ heuristics used to interpret the style."
       (dwim-coder-insert-interactive ?\n)
       t))))
 
+(defun dwim-coder-common-dwim-comma ()
+    (let ((value nil))
+      (cond
+       ;; Replace ,, with =
+       ((looking-back ", ?" (line-beginning-position))
+        (if (eq (preceding-char) ?\s)
+            (delete-char -1))
+        (delete-char -1)
+        (dwim-coder-insert-interactive ?=)
+        t)
+       ((save-excursion
+          (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
+          (memq (preceding-char) '(?+ ?- ?* ?/ ?| ?& ?^ ?\% ?! ?~ ?< ?> ?=)))
+        (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
+        (dwim-coder-insert-interactive ?=)
+        t))))
+
 (provide 'dwim-coder-common)
 ;;; dwim-coder-common.el ends here
