@@ -91,28 +91,6 @@
           (cl-return-from dwim-coder-c-skip-semi t))))
     skip-semi))
 
-(defun dwim-coder-c-op-at-point (&optional p)
-  (let* ((p (or p (point)))
-         (node (treesit-node-at p))
-         (operators c-ts-mode--operators)
-         (can-append-equal nil)
-         (type  nil))
-    ;; Remove operators we don't care
-    (setq operators (remove "." operators))
-    (setq operators (remove "->" operators))
-    (when (save-excursion
-            (goto-char p)
-            (looking-back "[<>%^&*/!+-]" (dwim-coder-preceding-point)))
-      (setq node (treesit-node-at (dwim-coder-preceding-point))))
-    (setq type (treesit-node-type node))
-    (when (member type operators)
-      (when (or (equal type "=")
-                (and (not (string-suffix-p "=" type))
-                     (not (member type '("&&" "||" "--" "++")))))
-        (setq can-append-equal t))
-      (list (treesit-node-start node) (treesit-node-end node)
-            (treesit-node-text node t) can-append-equal))))
-
 (defun dwim-coder-c-type-identifier-at-point (&optional p)
   (let* ((p (or p (point)))
          (node (treesit-node-at p)))
