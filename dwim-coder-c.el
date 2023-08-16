@@ -126,17 +126,6 @@
         (list (treesit-node-start node) (treesit-node-end node)
               (treesit-node-text node t))))))
 
-(defun dwim-coder-c-defun-arg-list ()
-  (let ((node (treesit-node-at (point)))
-        (value nil))
-    (when (and (treesit-node-top-level node "^parameter_list$")
-               (treesit-node-top-level node "^function_declarator$"))
-      (setq node (treesit-node-top-level node "^parameter_list$"))
-      (setq value (list (treesit-node-start node) (treesit-node-end node)))
-      (if (and (> (point) (nth 0 value))
-               (<= (point) (nth 1 value)))
-          value))))
-
 (defun dwim-coder-c-point-around-defun-decl ()
   (let ((node nil)
         (func-start nil)
