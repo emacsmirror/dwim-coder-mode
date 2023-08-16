@@ -115,3 +115,6 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖'❪;❫'‖';❚'‖
 ‖';❪;❫'‖';'❚‖
 ‖notify->use_underline.,‖"notify::use-underline",❚‖
+
+‖case PROP_HELLO❪;❫‖case PROP_HELLO:❚‖
+‖default❪;❫‖default:❚‖
