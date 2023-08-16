@@ -31,6 +31,10 @@
 ‖i>,‖i>=❚‖
 ‖i!,‖i!=❚‖
 
+‖i,❪,❫ =‖i=❚=‖
+‖i❪>❫ >‖i>❚>‖
+‖i❪&❫ &‖i&❚&‖
+
 ‖n items‖n_items❚‖n_items❚‖
 ‖type t var‖type_t var❚‖type_t var❚‖
 goto some label‖goto some_label❚‖goto some_label❚‖
