@@ -137,22 +137,14 @@
       t)))
 
 (defun dwim-coder-python-override-self-insert (char)
-  (let ((last-dot-point dwim-coder-last-dot-point)
-        (status nil))
-    (setq status
-          (pcase char
-            (?\s (dwim-coder-python-dwim-space))
-            (?. (dwim-coder-python-dwim-dot))
-            (?, (dwim-coder-python-dwim-comma))
-            (?\; (dwim-coder-common-dwim-semi-colon))
-            ((guard (dwim-coder-default-be-sane) nil))
-            (?' (dwim-coder-python-dwim-quote))
-            (_ (dwim-coder-common-dwim-op char))))
-
-    ;; Reset last dot point cache if we didn't update
-    (when (= last-dot-point dwim-coder-last-dot-point)
-      (setq dwim-coder-last-dot-point 0))
-    status))
+  (pcase char
+    (?\s (dwim-coder-python-dwim-space))
+    (?. (dwim-coder-python-dwim-dot))
+    (?, (dwim-coder-python-dwim-comma))
+    (?\; (dwim-coder-common-dwim-semi-colon))
+    ((guard (dwim-coder-default-be-sane) nil))
+    (?' (dwim-coder-python-dwim-quote))
+    (_ (dwim-coder-common-dwim-op char))))
 
 (provide 'dwim-coder-python)
 ;;; dwim-coder-python.el ends here
