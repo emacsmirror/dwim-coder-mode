@@ -557,7 +557,7 @@
       t)
      ((and (looking-at-p " ?[])}]")
            (looking-back "[&|,+-] ?" (line-beginning-position))
-           (not (looking-back "\\(++\\|--\\) ?")))
+           (not (looking-back "\\(++\\|--\\) ?" (line-beginning-position))))
       (if (eq (preceding-char) ?\s)
           (delete-char -1))
       (dwim-coder-insert-interactive ?\n)
