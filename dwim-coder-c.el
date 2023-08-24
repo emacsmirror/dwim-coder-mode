@@ -298,8 +298,13 @@
 
 (defun dwim-coder-c-dwim-dot ()
   (cond
-   (t (dwim-coder-common-dwim-dot))
-   ))
+   ((and (looking-back "(\\|, ?" (line-beginning-position))
+         (looking-at-p "[a-zA-Z_]"))
+    (if (not (nth 1 (syntax-ppss)))
+        (dwim-coder-insert-interactive ?*)
+      (dwim-coder-insert-interactive ?&))
+    t)
+   (t (dwim-coder-common-dwim-dot))))
 
 (defun dwim-coder-c-dwim-comma ()
   (let ((value nil)
@@ -587,6 +592,16 @@
         (dwim-coder-insert-interactive ?\[ t))
       t))))
 
+(defun dwim-coder-c-dwim-letter ()
+  (cond
+   ((and (or (not (nth 1 (syntax-ppss)))
+             (eq (char-after (nth 1 (syntax-ppss))) ?\())
+         (looking-back "([.]\\|, ?[.]" (line-beginning-position)))
+    (delete-char -1)
+    (if (not (nth 1 (syntax-ppss)))
+        (dwim-coder-insert-interactive ?*)
+      (dwim-coder-insert-interactive ?&)))))
+
 (defun dwim-coder-c-override-self-insert (char)
   (let ((node (treesit-node-at (dwim-coder-preceding-point))))
     (cond
@@ -617,6 +632,8 @@
       (dwim-coder-c-dwim-brace))
      ((memq char '(?\[ ?\]))
       (dwim-coder-c-dwim-square-bracket char))
+     ((string-match-p "[a-zA-Z_]" (string char))
+      (dwim-coder-c-dwim-letter))
      ((memq char '(?+ ?- ?* ?% ?^ ?& ?| ?< ?> ?=))
       (dwim-coder-common-dwim-op char)))))
 

@@ -122,3 +122,10 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 
 ‖case PROP_HELLO❪;❫‖case PROP_HELLO:❚‖
 ‖default❪;❫‖default:❚‖
+
+‖int *a, ❪.❫‖int *a, .❚‖
+‖int *a, ❪.❫b‖int *a, *❚b‖
+‖call(❪.apple❫)‖call(&apple❚)‖
+‖call(❪.23❫)‖call(.23❚)‖
+‖call(a, ❪.b❫)‖call(a, &b❚)‖
+‖a = {❪.name❫}‖a = {.name❚}‖
