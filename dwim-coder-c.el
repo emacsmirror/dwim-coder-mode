@@ -396,6 +396,10 @@
       (insert-char ?\")
       (dwim-coder-insert-interactive ?,)
       t)
+     ((and (eq (preceding-char) ?=)
+           (memq (char-before (1- (point))) '(?= ?< ?> ?- ?+)))
+      (dwim-coder-insert-interactive ?, t)
+      t)
      (t
       (dwim-coder-common-dwim-comma)))))
 
