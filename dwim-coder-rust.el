@@ -149,6 +149,12 @@
           (backward-char))
       (dwim-coder-insert-interactive ?\())
     t)
+   ((and (looking-back "(\\|, ?\\|: ?" (line-beginning-position))
+         (looking-at-p "[a-zA-Z_0-9]"))
+    (unless (eq (preceding-char) ?\()
+      (dwim-coder-skip-or-insert ?\s t))
+    (dwim-coder-insert-interactive ?&)
+    t)
    (t
     (dwim-coder-common-dwim-dot))))
 
@@ -202,11 +208,6 @@
      ((looking-back "::" (line-beginning-position))
       (dwim-coder-insert-interactive ?*)
       t)
-     ((looking-back ":[ ]?" (line-beginning-position))
-      (if (looking-at-p "&")
-          (forward-char)
-        (insert-char ?&))
-      t)
      (t
       (dwim-coder-common-dwim-comma)))))
 
@@ -230,6 +231,14 @@
    (t
     (dwim-coder-common-dwim-semi-colon))))
 
+(defun dwim-coder-rust-dwim-letter ()
+  (cond
+   ((looking-back "([.]\\|, ?[.]\\|: ?[.]" (line-beginning-position))
+    (delete-char -1)
+    (unless (eq (preceding-char) ?\()
+      (dwim-coder-skip-or-insert ?\s t))
+    (dwim-coder-insert-interactive ?&))))
+
 (defun dwim-coder-rust-override-self-insert (char)
   (cond
    ;; be sane with comments
@@ -250,6 +259,8 @@
     (dwim-coder-rust-dwim-dot))
    ((eq char ?\')
     (dwim-coder-rust-dwim-quote))
+   ((string-match-p "[a-zA-Z_0-9]" (string char))
+    (dwim-coder-rust-dwim-letter))
    ((memq char '(?+ ?- ?* ?% ?^ ?& ?| ?< ?> ?=))
     (dwim-coder-common-dwim-op char))))
 
