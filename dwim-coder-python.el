@@ -136,6 +136,17 @@
           (insert (dwim-coder-s-to-style value "snake"))))
       t)))
 
+(defun dwim-coder-python-dwim-char (char)
+  (cond
+   ((and (looking-back "([.]\\|, ?[.]" (line-beginning-position))
+         (string-match-p "[a-zA-Z_]" (string char)))
+    (delete-char -1)
+    (unless (eq (preceding-char) ?\()
+      (dwim-coder-skip-or-insert ?\s t))
+    (dwim-coder-insert-interactive ?* t))
+   (t
+    (dwim-coder-common-dwim-op char))))
+
 (defun dwim-coder-python-override-self-insert (char)
   (pcase char
     (?\s (dwim-coder-python-dwim-space))
@@ -144,7 +155,7 @@
     (?\; (dwim-coder-common-dwim-semi-colon))
     ((guard (dwim-coder-default-be-sane) nil))
     (?' (dwim-coder-python-dwim-quote))
-    (_ (dwim-coder-common-dwim-op char))))
+    (_ (dwim-coder-python-dwim-char char))))
 
 (provide 'dwim-coder-python)
 ;;; dwim-coder-python.el ends here

@@ -99,3 +99,8 @@ from ..‖from ..❚‖from ..❚‖
 ‖func(arg1, *❪,❫)‖func(arg1, **❚)‖func(arg1, **❚)‖
 ‖b*❪,❫‖b*=❚‖b*=❚‖
 ‖b, ❪,❫‖b=❚‖b=❚‖
+
+‖call(❪.❫)‖call(.❚)‖
+‖call(❪.a❫)‖call(*a❚)‖
+‖call(a, ❪.❫)‖call(a, .❚)‖
+‖call(a, ❪.b❫)‖call(a, *b❚)‖
