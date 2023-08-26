@@ -20,6 +20,7 @@
 
 ;;; Code:
 
+(require 'dwim-coder-common)
 
 (defun dwim-coder-default-be-sane ()
   "Check if we should act sane at `point'."

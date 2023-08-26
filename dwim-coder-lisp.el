@@ -19,6 +19,7 @@
 
 ;;; Code:
 
+(require 'dwim-coder-common)
 
 (defun dwim-coder-lisp-be-sane ()
   "Check if we should act sane at `point'."

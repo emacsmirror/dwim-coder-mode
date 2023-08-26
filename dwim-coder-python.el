@@ -20,7 +20,9 @@
 ;;; Code:
 
 
+(require 'dwim-coder-common)
 (require 'dwim-coder-default)
+(require 'treesit)
 
 (defun dwim-coder-python-be-sane ()
   ;; situations to avoid being crazy
