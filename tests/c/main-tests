@@ -81,6 +81,27 @@ int main(void)
   if (❚)
 }
 
+‖‖ ❪ ❫if
+int main(void)
+{
+  ❪ ❫
+  if
+}
+
+‖ gnu-none
+int main(void)
+{
+  _❚
+  if
+}
+
+‖ linux-none
+int main(void)
+{
+  _❚
+  if
+}
+
 ‖‖ if❪..❫
 int main(void)
 {

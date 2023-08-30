@@ -48,22 +48,22 @@
 
 (defun dwim-coder-c-can-paren-at-point (&optional p)
   (let* ((p (or p (point)))
-         (node (treesit-node-at p))
+         (node nil)
          (case-fold-search nil))
     (when (save-excursion
             (goto-char p)
             (looking-back "[a-zA-Z_0-9]" (dwim-coder-preceding-point)))
-      (setq node (treesit-node-at (dwim-coder-preceding-point))))
+      (setq node (treesit-node-at (dwim-coder-preceding-point)))
     ;; allow parens everywhere except in function declarations
-    (unless (treesit-node-top-level node "^function_declarator$")
-      (list (treesit-node-start node) (treesit-node-end node)
-            (treesit-node-text node t)
-            ;; Whether to enforce no-space before '('
-            (or (equal (treesit-node-type node) "sizeof")
-                (string-match-p "^[QCN]?[C]?_$" (treesit-node-text node t)))
-            ;; Whether to enforce space before '('
-            (member (treesit-node-type node)
-                    '("if" "for" "while" "switch"))))))
+      (unless (treesit-node-top-level node "^function_declarator$")
+        (list (treesit-node-start node) (treesit-node-end node)
+              (treesit-node-text node t)
+              ;; Whether to enforce no-space before '('
+              (or (equal (treesit-node-type node) "sizeof")
+                  (string-match-p "^[QCN]?[C]?_$" (treesit-node-text node t)))
+              ;; Whether to enforce space before '('
+              (member (treesit-node-type node)
+                      '("if" "for" "while" "switch")))))))
 
 (cl-defun dwim-coder-c-skip-semi ()
   (let ((node nil)
