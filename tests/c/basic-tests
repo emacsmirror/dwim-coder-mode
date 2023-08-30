@@ -130,3 +130,6 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖call(❪.23❫)‖call(.23❚)‖
 ‖call(a, ❪.b❫)‖call(a, &b❚)‖
 ‖a = {❪.name❫}‖a = {.name❚}‖
+‖call(&❪.❫apple)‖call((❚)apple)‖
+‖call(a, &❪.❫b)‖call(a, (❚)b)‖
+‖a = {&❪.❫)name}‖a = {(❚)name}‖
