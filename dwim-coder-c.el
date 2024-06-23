@@ -139,8 +139,14 @@
           (setq node (treesit-node-child-by-field-name node "declarator")))
       (setq node (treesit-node-top-level (treesit-node-at (point)) "^declaration$"))
       (setq func-start (treesit-node-start node)))
-    (when node
-      (setq node (treesit-search-subtree node "function_declarator")))
+    (if node
+        (setq node (treesit-search-subtree node "function_declarator"))
+      ;; If we didn't get the declarator so far, we might be in a declaration that's
+      ;; not a definition.
+      ;; fixme: func-start points to the start of function name, not function type name
+      (setq node (treesit-node-top-level
+                  (treesit-node-at (point)) "^function_declarator$"))
+      (setq func-start (treesit-node-start node)))
     (when node
       (setq func-name-start (treesit-node-start node))
       (setq node (treesit-filter-child
