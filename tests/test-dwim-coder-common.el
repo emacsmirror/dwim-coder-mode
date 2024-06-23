@@ -1,3 +1,5 @@
+;; -*- lexical-binding:t -*-
+
 (load "./dwim-coder-common.el")
 
 (require 'buttercup)
