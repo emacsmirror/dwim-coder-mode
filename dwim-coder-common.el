@@ -260,6 +260,7 @@ heuristics used to interpret the style."
 
 (defun dwim-coder-common-dwim-semi-colon ()
   (let ((value nil))
+
     (cond
      ;; goto end of string if inside one
      ((nth 3 (syntax-ppss))
@@ -293,6 +294,10 @@ heuristics used to interpret the style."
       (ignore-errors (backward-char))
       t)
      ((eq (following-char) ?\;)
+      (forward-char)
+      t)
+     ;; Skip forward the paren if we are just before one
+     ((looking-at-p "[])}]")
       (forward-char)
       t)
      ;; Move up a list if list we contain ends in the same line.
