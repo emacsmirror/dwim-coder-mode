@@ -313,6 +313,7 @@
         (case-fold-search nil))
     (cond
      ;; Replace , with # if in the beginning of line
+     ((looking-back "^[ \t]*")
       (dwim-coder-insert-interactive ?#)
       t)
      ;; , after #include inserts <>
