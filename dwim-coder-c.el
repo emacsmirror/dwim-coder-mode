@@ -82,7 +82,6 @@
     (when (eq (preceding-char) ?\))
       (save-excursion
         (backward-sexp)
-        (skip-chars-backward "[ \n]")
         (setq node (treesit-node-at (dwim-coder-preceding-point)))
         (when (member (treesit-node-type node) '("if" "for"))
           (cl-return-from dwim-coder-c-skip-semi t))
@@ -314,7 +313,6 @@
         (case-fold-search nil))
     (cond
      ;; Replace , with # if in the beginning of line
-     ((bolp)
       (dwim-coder-insert-interactive ?#)
       t)
      ;; , after #include inserts <>
