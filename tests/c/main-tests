@@ -1,33 +1,3 @@
-‖‖ int main()
-int main..{
-‖ gnu-none
-int
-main (void)
-{
-  ❚
-}
-
-‖ linux-none
-int main(void)
-{
-  ❚
-}
-
-‖‖ int main();
-int main(void❪{❫);
-‖ gnu-gnome
-int
-main (void)
-{
-  ❚
-}
-
-‖ linux-none
-int main(void)
-{
-  ❚
-}
-
 ‖‖ , => # on empty lines
 int main(void)
 {
@@ -169,21 +139,6 @@ int main(void)
 int main(void)
 {
   if (!❚)
-}
-
-‖‖ int main(vo❪{❫id);
-int main(vo❪{❫id);
-‖ gnu-none 
-int
-main (void)
-{
-  ❚
-}
-
-‖ linux-none
-int main(void)
-{
-  ❚
 }
 
 ‖‖ func❪(❫
@@ -371,9 +326,4 @@ int main(❚)
 ‖‖ int func(void);
 int func(void);❪{❫
 ‖ gnu-none
-int
-func (void)
-{
-  ❚
-}
-
+int func(void){❚}

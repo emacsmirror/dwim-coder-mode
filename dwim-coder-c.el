@@ -458,71 +458,28 @@
         (insert "void")
         ;; update values again since we changed the content
         (setq value (dwim-coder-c-point-around-defun-decl)))
-      ;; Skip additional spaces between function return type and arguments
-      (replace-regexp-in-region "  +" " " (nth 0 value) (nth 1 value))
-      (goto-char (nth 0 value))
-      (setq value (dwim-coder-c-point-around-defun-decl))
-      (goto-char (nth 2 value))
-      ;; Insert a space after function name ...
-      (insert " ")
-      (goto-char (nth 0 value))
-      (setq value (dwim-coder-c-point-around-defun-decl))
-      ;; Skip additional spaces between function name and paren start
-      (replace-regexp-in-region "  +" " " (nth 1 value) (nth 2 value))
-      (goto-char (nth 0 value))
-      (setq value (dwim-coder-c-point-around-defun-decl))
-      ;; If linux style, delete the space after function name
-      (when (eq c-ts-mode-indent-style 'linux)
-        (goto-char (nth 2 value))
-        (delete-char -1)
-        (setq value (dwim-coder-c-point-around-defun-decl)))
-      ;; Add a \n before function name in gnu and gnome styles
-      (when (or (eq c-ts-mode-indent-style 'gnu)
-                (eq dwim-coder-c-sub-style 'gnome))
-        (goto-char (nth 1 value))
-        (dwim-coder-skip-or-insert ?\n)
-        (setq value (dwim-coder-c-point-around-defun-decl)))
-      ;; Remove ; (ie, change it to a definition from declaration)
       (goto-char (nth 3 value))
       (if (eq (following-char) ?\;)
           (delete-char 1))
-      (indent-region (nth 0 value) (nth 3 value))
+      ;; insert temporary code so that eglot-format will format braces right
+      (insert "{dwim();}")
+      (goto-char (nth 2 value))
+      (setq value (dwim-coder-c-point-around-defun-decl))
+      (when (and (fboundp 'eglot-current-server)
+                 (eglot-current-server))
+        (ignore-errors (eglot-format (nth 0 value) (+ (length "{dwim();}") (nth 3 value)))))
+      (goto-char (nth 2 value))
       (setq value (dwim-coder-c-point-around-defun-decl))
       ;; Align arguments in gnome style
       (when (eq dwim-coder-c-sub-style 'gnome)
-        (goto-char (nth 2 value))
-        (replace-regexp-in-region "  +" " " (nth 2 value)
-                                  (save-excursion
-                                    (re-search-forward "[,)]" (nth 3 value) t) (point)))
-        (goto-char (nth 2 value))
-        (setq value (dwim-coder-c-point-around-defun-decl))
-        (align (nth 2 value) (nth 3 value))
-        (setq value (dwim-coder-c-point-around-defun-decl)))
-      (delete-trailing-whitespace (nth 0 value) (nth 3 value))
+        (align (nth 2 value) (nth 3 value)))
       (setq value (dwim-coder-c-point-around-defun-decl))
       (goto-char (nth 3 value))
-      (dwim-coder-skip-or-insert ?\n)
-      ;; insert or skip '{'
-      (if (eq (following-char) ?{)
-          (progn
-            (forward-char)
-            ;; Skip up to something non-comment
-            (forward-comment 42)
-            ;; If we went too far, move a bit back
-            (if (and (bolp)
-                     (eq (following-char) ?}))
-                (backward-char)))
-        (dwim-coder-insert-interactive ?{ t)
-        (dwim-coder-skip-or-insert ?\})
-        (if (looking-at-p "\n\n")
-            nil
-          (insert-char ?\n)
-          (unless (eobp)
-            (insert-char ?\n)
-            (backward-char))
-          (backward-char))
-        (backward-char)
-        (dwim-coder-insert-interactive ?\n))
+      (skip-chars-forward " \t\n{")
+      (delete-region (point) (save-excursion (skip-chars-forward "^;") (point)))
+      ;; delete ';'
+      (delete-char 1)
+      (indent-according-to-mode)
       t))))
 
 (defun dwim-coder-c-dwim-semi-colon ()
