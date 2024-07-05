@@ -306,3 +306,9 @@ int main(❚)
 int func(void);❪{❫
 ‖ gnu-none
 int func(void){❚}
+‖‖ , to #
+#include "example.h"
+❪,❫
+‖ gnu-none
+#include "example.h"
+#
