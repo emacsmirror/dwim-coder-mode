@@ -6,7 +6,6 @@
 
 ‖i ‖i_❚‖i_❚‖
 ‖i .‖i ❚‖i ❚‖
-‖func ..‖func_ (❚)‖func_ (❚)‖
 ‖i,‖i,❚‖
 ‖i,,‖i=❚‖
 ‖i, ,‖i=❚‖
@@ -96,7 +95,6 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖func(❪,❫)‖func(&❚)‖
 ‖char *s = "Hello world❪,❫"‖char *s = "Hello world,❚"‖
 ‖func(❪..❫)‖func((❚))‖func((❚))‖
-‖func(‖func (❚)‖func (❚)‖
 ‖s = "He❪;❫llo"‖s = "Hello"❚‖s = "Hello"❚‖
 ‖s = "Hello"❪;❫‖s = "Hello";❚‖s = "Hello";❚‖
 ‖void main{f❪  ❫}‖void main{f->❚}‖void main{f->❚}‖

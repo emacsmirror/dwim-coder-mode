@@ -423,20 +423,10 @@
      ;; don't add a space if no-space is enforced
      ;; don't remove one either as the user may have explicitly added it
      ((setq value (dwim-coder-c-can-paren-at-point))
-      (if (nth 3 value)
-          nil
-        (if (or
-             ;; if space is enforced
-             (nth 4 value)
-             ;; or is GNU style
-             (eq c-ts-mode-indent-style 'gnu))
-            ;; do nothing if we are already after a space
-            (if (eq (preceding-char) ?\s)
-                nil
-              ;; else skip or insert a space
-              (unless (eq (preceding-char) ?\()
-                  (dwim-coder-skip-or-insert ?\s)))))
       (dwim-coder-insert-interactive ?\( t)
+      (when (and (fboundp 'eglot-current-server)
+                 (eglot-current-server))
+        (eglot-format (1- (point)) (point)))
       t))))
 
 (defun dwim-coder-c-dwim-brace ()
