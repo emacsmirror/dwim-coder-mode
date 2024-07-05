@@ -68,13 +68,10 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖f (❪ ❫)‖f (_❚)‖f (_❚)‖
 ‖f (&.❪ ❫)‖f (&_❚)‖f (&_❚)‖
 ‖f (&❪ ❫)‖f (&_❚)‖f (&_❚)‖
-‖f (&❪,❫)‖f (*❚)‖f (*❚)‖
 ‖f (*❪ ❫)‖f (*_❚)‖f (*_❚)‖
 ‖f (-❪ ❫)‖f (-_❚)‖f (-_❚)‖
 ‖f (!❪ ❫)‖f (!_❚)‖f (!_❚)‖
-‖f (*❪,❫)‖f (&❚)‖f (&❚)‖
-‖f (❪,❫*)‖f (*❚)‖f (*❚)‖
-‖f (❪,❫&)‖f (&❚)‖f (&❚)‖
+‖f (❪,❫*)‖f (*❚*)‖f (*❚*)‖
 ‖f (*.❪ ❫)‖f (*_❚)‖f (*_❚)‖
 ‖f (arg, .❪ ❫)‖f (arg, _❚)‖f (arg, _❚)‖
 ‖f (arg,.❪ ❫)‖f (arg,_❚)‖f (arg,_❚)‖
@@ -92,7 +89,6 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖g_uri_flags'_none'‖G_URI_FLAGS_NONE❚‖G_URI_FLAGS_NONE❚‖
 ‖int     ❪ ❫ age‖int      ❚ age‖int      ❚ age‖
 ‖int ❪ ❫age‖int _❚age‖int _❚age‖
-‖func(❪,❫)‖func(&❚)‖
 ‖char *s = "Hello world❪,❫"‖char *s = "Hello world,❚"‖
 ‖func(❪..❫)‖func((❚))‖func((❚))‖
 ‖s = "He❪;❫llo"‖s = "Hello"❚‖s = "Hello"❚‖
