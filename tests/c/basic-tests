@@ -95,6 +95,7 @@ goto some label‖goto some_label❚‖goto some_label❚‖
 ‖s = "Hello"❪;❫‖s = "Hello";❚‖s = "Hello";❚‖
 ‖void main{f❪  ❫}‖void main{f->❚}‖void main{f->❚}‖
 ‖void main{f❪   ❫}‖void main{f__❚}‖void main{f__❚}‖
+‖int func(int b, (❪.❫))‖int func(int b, ...❚)‖int func(int b, ...❚)‖
 
 ‖for(❪;❫)‖for(;❚)‖for(;❚)‖
 ‖for(;❪;❫)‖for(;;❚)‖for(;;❚)‖

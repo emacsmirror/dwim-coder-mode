@@ -293,6 +293,13 @@
 
 (defun dwim-coder-c-dwim-dot ()
   (cond
+   ((and (dwim-coder-c-point-around-defun-decl)
+         (eq (preceding-char) ?\()
+         (looking-at-p "))"))
+    (delete-char -1)
+    (delete-char 1)
+    (insert "...")
+    t)
    ((and (looking-back "(\\|, ?" (line-beginning-position))
          (looking-at-p "[a-zA-Z_]"))
     (if (not (nth 1 (syntax-ppss)))
