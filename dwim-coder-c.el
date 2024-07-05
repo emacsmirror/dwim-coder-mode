@@ -330,6 +330,11 @@
         (dwim-coder-skip-or-insert ?>))
       (forward-char)
       t)
+     ;; If after function declaration paran let comma do {}
+     ((and (setq value (dwim-coder-c-point-around-defun-decl))
+           (eq (point) (nth 3 value)))
+      (dwim-coder-insert-interactive ?\{)
+      t)
      ;; if in #include swap  <|> or "|"
      ((setq value (dwim-coder-c-in-include-fname))
       (setq start (nth 0 value)
