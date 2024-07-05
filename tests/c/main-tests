@@ -123,24 +123,6 @@ int main(void)
   while (❚)
 }
 
-‖‖ if (❪ ❫)
-int main(void)
-{
-  if (❪ ❫)
-}
-
-‖ gnu-none
-int main(void)
-{
-  if (!❚)
-}
-
-‖ linux-none
-int main(void)
-{
-  if (!❚)
-}
-
 ‖‖ main (char *good❪,❫)
 int
 main(char *good❪,❫)

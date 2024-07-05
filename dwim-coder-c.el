@@ -228,16 +228,6 @@
       (goto-char (nth 1 value))
       (dwim-coder-skip-or-insert ?\( t)
       t)
-     ((save-excursion
-        (when (eq (preceding-char) ?\()
-          (backward-char)
-          (skip-chars-backward "[ ]" (dwim-coder-preceding-point))
-          (setq value (dwim-coder-c-can-paren-at-point))
-          ;; If we are after one of "if" "for" "while" "switch"
-          (and value (nth 4 value))))
-      ;; insert a '()' or skip to it
-      (dwim-coder-skip-or-insert ?! t)
-      t)
      ;; Insert real space after type_t
      ((and (setq value (dwim-coder-c-identifier-at-point))
            (string-suffix-p "_t" (nth 2 value)))
