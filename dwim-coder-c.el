@@ -330,6 +330,41 @@
         (dwim-coder-skip-or-insert ?>))
       (forward-char)
       t)
+     ;; do, => do {}
+     ((and (equal (treesit-node-type (treesit-node-at (point))) "do")
+           (looking-back "do" (line-beginning-position)))
+      (dwim-coder-insert-interactive ?\{)
+      (when (and (fboundp 'eglot-current-server)
+                 (eglot-current-server))
+        (ignore-errors (eglot-format (1- (point)) (1+ (point)))
+                       ;; eglot doesn't seem to indent closing } sometimes, so do it manually
+                       (forward-char)
+                       (indent-according-to-mode)
+                       (skip-chars-backward "[:space:]\n")
+                       ;; Insert a new blank line
+                       (insert "\n")
+                       (indent-according-to-mode)))
+      t)
+     ;; if(), for(), etc => if(){} for(){}
+     ((and (eq (preceding-char) ?\))
+           (save-excursion
+             (backward-sexp)
+             (backward-char)
+             (setq value (dwim-coder-c-can-paren-at-point))
+             ;; If we are after one of "if" "else" "for" "while" "switch"
+             (nth 4 value)))
+      (dwim-coder-insert-interactive ?\{)
+      (when (and (fboundp 'eglot-current-server)
+                 (eglot-current-server))
+        (ignore-errors (eglot-format (1- (point)) (1+ (point)))
+                       ;; eglot doesn't seem to indent closing } sometimes, so do it manually
+                       (forward-char)
+                       (indent-according-to-mode)
+                       (skip-chars-backward "[:space:]\n")
+                       ;; Insert a new blank line
+                       (insert "\n")
+                       (indent-according-to-mode)))
+      t)
      ;; If after function declaration paran let comma do {}
      ((and (setq value (dwim-coder-c-point-around-defun-decl))
            (eq (point) (nth 3 value)))
