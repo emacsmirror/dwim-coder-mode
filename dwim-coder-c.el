@@ -453,9 +453,6 @@
      ;; don't remove one either as the user may have explicitly added it
      ((setq value (dwim-coder-c-can-paren-at-point))
       (dwim-coder-insert-interactive ?\( t)
-      (when (and (fboundp 'eglot-current-server)
-                 (eglot-current-server))
-        (eglot-format (1- (point)) (point)))
       t))))
 
 (defun dwim-coder-c-dwim-brace ()
