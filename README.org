@@ -2,7 +2,7 @@ dwim-coder-mode is a Rube Goldberg machine mode for GNU Emacs.  dwim-coder-mode 
 code/go crazy.  Currently good support for C, Python and Rust programming are included.
 
 dwim-coder-mode requires ~electric-pair-mode~ to work.  Since dwim-coder-mode is based on treesitter,
-dwim-coder-mode requires GNU Emacs 29+ to work.
+dwim-coder-mode requires GNU Emacs 30+ to work.
 
 Source Repository: [[https://gitlab.com/sadiq/dwim-coder-mode][GitLab]], [[https://sr.ht/~sadiq/dwim-coder-mode/][SourceHut]]
 
