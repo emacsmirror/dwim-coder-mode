@@ -71,7 +71,6 @@
     (when (eq (preceding-char) ?\})
       (save-excursion
         (backward-sexp)
-        (skip-chars-backward "[ \n]")
         (setq node (treesit-node-at (dwim-coder-preceding-point)))
         (when (member (treesit-node-type node) '("=" "enum"))
           (cl-return-from dwim-coder-c-skip-semi nil))
