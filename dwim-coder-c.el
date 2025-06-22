@@ -348,7 +348,7 @@
      ((and (eq (preceding-char) ?\))
            (save-excursion
              (backward-sexp)
-             (backward-char)
+             (ignore-errors (backward-char))
              (setq value (dwim-coder-c-can-paren-at-point))
              ;; If we are after one of "if" "else" "for" "while" "switch"
              (nth 4 value)))
