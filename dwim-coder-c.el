@@ -80,7 +80,9 @@
         (setq skip-semi t))
     (when (eq (preceding-char) ?\))
       (save-excursion
+        (backward-char)
         (backward-sexp)
+        (backward-char)
         (setq node (treesit-node-at (dwim-coder-preceding-point)))
         (when (member (treesit-node-type node) '("if" "for"))
           (cl-return-from dwim-coder-c-skip-semi t))

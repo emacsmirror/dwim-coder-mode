@@ -315,3 +315,9 @@ int func(void){❚}
 ‖ gnu-none
 #include "example.h"
 #
+‖‖ ; in statment after if()
+if (something)
+  do_something()❪;❫
+‖ gnu-none
+if (something)
+  do_something();❚
