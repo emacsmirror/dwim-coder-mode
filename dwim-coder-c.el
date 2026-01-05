@@ -314,6 +314,19 @@
         (p nil)
         (case-fold-search nil))
     (cond
+     ;; On empty lines in comments, replace
+     ;; , with '* '
+     ((and
+       (nth 4 (syntax-ppss))
+       (eolp)
+       (looking-back "^[ \t]*"))
+      (insert "* ")
+      (indent-according-to-mode)
+      t)
+     ;; Be sane in comments
+     ((nth 4 (syntax-ppss))
+      nil)
+
      ;; Replace , with # if in the beginning of line
      ((looking-back "^[ \t]*")
       (dwim-coder-insert-interactive ?#)
@@ -599,13 +612,13 @@
 (defun dwim-coder-c-override-self-insert (char)
   (let ((node (treesit-node-at (dwim-coder-preceding-point))))
     (cond
+     ((eq char ?,)
+      (dwim-coder-c-dwim-comma))
      ;; be sane with comments
      ((nth 4 (syntax-ppss))
       nil)
      ((eq char ?\;)
       (dwim-coder-c-dwim-semi-colon))
-     ((eq char ?,)
-      (dwim-coder-c-dwim-comma))
      ((and (or (equal (treesit-node-type node) "\"")
                (equal (treesit-node-type node) "string_content"))
            (not (dwim-coder-c-in-include-fname)))
