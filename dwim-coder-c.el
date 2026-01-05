@@ -526,6 +526,19 @@
 (defun dwim-coder-c-dwim-semi-colon ()
   (let ((value nil))
     (cond
+     ;; In comments insert newline with
+     ;; ';' after a space
+     ((and
+       (nth 4 (syntax-ppss))
+       (eolp)
+       (or (bolp) (eq (preceding-char) ?\s)))
+      (if (eq (preceding-char) ?\s)
+          (delete-char -1))
+      (dwim-coder-insert-interactive ?\n)
+      t)
+     ;; be sane with comments
+     ((nth 4 (syntax-ppss))
+      nil)
      ;; in incomplete for(), insert ; at point
      ((dwim-coder-c-incomplete-for-at-point)
       ;; If inside an argument list, skip to the end
@@ -612,13 +625,13 @@
 (defun dwim-coder-c-override-self-insert (char)
   (let ((node (treesit-node-at (dwim-coder-preceding-point))))
     (cond
+     ((eq char ?\;)
+      (dwim-coder-c-dwim-semi-colon))
      ((eq char ?,)
       (dwim-coder-c-dwim-comma))
      ;; be sane with comments
      ((nth 4 (syntax-ppss))
       nil)
-     ((eq char ?\;)
-      (dwim-coder-c-dwim-semi-colon))
      ((and (or (equal (treesit-node-type node) "\"")
                (equal (treesit-node-type node) "string_content"))
            (not (dwim-coder-c-in-include-fname)))
