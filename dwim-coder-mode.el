@@ -6,7 +6,7 @@
 ;; SPDX-License-Identifier: CC0-1.0
 ;; Author: Mohammed Sadiq <sadiq@sadiqpk.org>
 ;; URL: https://sadiqpk.org/projects/dwim-coder-mode.html
-;; Package-Requires: ((emacs "30"))
+;; Package-Requires: ((emacs "31"))
 ;; Last-Updated: 2025-06-22
 ;; Keywords: convenience, hacks
 

@@ -264,14 +264,8 @@ heuristics used to interpret the style."
     (cond
      ;; goto end of string if inside one
      ((nth 3 (syntax-ppss))
-      (while (and (not (eobp))
-                  (nth 3 (syntax-ppss)))
-        (if (next-property-change (point))
-            (goto-char (next-property-change (point))))
-        (if (nth 3 (syntax-ppss))
-            (forward-char)))
-      (when (looking-at-p "\"\"")
-        (forward-char 2))
+      (skip-syntax-forward "^\"")
+      (skip-syntax-forward "\"")
       t)
      ((and dwim-coder-last-space-point
            (= (point) dwim-coder-last-space-point)

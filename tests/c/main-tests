@@ -6,19 +6,19 @@ int main(void)
 ‖ gnu-gnome
 int main(void)
 {
-#❚
+  #❚
 }
 ‖ linux-none
 int main(void)
 {
-#❚
+  #❚
 }
 ‖‖ say_hello(value,
 say_helo(value, ❪;❫
 )
 ‖ gnu-none
 say_helo(value,
-❚
+  ❚
 )
 ‖‖ int i;;
 int i;;
@@ -257,6 +257,18 @@ int main (void)
 {
 }
 ❚
+
+‖‖ g_clear_pointer(&self);
+int main (void)
+{
+  g_clear_pointer (❪&self❫);
+}
+
+‖ gnu-gnome
+int main (void)
+{
+  g_clear_pointer (&self❚);
+}
 
 ‖‖-func(char *name❪{❫)
 int
