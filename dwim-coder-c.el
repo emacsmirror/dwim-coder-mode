@@ -368,7 +368,6 @@
                  (eglot-current-server))
         (ignore-errors (eglot-format (1- (point)) (1+ (point)))
                        ;; eglot doesn't seem to indent closing } sometimes, so do it manually
-                       (forward-char)
                        (indent-according-to-mode)
                        (skip-chars-backward "[:space:]\n")
                        ;; Insert a new blank line
