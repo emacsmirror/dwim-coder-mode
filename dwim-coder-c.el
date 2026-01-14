@@ -477,7 +477,8 @@
       (dwim-coder-insert-interactive ?\( t)
       t))))
 
-(defun dwim-coder-c-dwim-brace ()
+
+(cl-defun dwim-coder-c-dwim-brace ()
   (let ((value nil))
     (cond
      ;; Handle '{' in function declaration
@@ -499,6 +500,20 @@
       (goto-char (nth 3 value))
       (if (eq (following-char) ?\;)
           (delete-char 1))
+
+      ;; If the function is already followed by a {, skip to that
+      (when (save-excursion
+              (skip-chars-forward "[ \n\t]" (+ 1 (point)))
+              (eq (following-char) ?{))
+        (when (eq dwim-coder-c-sub-style 'gnome)
+          (align (nth 2 value) (nth 3 value)))
+        (skip-chars-forward "[ \n\t{]" (+ 2 (point)))
+        (skip-chars-forward "[\n]" (+ 1 (point)))
+        (indent-according-to-mode)
+        (if (eq (following-char) ?})
+            (backward-char))
+        (cl-return-from dwim-coder-c-dwim-brace t))
+
       ;; insert temporary code so that eglot-format will format braces right
       (insert "{dwim();}")
       (goto-char (nth 3 value))
