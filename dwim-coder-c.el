@@ -125,39 +125,37 @@
               (treesit-node-text node t))))))
 
 (defun dwim-coder-c-point-around-defun-decl ()
-  (let ((node nil)
+  (let ((func-node nil)
+        (param-node nil)
+        (decl-node nil)
+        (node nil)
         (func-start nil)
         (func-name-start nil)
         (func-arg-start nil)
         (func-arg-end nil))
-    (setq node (treesit-node-top-level
-                (treesit-node-at (point)) "^function_definition$"))
-    (if node
-        (progn
-          (setq func-start (treesit-node-start node))
-          (setq node (treesit-node-child-by-field-name node "declarator")))
-      (setq node (treesit-node-top-level (treesit-node-at (point)) "^declaration$"))
-      (setq func-start (treesit-node-start node)))
-    (if node
-        (setq node (treesit-search-subtree node "function_declarator"))
-      ;; If we didn't get the declarator so far, we might be in a declaration that's
-      ;; not a definition.
-      ;; fixme: func-start points to the start of function name, not function type name
-      (setq node (treesit-node-top-level
-                  (treesit-node-at (point)) "^function_declarator$"))
-      (setq func-start (treesit-node-start node)))
-    (when node
-      (setq func-name-start (treesit-node-start node))
-      (setq node (treesit-filter-child
-                  node (lambda (n) (equal (treesit-node-type n) "parameter_list"))))
-      (when node
-        (setq node (car node))
-        (setq func-arg-start (treesit-node-start node))
-        (setq func-arg-end (treesit-node-end node))))
-    (if (and func-start func-arg-start func-arg-end
-             (>= (point) func-start)
-             (<= (point) func-arg-end))
-        (list func-start func-name-start func-arg-start func-arg-end))))
+    (setq func-node (treesit-node-top-level
+                     (treesit-node-at (point)) "^function_definition$"))
+    (if func-node (setq func-start (treesit-node-start func-node)))
+
+    (setq func-node (treesit-node-top-level
+                     (treesit-node-at (dwim-coder-preceding-point)) "^function_declarator$"))
+    (if func-node (setq func-name-start (treesit-node-start func-node)))
+
+    (when (and func-name-start (not func-start))
+      (setq func-node (treesit-node-top-level
+                       (treesit-node-at (point)) "^declaration$"))
+      ;; Incomplete functions may result in ERROR, handle that too
+      (unless func-node
+        (setq func-node (treesit-node-top-level
+                         (treesit-node-at (point)) "^ERROR$")))
+      (if func-node (setq func-start (treesit-node-start func-node))))
+    (setq param-node (treesit-node-top-level
+                     (treesit-node-at (dwim-coder-preceding-point)) "^parameter_list$"))
+
+    (when (and func-start func-name-start param-node)
+      (setq func-arg-start (treesit-node-start param-node))
+      (setq func-arg-end (treesit-node-end param-node))
+      (list func-start func-name-start func-arg-start func-arg-end))))
 
 (defun dwim-coder-c-in-include-fname ()
   (let ((node (treesit-node-at (point))))
@@ -504,12 +502,13 @@
           (delete-char 1))
       ;; insert temporary code so that eglot-format will format braces right
       (insert "{dwim();}")
-      (goto-char (nth 2 value))
+      (goto-char (nth 3 value))
       (setq value (dwim-coder-c-point-around-defun-decl))
       (when (and (fboundp 'eglot-current-server)
                  (eglot-current-server))
         (ignore-errors (eglot-format (nth 0 value) (+ (length "{dwim();}") (nth 3 value)))))
       (goto-char (nth 2 value))
+      (forward-char)
       (setq value (dwim-coder-c-point-around-defun-decl))
       ;; Align arguments in gnome style
       (when (eq dwim-coder-c-sub-style 'gnome)
